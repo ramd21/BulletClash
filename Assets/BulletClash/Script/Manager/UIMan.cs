@@ -10,13 +10,15 @@ namespace RM
 {
 	public class UIMan : Singleton<UIMan>, IEditorUpdate
 	{
-		public Image[] _ImgTacticsPointGaugeArr;
+		public Image[] _ImgTPGaugeArr;
+		public Text _TxtPoint;
+
 
 		public void Init()
 		{
-			for (int i = 0; i < _ImgTacticsPointGaugeArr.Length; i++)
+			for (int i = 0; i < _ImgTPGaugeArr.Length; i++)
 			{
-				Image img = _ImgTacticsPointGaugeArr[i];
+				Image img = _ImgTPGaugeArr[i];
 				img.fillAmount = 0;
 				this.StartObsserve(() => img.fillAmount,
 				(cur, last) =>
@@ -30,24 +32,38 @@ namespace RM
 					}
 				}, true);
 			}
+
+			_TxtPoint.text = "0";
+			this.StartObsserve(() => PlayerMan.i._myPlayer._TPTimerTotal / GameMan.i._TPTimer,
+			(cur, last) =>
+			{
+				_TxtPoint.text = cur.ToString();
+				_TxtPoint.transform.DOScale(1.5f, 0.25f).OnComplete(() =>
+				{
+					_TxtPoint.transform.DOScale(1f, 0.25f);
+				});
+
+			}, true);
 		}
 
-		public void SetTacticsPoint(int aTacticsPoint)
-		{
-			int oneGauge = GameMan.i._MaxTacticsPoint / _ImgTacticsPointGaugeArr.Length;
+		
 
+
+		public void SetTacticsPoint(int aTPTimerTotal)
+		{
 			float fill;
 
-			for (int i = 0; i < _ImgTacticsPointGaugeArr.Length; i++)
+			for (int i = 0; i < _ImgTPGaugeArr.Length; i++)
 			{
-				fill = (float)(aTacticsPoint - i * oneGauge) / oneGauge;
-				_ImgTacticsPointGaugeArr[i].fillAmount = fill;
+				fill = (float)(aTPTimerTotal - i * GameMan.i._TPTimer) / GameMan.i._TPTimer;
+				_ImgTPGaugeArr[i].fillAmount = fill;
 			}
 		}
 
 		public void EditorUpdate()
 		{
-			_ImgTacticsPointGaugeArr = transform.FindAllRecurcive<Image>("fill", true);
+			_ImgTPGaugeArr = transform.FindAllRecurcive<Image>("fill", true);
+			_TxtPoint = transform.FindRecurcive<Text>("point", true);
 		}
 	}
 }

@@ -2,47 +2,78 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RM;
 
-public class DiffObserve<T> 
+namespace RM
 {
-	public T _Cur;
-	public T _Last;
-
-	public Action<T, T> _OnChanged;
-
-	Coroutine _Coroutine;
-	MonoBehaviour _Mono;
-	public void StartObserve(MonoBehaviour aMono, Func<T> aTarget, Action<T, T> aOnChanged, bool aRepeat)
+	public class DiffObserve<T>
 	{
-		if (_Coroutine != null)
-			return;
+		public T _Cur;
+		public T _Last;
 
-		_Mono = aMono;
-		_Cur = aTarget();
-		_Last = _Cur;
+		public Action<T, T> _OnChanged;
 
-		_Coroutine = aMono.DoUntil(()=> 
+		Coroutine _Coroutine;
+		MonoBehaviour _Mono;
+		public void StartObserve(MonoBehaviour aMono, Func<T> aTarget, Action<T, T> aOnChanged, bool aRepeat)
 		{
-			return !_Cur.Equals(_Last);
-		},
-		() => 
-		{
+			if (_Coroutine != null)
+				return;
+
+			_Mono = aMono;
 			_Cur = aTarget();
-		},
-		() => 
+			_Last = _Cur;
+
+			_Coroutine = aMono.DoUntil(() =>
+			{
+				return !_Cur.Equals(_Last);
+			},
+			() =>
+			{
+				_Cur = aTarget();
+			},
+			() =>
+			{
+				aOnChanged(_Cur, _Last);
+				_Coroutine = null;
+
+				if (aRepeat)
+					StartObserve(aMono, aTarget, aOnChanged, aRepeat);
+			});
+		}
+
+		public void StartObserve(MonoBehaviour aMono, Func<T> aTarget, Action aOnChanged, bool aRepeat)
 		{
-			aOnChanged(_Cur, _Last);
+			if (_Coroutine != null)
+				return;
+
+			_Mono = aMono;
+			_Cur = aTarget();
+			_Last = _Cur;
+
+			_Coroutine = aMono.DoUntil(() =>
+			{
+				return !_Cur.Equals(_Last);
+			},
+			() =>
+			{
+				_Cur = aTarget();
+			},
+			() =>
+			{
+				aOnChanged();
+				_Coroutine = null;
+
+				if (aRepeat)
+					StartObserve(aMono, aTarget, aOnChanged, aRepeat);
+			});
+		}
+
+		public void EndObserve()
+		{
+			_Mono.StopCoroutine(_Coroutine);
 			_Coroutine = null;
-
-			if (aRepeat)
-				StartObserve(aMono, aTarget, aOnChanged, aRepeat);
-		});
-	}
-
-	public void EndObserve()
-	{
-		_Mono.StopCoroutine(_Coroutine);
-		_Coroutine = null;
+		}
 	}
 }
+
+

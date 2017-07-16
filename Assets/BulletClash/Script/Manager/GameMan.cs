@@ -6,7 +6,9 @@ namespace RM
 {
 	public class GameMan : Singleton<GameMan>
 	{
-		public int _MaxTacticsPoint;
+		public int _TPMax;
+		public int _TPTimer;
+
 
 		protected override void Awake()
 		{

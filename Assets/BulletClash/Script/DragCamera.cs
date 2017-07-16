@@ -17,8 +17,10 @@ public class DragCamera : RMBehaviour
 	Vector3 _Delta;
 	Vector3 _Hit;
 
-	void Update()
+
+	void LateUpdate()
 	{
+
 		Ray r = _camera.ScreenPointToRay(Input.mousePosition);
 
 		RaycastHit rh;

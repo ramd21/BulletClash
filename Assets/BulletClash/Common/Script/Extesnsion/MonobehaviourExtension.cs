@@ -15,6 +15,13 @@ namespace RM
 			return diff;
 		}
 
+		static public DiffObserve<T> StartObsserve<T>(this MonoBehaviour aThis, Func<T> aTarget, Action aOnChanged, bool aRepeat)
+		{
+			DiffObserve<T> diff = new DiffObserve<T>();
+			diff.StartObserve(aThis, aTarget, aOnChanged, aRepeat);
+			return diff;
+		}
+
 		static public Coroutine WaitForSeconds(this MonoBehaviour aThis, float aTime, Action aOnDone = null)
 		{
 			return aThis.StartCoroutine(WaitForSecondsCoroutine(aTime, aOnDone));

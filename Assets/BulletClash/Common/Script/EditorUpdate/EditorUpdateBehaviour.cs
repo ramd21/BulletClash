@@ -5,11 +5,9 @@ using UnityEngine;
 namespace RM
 {
 	[RequireComponent(typeof(EditorUpdate))]
-	public class EditorUpdateBehaviour : RMBehaviour, IEditorUpdate
+	public abstract class EditorUpdateBehaviour : RMBehaviour, IEditorUpdate
 	{
-		public virtual void EditorUpdate()
-		{
-		}
+		public abstract void EditorUpdate();
 	}
 }
 

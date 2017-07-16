@@ -31,7 +31,7 @@ namespace RM
 			return found.ToArray();
 		}
 
-		static public T[] FindAllRecurcive<T>(this Transform aThis, string aName, bool aInclude = false)
+		static public T[] FindAllRecurcive<T>(this Transform aThis, string aName, bool aInclude = false) where T : Component
 		{
 			Transform[] traArr = aThis.GetComponentsInChildren<Transform>(true);
 			List<T> found = new List<T>();
@@ -55,8 +55,35 @@ namespace RM
 					}
 				}
 			}
-
 			return found.ToArray();
+		}
+
+		static public T FindRecurcive<T>(this Transform aThis, string aName, bool aInclude = false) where T : Component
+		{
+			Transform[] traArr = aThis.GetComponentsInChildren<Transform>(true);
+			T t;
+			for (int i = 0; i < traArr.Length; i++)
+			{
+				if (aInclude)
+				{
+					if (traArr[i].name.Contains(aName))
+					{
+						t = traArr[i].GetComponent<T>();
+						if (t)
+							return t;
+					}
+				}
+				else
+				{
+					if (traArr[i].name == aName)
+					{
+						t = traArr[i].GetComponent<T>();
+						if (t)
+							return t;
+					}
+				}
+			}
+			return null;
 		}
 
 		static public bool IsOffspringOf(this Transform aThis, Transform aFind)

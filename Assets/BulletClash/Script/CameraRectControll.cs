@@ -14,27 +14,33 @@ namespace RM
 
 		public override void EditorUpdate()
 		{
-			_TageRatio = _WidthRatio / _HeightRatio;
-			_CurRatio = (float)Screen.width / (float)Screen.height;
-
-			float w, h;
-			float x, y;
-
-			if (_CurRatio > _TageRatio)
+			//if (_camera.orthographic)
+			//{
+			//}
+			//else
 			{
-				//横が広い
-				w = _TageRatio / _CurRatio;
-				x = (1 - w) / 2;
+				_TageRatio = _WidthRatio / _HeightRatio;
+				_CurRatio = (float)Screen.width / (float)Screen.height;
 
-				_camera.rect = new Rect(new Vector2(x, 0), new Vector2(w, 1));
-			}
-			else
-			{
-				//縦が広い
-				h = _CurRatio / _TageRatio;
-				y = (1 - h) / 2;
+				float w, h;
+				float x, y;
 
-				_camera.rect = new Rect(new Vector2(0, y), new Vector2(1, h));
+				if (_CurRatio > _TageRatio)
+				{
+					//横が広い
+					w = _TageRatio / _CurRatio;
+					x = (1 - w) / 2;
+
+					_camera.rect = new Rect(new Vector2(x, 0), new Vector2(w, 1));
+				}
+				else
+				{
+					//縦が広い
+					h = _CurRatio / _TageRatio;
+					y = (1 - h) / 2;
+
+					_camera.rect = new Rect(new Vector2(0, y), new Vector2(1, h));
+				}
 			}
 		}
 	}

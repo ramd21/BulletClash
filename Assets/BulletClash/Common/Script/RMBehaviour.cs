@@ -40,6 +40,15 @@ namespace RM
 			}
 		}
 
+		Light _Light;
+		public Light _light
+		{
+			get
+			{
+				return SetAndGetComponent(_Light);
+			}
+		}
+
 		T SetAndGetComponent<T>(T aT) where T : Component
 		{
 			if (!aT)

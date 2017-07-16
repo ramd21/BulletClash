@@ -19,7 +19,6 @@ namespace RM
 
 		public override void EditorUpdate()
 		{
-			base.EditorUpdate();
 			_CollArr = GetComponents<Coll>();
 		}
 	}
