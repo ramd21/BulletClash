@@ -17,7 +17,6 @@ namespace RM
 		public override void EditorUpdate()
 		{
 			_ScreenSize = new Vector2Int(Screen.width, Screen.height);
-
 			_TageRatio = _WidthRatio / _HeightRatio;
 			_CurRatio = (float)Screen.width / (float)Screen.height;
 

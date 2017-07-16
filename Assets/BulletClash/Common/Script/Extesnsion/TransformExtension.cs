@@ -228,6 +228,7 @@ namespace RM
 			vector3.Set(x, y, z);
 			transform.localScale = vector3;
 		}
+
 		public static void SetLocalScaleX(this Transform transform, float x)
 		{
 			vector3.Set(x, transform.localScale.y, transform.localScale.z);
