@@ -7,6 +7,8 @@ namespace RM
 	public class CameraMan : Singleton<CameraMan>
 	{
 		public DragCamera _DragCamera;
+
+		public Camera _UICam;
 	}
 }
 

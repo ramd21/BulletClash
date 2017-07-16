@@ -15,14 +15,14 @@ namespace RM
 		public void OnBeginDrag(PointerEventData eventData)
 		{
 			Deb.MethodLog();
-			_DragStart = eventData.position;
+			_DragStart = CameraMan.i._UICam.ScreenToWorldPoint(eventData.position);
 			_StartPos = transform.position;
 
 		}
 
 		public void OnDrag(PointerEventData eventData)
 		{
-			_DragCur = eventData.position;
+			_DragCur = CameraMan.i._UICam.ScreenToWorldPoint(eventData.position);
 			transform.position = _StartPos + _DragCur - _DragStart;
 
 		}
