@@ -6,6 +6,59 @@ namespace RM
 {
 	static public class TransformExtension
 	{
+		static public Transform[] FindAllRecurcive(this Transform aThis, string aName, bool aInclude = false)
+		{
+			Transform[] traArr = aThis.GetComponentsInChildren<Transform>(true);
+			List<Transform> found = new List<Transform>();
+
+			for (int i = 0; i < traArr.Length; i++)
+			{
+				if (aInclude)
+				{
+					if (traArr[i].name.Contains(aName))
+					{
+						found.Add(traArr[i]);
+					}
+				}
+				else
+				{
+					if (traArr[i].name == aName)
+					{
+						found.Add(traArr[i]);
+					}
+				}
+			}
+			return found.ToArray();
+		}
+
+		static public T[] FindAllRecurcive<T>(this Transform aThis, string aName, bool aInclude = false)
+		{
+			Transform[] traArr = aThis.GetComponentsInChildren<Transform>(true);
+			List<T> found = new List<T>();
+			T t;
+			for (int i = 0; i < traArr.Length; i++)
+			{
+				if (aInclude)
+				{
+					if (traArr[i].name.Contains(aName))
+					{
+						t = traArr[i].GetComponent<T>();
+						found.Add(t);
+					}
+				}
+				else
+				{
+					if (traArr[i].name == aName)
+					{
+						t = traArr[i].GetComponent<T>();
+						found.Add(t);
+					}
+				}
+			}
+
+			return found.ToArray();
+		}
+
 		static public bool IsOffspringOf(this Transform aThis, Transform aFind)
 		{
 			Transform paremtTmp = aThis.parent;
@@ -140,7 +193,7 @@ namespace RM
 		#region SetLocalScale
 		public static void ResetLocalScale(this Transform transform)
 		{
-			transform.localScale = Vector3.zero;
+			transform.localScale = Vector3.one;
 		}
 
 		public static void SetLocalScale(this Transform transform, float x, float y, float z)

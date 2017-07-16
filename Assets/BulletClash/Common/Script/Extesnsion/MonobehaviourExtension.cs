@@ -39,6 +39,22 @@ namespace RM
 				aOnDone();
 		}
 
+		static public Coroutine WaitUntil(this MonoBehaviour aThis, Func<bool> aCondition, Action aOnDone = null, bool aRepeat = false)
+		{
+			return aThis.StartCoroutine(WaitUntilCoroutine(aThis, aCondition, aOnDone, aRepeat));
+		}
+
+		static public IEnumerator WaitUntilCoroutine(MonoBehaviour aThis, Func<bool> aCondition, Action aOnDone, bool aRepeat)
+		{
+			yield return new WaitUntil(aCondition);
+			if (aOnDone != null)
+				aOnDone();
+
+			if (aRepeat)
+				aThis.WaitUntil(aCondition, aOnDone, aRepeat);
+		}
+
+
 		static public Coroutine DoUntil(this MonoBehaviour aThis, Func<bool> aCondition, Action aOnWait = null, Action aOnDone = null)
 		{
 			return aThis.StartCoroutine(DoUntilCoroutine(aCondition, aOnWait, aOnDone));
