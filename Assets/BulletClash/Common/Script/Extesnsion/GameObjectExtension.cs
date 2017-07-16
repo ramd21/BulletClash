@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace RM
 {
 	static public class GameObjectExtension
 	{
+#if UNITY_EDITOR
 		static public bool IsPrefab(this GameObject aThis)
 		{
 			PrefabType prefabType = PrefabUtility.GetPrefabType(aThis);
@@ -44,6 +47,7 @@ namespace RM
 		{
 			Debug.Log(AssetDatabase.GetAssetPath(aThis));
 		}
+#endif
 	}
 }
 
