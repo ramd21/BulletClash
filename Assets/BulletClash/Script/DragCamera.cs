@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using RM;
 
-
-public class DragCamera : RMBehaviour
+namespace BC
+{
+	public class DragCamera : RMBehaviour
 {
 	public float _SlowDown;
 
@@ -17,16 +18,13 @@ public class DragCamera : RMBehaviour
 	Vector3 _Delta;
 	Vector3 _Hit;
 
-
-	void LateUpdate()
+	void Update()
 	{
-
 		Ray r = _camera.ScreenPointToRay(Input.mousePosition);
 
 		RaycastHit rh;
 		if (Physics.Raycast(r, out rh))
 			_Hit = rh.point;
-
 
 		if (Input.GetMouseButtonDown(0))
 		{
@@ -57,3 +55,6 @@ public class DragCamera : RMBehaviour
 		_camera.transform.position -= _Delta;
 	}
 }
+}
+
+

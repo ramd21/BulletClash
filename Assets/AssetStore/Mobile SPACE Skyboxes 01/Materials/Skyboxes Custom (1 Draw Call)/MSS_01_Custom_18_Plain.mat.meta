@@ -1,0 +1,39 @@
+fileFormatVersion: 2
+guid: 6cd7f0931d1f73e45ae288d37a135886
+labels:
+- skybox
+- space
+- spacebox
+- environment
+- nebula
+- nebulaes
+- nebulae
+- nebulas
+- galaxy
+- galaxies
+- star
+- stars
+- universe
+- mobile
+- stellar
+- colorful
+- colourful
+- cubemap
+- handheld
+- imphenzia
+- cosmos
+- spaceboxes
+- skyboxes
+- texture
+- textures
+- material
+- materials
+- android
+- ios
+- blackberry
+- drawcall
+NativeFormatImporter:
+  mainObjectFileID: -1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

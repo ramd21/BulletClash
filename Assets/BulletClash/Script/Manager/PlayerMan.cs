@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RM;
 
-namespace RM
+namespace BC
 {
 	[System.Serializable]
 	public struct Player
 	{
-		public List<Unit>	_ShipList;
+		public Unit[]		_DeckUnitArr;
 		public int			_TPTimerTotal;
 	}
 
@@ -15,9 +16,7 @@ namespace RM
 	{
 		public int _MyPlayerId;
 		public Player[] _PlayerArr = new Player[2];
-
 		public Player _myPlayer { get { return _PlayerArr[_MyPlayerId]; } }
-
 
 		public void Init()
 		{
@@ -25,7 +24,7 @@ namespace RM
 			_PlayerArr[1] = new Player();
 
 			this.StartObsserve(() => _myPlayer._TPTimerTotal,
-			(cur, last)=> 
+			(cur, last) =>
 			{
 				UIMan.i.SetTacticsPoint(cur);
 			}, true);
@@ -43,5 +42,7 @@ namespace RM
 		}
 	}
 }
+
+
 
 

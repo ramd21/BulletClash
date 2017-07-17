@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using RM;
 
-
-namespace RM
+namespace BC
 {
 	public class UIMan : Singleton<UIMan>, IEditorUpdate
 	{
 		public Image[] _ImgTPGaugeArr;
 		public Text _TxtPoint;
+
+		public Transform[] _TraDeckUnitArr;
 
 
 		public void Init()
@@ -46,9 +48,6 @@ namespace RM
 			}, true);
 		}
 
-		
-
-
 		public void SetTacticsPoint(int aTPTimerTotal)
 		{
 			float fill;
@@ -64,8 +63,11 @@ namespace RM
 		{
 			_ImgTPGaugeArr = transform.FindAllRecurcive<Image>("fill", true);
 			_TxtPoint = transform.FindRecurcive<Text>("point", true);
+			_TraDeckUnitArr = transform.FindAllRecurcive("deck_unit");
 		}
 	}
 }
+
+
 
 

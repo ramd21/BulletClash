@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RM;
 
-namespace RM
+namespace BC
 {
 	public class Link2DTo3D : EditorUpdateBehaviour
 	{
@@ -22,5 +23,6 @@ namespace RM
 		}
 	}
 }
+
 
 

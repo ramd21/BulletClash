@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RM;
 
-namespace RM
+namespace BC
 {
 	public class CameraRectControll : EditorUpdateBehaviour
 	{
@@ -12,7 +13,7 @@ namespace RM
 		float _TageRatio;
 		float _CurRatio;
 
-		public Vector2Int _ScreenSize; 
+		public Vector2Int _ScreenSize;
 
 		public override void EditorUpdate()
 		{
@@ -33,7 +34,7 @@ namespace RM
 
 				if (_camera.orthographic)
 					_camera.orthographicSize = Screen.height / 2;
-			}	
+			}
 			else
 			{
 				//縦が広い
@@ -45,10 +46,10 @@ namespace RM
 				if (_camera.orthographic)
 					_camera.orthographicSize = (Screen.height * h) / 2;
 			}
-
-			
 		}
 	}
 }
+
+
 
 

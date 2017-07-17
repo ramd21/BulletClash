@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RM;
 
-namespace RM
+namespace BC
 {
 	public class CameraMan : Singleton<CameraMan>
 	{
@@ -11,5 +12,7 @@ namespace RM
 		public Camera _UICam;
 	}
 }
+
+
 
 
