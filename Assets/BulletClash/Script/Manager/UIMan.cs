@@ -13,10 +13,40 @@ namespace BC
 		public Image[] _ImgTPGaugeArr;
 		public Text _TxtPoint;
 
-		public Transform[] _TraDeckUnitArr;
+		public UnitCard[] _UnitCardArr;
 
 
 		public void Init()
+		{
+			InitTPGauge();
+			InitTPCnt();
+			InitUnitCard();
+		}
+
+		void InitUnitCard()
+		{
+			for (int i = 0; i < _UnitCardArr.Length; i++)
+			{
+				//_UnitCardArr[i].Init();
+			}
+		}
+
+		void InitTPCnt()
+		{
+			_TxtPoint.text = "0";
+			this.StartObsserve(() => PlayerMan.i._myPlayer._TPTimerTotal / GameMan.i._TPTimer,
+			(cur, last) =>
+			{
+				_TxtPoint.text = cur.ToString();
+				_TxtPoint.transform.DOScale(1.5f, 0.25f).OnComplete(() =>
+				{
+					_TxtPoint.transform.DOScale(1f, 0.25f);
+				});
+
+			}, true);
+		}
+
+		void InitTPGauge()
 		{
 			for (int i = 0; i < _ImgTPGaugeArr.Length; i++)
 			{
@@ -34,21 +64,9 @@ namespace BC
 					}
 				}, true);
 			}
-
-			_TxtPoint.text = "0";
-			this.StartObsserve(() => PlayerMan.i._myPlayer._TPTimerTotal / GameMan.i._TPTimer,
-			(cur, last) =>
-			{
-				_TxtPoint.text = cur.ToString();
-				_TxtPoint.transform.DOScale(1.5f, 0.25f).OnComplete(() =>
-				{
-					_TxtPoint.transform.DOScale(1f, 0.25f);
-				});
-
-			}, true);
 		}
 
-		public void SetTacticsPoint(int aTPTimerTotal)
+		public void UpdateTPUI(int aTPTimerTotal)
 		{
 			float fill;
 
@@ -63,7 +81,7 @@ namespace BC
 		{
 			_ImgTPGaugeArr = transform.FindAllRecurcive<Image>("fill", true);
 			_TxtPoint = transform.FindRecurcive<Text>("point", true);
-			_TraDeckUnitArr = transform.FindAllRecurcive("deck_unit");
+			_UnitCardArr = GetComponentsInChildren<UnitCard>();
 		}
 	}
 }

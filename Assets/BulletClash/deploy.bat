@@ -1,0 +1,1 @@
+C:\Users\ramd21\Documents\UnityProject\BulletClash/Assets/RM/curl-7.54.1-win64-mingw/bin/curl.exe -F "token=a341c8cfb4edded230b475c800c89526b4ccec11" -F "file=@C:\Users\ramd21\Documents\UnityProject\BulletClash/BulletClash.apk" https://deploygate.com/api/users/ramzus0127/apps

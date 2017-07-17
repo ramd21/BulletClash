@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace RM
 {
-	public class ApplySelectedPrefabs : EditorWindow
+	public class ApplySelectedPrefabs
 	{
 		[MenuItem("Tools/ApplySelectedPrefabs")]
 		static void RunMenu()

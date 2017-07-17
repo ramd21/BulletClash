@@ -17,11 +17,11 @@ namespace RM
 			{
 				RectTransform rTra = Selection.gameObjects[i].GetComponent<RectTransform>();
 				if (rTra)
-					Sub(rTra);
+					DoIt(rTra);
 			}
 		}
 
-		static void Sub(RectTransform aRTra)
+		public static void DoIt(RectTransform aRTra)
 		{
 			Vector3[] wArr = new Vector3[4];
 			Vector2 min;
@@ -33,8 +33,9 @@ namespace RM
 
 			aRTra.anchorMin = min;
 			aRTra.anchorMax = max;
-			aRTra.sizeDelta = Vector2.zero;
 			aRTra.anchoredPosition = Vector2.zero;
+			aRTra.localScale = Vector3.one;
+			aRTra.sizeDelta = Vector2.zero;
 		}
 	}
 }

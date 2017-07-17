@@ -8,8 +8,17 @@ namespace BC
 	public class CameraMan : Singleton<CameraMan>
 	{
 		public DragCamera _DragCamera;
-
 		public Camera _UICam;
+
+		public int _ScreenW = 540;
+		public int _ScreenH = 960;
+
+		[RuntimeInitializeOnLoadMethod]
+		static void Init()
+		{
+			Deb.MethodLog();
+			Screen.SetResolution(i._ScreenW, i._ScreenH, true);
+		}
 	}
 }
 

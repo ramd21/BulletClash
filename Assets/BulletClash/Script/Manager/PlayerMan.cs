@@ -8,7 +8,7 @@ namespace BC
 	[System.Serializable]
 	public struct Player
 	{
-		public Unit[]		_DeckUnitArr;
+		public UnitType[]	_DeckUnitTypeArr;
 		public int			_TPTimerTotal;
 	}
 
@@ -26,7 +26,7 @@ namespace BC
 			this.StartObsserve(() => _myPlayer._TPTimerTotal,
 			(cur, last) =>
 			{
-				UIMan.i.SetTacticsPoint(cur);
+				UIMan.i.UpdateTPUI(cur);
 			}, true);
 		}
 
