@@ -36,7 +36,7 @@ namespace BC
 
 			unit = ResourceMan.i.GetUnit(aType);
 			unit = Instantiate(unit);
-			unit._ParamDef = MasterMan.i._UnitParamMaster[(int)aType];
+			unit._ParamDef = MasterMan.i._UnitParam[(int)aType];
 
 			_UnitList[aPlayerId].Add(unit);
 			return unit;

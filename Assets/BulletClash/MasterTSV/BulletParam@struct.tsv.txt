@@ -1,0 +1,5 @@
+BulletType	int
+Type	Spd
+shot	10
+laser	10
+blast	10

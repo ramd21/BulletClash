@@ -16,7 +16,7 @@ namespace BC
 
 		public void Init(UnitType aType)
 		{
-			_Param = MasterMan.i._UnitParamMaster[(int)aType];
+			_Param = MasterMan.i._UnitParam[(int)aType];
 			_TxtCost.text = _Param.Cost.ToString();
 
 			Unit unit;

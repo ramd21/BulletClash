@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RM;
+using UnityEngine.UI;
 using System;
 
 namespace BC
 {
-	public class MasterMan : Singleton<MasterMan>
+	public class Bullet : Chara
 	{
-		public UnitParamMaster _UnitParam;
-		public BulletParamMaster _BulletParam;
-
-
+		public override void UpdateView()
+		{
+		}
 	}
 }
 

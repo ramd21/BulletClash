@@ -26,7 +26,7 @@ namespace BC
 			if (_Param.Hp == 0)
 				CharaMan.i.UnitDeactivateReq(this);
 
-			_Pos += Vector3.forward * _Param.SpdZ / 10;
+			_Pos += Vector3.forward * _Param.Spd / 10;
 		}
 
 		public override void UpdateView()
