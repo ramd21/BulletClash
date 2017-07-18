@@ -3,3 +3,4 @@ Type	Spd	Timer
 shot	10	30
 laser	10	30
 blast	10	30
+zapper	10	30

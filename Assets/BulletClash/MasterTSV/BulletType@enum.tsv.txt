@@ -1,3 +1,4 @@
 shot
 laser
 blast
+zapper
