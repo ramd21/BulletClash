@@ -7,6 +7,7 @@ namespace BC
 {
 	public abstract class Chara : EditorUpdateBehaviour
 	{
+		public int _PlayerId;
 		public ActiveState _State;
 		public Vector3 _Pos;
 

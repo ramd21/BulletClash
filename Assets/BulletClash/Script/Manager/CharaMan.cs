@@ -10,8 +10,6 @@ namespace BC
 		public List<Unit>[] _UnitList;
 		public List<Bullet>[] _BulletList;
 
-
-
 		public void Init()
 		{
 			_UnitList = new List<Unit>[2];
@@ -23,7 +21,7 @@ namespace BC
 			_BulletList[1] = new List<Bullet>();
 		}
 
-		public Unit GetUnit(int aPlayerId, UnitType aType)
+		public Unit GetPoolOrNewUnit(int aPlayerId, UnitType aType)
 		{
 			int len = _UnitList[aPlayerId].Count;
 			Unit unit;
@@ -37,30 +35,40 @@ namespace BC
 			unit = ResourceMan.i.GetUnit(aType);
 			unit = Instantiate(unit);
 			unit._ParamDef = MasterMan.i._UnitParam[(int)aType];
+			unit._PlayerId = aPlayerId;
 
 			_UnitList[aPlayerId].Add(unit);
 			return unit;
 		}
 
-		public void UnitActivateReq(int aPlayerId, Unit aUnit, Vector3 aPos)
+		public Bullet GetPoolOrNewBullet(int aPlayerId, BulletType aType)
 		{
-			aUnit.gameObject.SetActive(false);
-			aUnit._State = ActiveState.activate_req;
-			aUnit._Pos = aPos;
-			aUnit._Param = aUnit._ParamDef;
-		}
+			int len = _BulletList[aPlayerId].Count;
+			Bullet bullet;
+			for (int i = 0; i < len; i++)
+			{
+				bullet = _BulletList[aPlayerId][i];
+				if (bullet._State == ActiveState.inactive && bullet._ParamDef.Type == aType)
+					return bullet;
+			}
 
-		public void UnitDeactivateReq(Unit aUnit)
-		{
-			aUnit._State = ActiveState.deactivate_req;
+			bullet = ResourceMan.i.GetBullet(aType);
+			bullet = Instantiate(bullet);
+			bullet._ParamDef = MasterMan.i._BulletParam[(int)aType];
+			bullet._PlayerId = aPlayerId;
+
+			_BulletList[aPlayerId].Add(bullet);
+			return bullet;
 		}
 
 		public void Act()
 		{
-			int len, len2;
-			len = _UnitList.Length;
+			int len2;
+
+
+			//activate_req>>
 			Unit unit;
-			for (int i = 0; i < len; i++)
+			for (int i = 0; i < 2; i++)
 			{
 				len2 = _UnitList[i].Count;
 				for (int j = 0; j < len2; j++)
@@ -74,7 +82,24 @@ namespace BC
 				}
 			}
 
-			for (int i = 0; i < len; i++)
+			Bullet bullet;
+			for (int i = 0; i < 2; i++)
+			{
+				len2 = _BulletList[i].Count;
+				for (int j = 0; j < len2; j++)
+				{
+					bullet = _BulletList[i][j];
+					if (bullet._State == ActiveState.activate_req)
+					{
+						bullet._State = ActiveState.active;
+						bullet.gameObject.SetActive(true);
+					}
+				}
+			}
+			//activate_req<<
+
+			//act>>
+			for (int i = 0; i < 2; i++)
 			{
 				len2 = _UnitList[i].Count;
 				for (int j = 0; j < len2; j++)
@@ -85,8 +110,21 @@ namespace BC
 				}
 			}
 
+			for (int i = 0; i < 2; i++)
+			{
+				len2 = _BulletList[i].Count;
+				for (int j = 0; j < len2; j++)
+				{
+					bullet = _BulletList[i][j];
+					if (bullet._State == ActiveState.active)
+						bullet.Act();
+				}
+			}
+			//act<<
 
-			for (int i = 0; i < len; i++)
+
+			//deactivate_req>>
+			for (int i = 0; i < 2; i++)
 			{
 				len2 = _UnitList[i].Count;
 				for (int j = 0; j < len2; j++)
@@ -99,6 +137,21 @@ namespace BC
 					}
 				}
 			}
+
+			for (int i = 0; i < 2; i++)
+			{
+				len2 = _BulletList[i].Count;
+				for (int j = 0; j < len2; j++)
+				{
+					bullet = _BulletList[i][j];
+					if (bullet._State == ActiveState.deactivate_req)
+					{
+						bullet._State = ActiveState.inactive;
+						bullet.gameObject.SetActive(false);
+					}
+				}
+			}
+			//deactivate_req<<
 		}
 
 		public void UpdateView()
@@ -133,6 +186,7 @@ namespace BC
 		}
 	}
 }
+
 
 
 

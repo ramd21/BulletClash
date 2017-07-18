@@ -11,6 +11,8 @@ public struct UnitParam
 	public int Hp;
 	public int Spd;
 	public int Cost;
+	public BulletType Bullet;
+	public int FireInter;
 
 	static public UnitParam[] TSVToArr(string aTSV)
 	{
@@ -27,6 +29,8 @@ public struct UnitParam
 				dat.Hp = strMultiArr[i, 1].ToInt();
 				dat.Spd = strMultiArr[i, 2].ToInt();
 				dat.Cost = strMultiArr[i, 3].ToInt();
+				dat.Bullet = strMultiArr[i, 4].ToEnum<BulletType>();
+				dat.FireInter = strMultiArr[i, 5].ToInt();
 				arr[i - 2] = dat;
 			}
 		}

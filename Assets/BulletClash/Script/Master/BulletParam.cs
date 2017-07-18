@@ -9,6 +9,7 @@ public struct BulletParam
 {
 	public BulletType Type;
 	public int Spd;
+	public int Timer;
 
 	static public BulletParam[] TSVToArr(string aTSV)
 	{
@@ -23,6 +24,7 @@ public struct BulletParam
 				BulletParam dat = new BulletParam();
 				dat.Type = strMultiArr[i, 0].ToEnum<BulletType>();
 				dat.Spd = strMultiArr[i, 1].ToInt();
+				dat.Timer = strMultiArr[i, 2].ToInt();
 				arr[i - 2] = dat;
 			}
 		}

@@ -12,6 +12,11 @@ namespace BC
 		public UnitType[]	_DeckUnitTypeArr;
 		public int			_TPTimerTotal;
 
+		public Player(int aId)
+		{
+			_Id = aId;
+		}
+
 		public int GetTP()
 		{
 			return _TPTimerTotal / GameMan.i._TPTimer;
@@ -20,8 +25,25 @@ namespace BC
 		public void PlaceUnit(UnitParam aParam, Vector3 aPos)
 		{
 			_TPTimerTotal -= aParam.Cost * GameMan.i._TPTimer;
-			Unit unit = CharaMan.i.GetUnit(_Id, aParam.Type);
-			CharaMan.i.UnitActivateReq(_Id, unit, aPos);
+			Unit unit = CharaMan.i.GetPoolOrNewUnit(_Id, aParam.Type);
+			unit.ActivateReq(aPos);
+		}
+
+		public void AI()
+		{
+			if (GetTP() >= 3)
+				PlaceUnit(MasterMan.i._UnitParam[0], Vector3.zero);
+		}
+
+		public void Act()
+		{
+			if (_TPTimerTotal < GameMan.i._TPMax * GameMan.i._TPTimer)
+				_TPTimerTotal++;
+
+			if (_Id == 1)
+			{
+				AI();
+			}
 		}
 	}
 
@@ -33,8 +55,8 @@ namespace BC
 
 		public void Init()
 		{
-			_PlayerArr[0] = new Player();
-			_PlayerArr[1] = new Player();
+			_PlayerArr[0] = new Player(0);
+			_PlayerArr[1] = new Player(1);
 
 			this.StartObsserve(() => _myPlayer._TPTimerTotal,
 			(cur, last) =>
@@ -47,10 +69,7 @@ namespace BC
 		{
 			for (int i = 0; i < _PlayerArr.Length; i++)
 			{
-				if (_PlayerArr[i]._TPTimerTotal < GameMan.i._TPMax * GameMan.i._TPTimer)
-				{
-					_PlayerArr[i]._TPTimerTotal++;
-				}
+				_PlayerArr[i].Act();
 			}
 		}
 	}

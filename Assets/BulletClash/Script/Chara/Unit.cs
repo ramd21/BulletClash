@@ -19,14 +19,38 @@ namespace BC
 			_CvsHp.gameObject.SetActive(false);
 		}
 
+		public void ActivateReq(Vector3 aPos)
+		{
+			gameObject.SetActive(false);
+			_State = ActiveState.activate_req;
+			_Pos = aPos;
+			_Param = _ParamDef;
+		}
+
+		public void DeactivateReq()
+		{
+			_State = ActiveState.deactivate_req;
+		}
+
 		public void Act()
 		{
 			_Param.Hp--;
-
 			if (_Param.Hp == 0)
-				CharaMan.i.UnitDeactivateReq(this);
+				DeactivateReq();
 
-			_Pos += Vector3.forward * _Param.Spd / 10;
+			if (_PlayerId == 0)
+				_Pos += Vector3.forward * _Param.Spd / 10;
+			else
+				_Pos -= Vector3.forward * _Param.Spd / 10;
+
+			if (_Param.FireInter == 0)
+			{
+				Bullet bullet = CharaMan.i.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
+				bullet.ActivateReq(_Pos);
+				_Param.FireInter = _ParamDef.FireInter;
+			}
+
+			_Param.FireInter--;
 		}
 
 		public override void UpdateView()
@@ -39,6 +63,8 @@ namespace BC
 			if (!_AngleSet)
 			{
 				transform.SetEulerAnglesX(90);
+				if (_PlayerId == 1)
+					transform.SetEulerAnglesY(180);
 				_AngleSet = true;
 			}
 		}

@@ -11,10 +11,17 @@ namespace BC
 	public class ResourceMan : Singleton<ResourceMan>
 	{
 		public Unit[] _UnitArr;
+		public Bullet[] _BulletArr;
+
 
 		public Unit GetUnit(UnitType aType)
 		{
 			return _UnitArr[(int)aType];
+		}
+
+		public Bullet GetBullet(BulletType aType)
+		{
+			return _BulletArr[(int)aType];
 		}
 
 
@@ -26,6 +33,7 @@ namespace BC
 		void Load()
 		{
 			_UnitArr = Resources.LoadAll<Unit>("Unit");
+			_BulletArr = Resources.LoadAll<Bullet>("Bullet");
 		}
 #endif
 	}
