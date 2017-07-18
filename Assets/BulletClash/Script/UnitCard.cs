@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace BC
 {
-	public class UnitCard : UIDragObj
+	public class UnitCard : UIDragObj, IEditorUpdate
 	{
 		public Text			_TxtCost;
 		public Transform	_TraDeckUnit;
@@ -36,6 +36,13 @@ namespace BC
 		public override void OnPointerUp(PointerEventData eventData)
 		{
 			CameraMan.i._DragCamera.enabled = true;
+		}
+
+		public void EditorUpdate()
+		{
+			_TxtCost = GetComponentInChildren<Text>();
+			_TraDeckUnit = transform.FindRecurcive("deck_unit", true);
+
 		}
 	}
 }

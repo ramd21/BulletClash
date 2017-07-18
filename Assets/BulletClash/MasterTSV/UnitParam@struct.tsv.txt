@@ -1,6 +1,6 @@
-UnitType	string	int	int	int
-Type	PrefabName	Hp	SpdX	SpdZ
-pod	UN_0	20	0	1
-fighter	UN_1	30	0	1
-cruiser	UN_2	40	0	1
-tanker	UN_3	50	0	1
+UnitType	string	int	int	int	int
+Type	PrefabName	Hp	SpdX	SpdZ	Cost
+pod	UN_0	20	0	1	1
+fighter	UN_1	30	0	1	2
+cruiser	UN_2	40	0	1	3
+tanker	UN_3	50	0	1	4

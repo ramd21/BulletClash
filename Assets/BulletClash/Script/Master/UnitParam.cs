@@ -12,6 +12,7 @@ public struct UnitParam
 	public int Hp;
 	public int SpdX;
 	public int SpdZ;
+	public int Cost;
 
 	static public UnitParam[] TSVToArr(string aTSV)
 	{
@@ -29,6 +30,7 @@ public struct UnitParam
 				dat.Hp = strMultiArr[i, 2].ToInt();
 				dat.SpdX = strMultiArr[i, 3].ToInt();
 				dat.SpdZ = strMultiArr[i, 4].ToInt();
+				dat.Cost = strMultiArr[i, 5].ToInt();
 				arr[i - 2] = dat;
 			}
 		}

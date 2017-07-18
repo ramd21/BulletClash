@@ -58,6 +58,25 @@ namespace RM
 			return found.ToArray();
 		}
 
+		static public Transform FindRecurcive(this Transform aThis, string aName, bool aInclude = false)
+		{
+			Transform[] traArr = aThis.GetComponentsInChildren<Transform>(true);
+			for (int i = 0; i < traArr.Length; i++)
+			{
+				if (aInclude)
+				{
+					if (traArr[i].name.Contains(aName))
+						return traArr[i];
+				}
+				else
+				{
+					if (traArr[i].name == aName)
+						return traArr[i];
+				}
+			}
+			return null;
+		}
+
 		static public T FindRecurcive<T>(this Transform aThis, string aName, bool aInclude = false) where T : Component
 		{
 			Transform[] traArr = aThis.GetComponentsInChildren<Transform>(true);
@@ -160,7 +179,7 @@ namespace RM
 
 		public static void ResetLocalScale(this Transform aThis)
 		{
-			aThis.localEulerAngles = Vector3.one;
+			aThis.localScale= Vector3.one;
 		}
 		//reset<<
 

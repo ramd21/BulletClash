@@ -8,9 +8,16 @@ using RM;
 
 namespace BC
 {
-	public class ResourceMan : RMBehaviour
+	public class ResourceMan : Singleton<ResourceMan>
 	{
 		public Unit[] _UnitArr;
+
+		public Unit GetUnit(UnitType aType)
+		{
+			Unit unit = Instantiate(_UnitArr[(int)aType]);
+			return unit;
+		}
+
 
 
 #if UNITY_EDITOR
