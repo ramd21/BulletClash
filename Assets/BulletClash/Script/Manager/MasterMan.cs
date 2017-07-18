@@ -9,6 +9,8 @@ namespace BC
 	public class MasterMan : Singleton<MasterMan>
 	{
 		public UnitParamMaster _UnitParamMaster;
+
+		
 	}
 }
 

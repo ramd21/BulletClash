@@ -6,10 +6,23 @@ using RM;
 namespace BC
 {
 	[System.Serializable]
-	public struct Player
+	public class Player
 	{
+		public int _Id;
 		public UnitType[]	_DeckUnitTypeArr;
 		public int			_TPTimerTotal;
+
+		public int GetTP()
+		{
+			return _TPTimerTotal / GameMan.i._TPTimer;
+		}
+
+		public void PlaceUnit(UnitParam aParam, Vector3 aPos)
+		{
+			_TPTimerTotal -= aParam.Cost * GameMan.i._TPTimer;
+			Unit unit = CharaMan.i.GetUnit(_Id, aParam.Type);
+			CharaMan.i.UnitActivateReq(_Id, unit, aPos);
+		}
 	}
 
 	public class PlayerMan : Singleton<PlayerMan>

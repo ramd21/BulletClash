@@ -5,18 +5,15 @@ using RM;
 
 namespace BC
 {
-	public struct BattleParam
+	public abstract class Chara : EditorUpdateBehaviour
 	{
-		public int _Hp;
-	}
+		public ActiveState _State;
+		public Vector3 _Pos;
 
-	public class Chara : EditorUpdateBehaviour
-	{
 		[SerializeField]
 		Coll[] _CollArr;
 
-		public BattleParam _BPDef;
-		public BattleParam _BPCur;
+		public abstract void UpdateView();
 
 		public override void EditorUpdate()
 		{

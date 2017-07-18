@@ -62,12 +62,20 @@ public struct <type_name>
 	static public void CreateMasterScriptableObj(string aTSV, string aPath)
 	{
 		<type_name>[] arr = TSVToArr(aTSV);
+		<type_name>Master mst = AssetDatabase.LoadAssetAtPath<<type_name>Master>(aPath);
 
-		<type_name>Master mst = ScriptableObject.CreateInstance<<type_name>Master>();
-		mst._DatArr = arr;
-
-		AssetDatabase.CreateAsset(mst, aPath);
-		AssetDatabase.Refresh();
+		if (!mst)
+		{
+			mst = ScriptableObject.CreateInstance<<type_name>Master>();
+			mst._DatArr = arr;
+			AssetDatabase.CreateAsset(mst, aPath);
+			AssetDatabase.Refresh();
+		}
+		else
+		{
+			mst._DatArr = arr;
+			AssetDatabase.SaveAssets();
+		}
 	}
 #endif
 }";
@@ -83,6 +91,7 @@ public struct <type_name>
 public class <type_name>Master : ScriptableObject
 {
 	public <type_name>[] _DatArr;
+	public <type_name> this[int i] { get { return _DatArr[i]; } }
 }";
 
 		const string cStructBody = "	public <field_type> <field_name>;";

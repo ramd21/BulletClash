@@ -27,8 +27,7 @@ namespace BC
 		{
 			for (int i = 0; i < _UnitCardArr.Length; i++)
 			{
-				Unit unit = ResourceMan.i.GetUnit(PlayerMan.i._myPlayer._DeckUnitTypeArr[i]);
-				_UnitCardArr[i].Init(unit.transform);
+				_UnitCardArr[i].Init(PlayerMan.i._myPlayer._DeckUnitTypeArr[i]);
 			}
 		}
 

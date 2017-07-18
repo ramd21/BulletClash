@@ -41,12 +41,20 @@ public struct UnitParam
 	static public void CreateMasterScriptableObj(string aTSV, string aPath)
 	{
 		UnitParam[] arr = TSVToArr(aTSV);
+		UnitParamMaster mst = AssetDatabase.LoadAssetAtPath<UnitParamMaster>(aPath);
 
-		UnitParamMaster mst = ScriptableObject.CreateInstance<UnitParamMaster>();
-		mst._DatArr = arr;
-
-		AssetDatabase.CreateAsset(mst, aPath);
-		AssetDatabase.Refresh();
+		if (!mst)
+		{
+			mst = ScriptableObject.CreateInstance<UnitParamMaster>();
+			mst._DatArr = arr;
+			AssetDatabase.CreateAsset(mst, aPath);
+			AssetDatabase.Refresh();
+		}
+		else
+		{
+			mst._DatArr = arr;
+			AssetDatabase.SaveAssets();
+		}
 	}
 #endif
 }

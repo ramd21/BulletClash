@@ -14,8 +14,7 @@ namespace BC
 
 		public Unit GetUnit(UnitType aType)
 		{
-			Unit unit = Instantiate(_UnitArr[(int)aType]);
-			return unit;
+			return _UnitArr[(int)aType];
 		}
 
 

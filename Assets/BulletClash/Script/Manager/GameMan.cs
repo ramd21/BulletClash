@@ -17,16 +17,19 @@ namespace BC
 
 			UIMan.i.Init();
 			PlayerMan.i.Init();
+			CharaMan.i.Init();
 
 		}
 
 		void FixedUpdate()
 		{
 			PlayerMan.i.Act();
+			CharaMan.i.Act();
 		}
 
 		void Update()
 		{
+			CharaMan.i.UpdateView();
 		}
 	}
 }

@@ -12,11 +12,18 @@ namespace BC
 	{
 		public Text			_TxtCost;
 		public Transform	_TraDeckUnit;
+		UnitParam _Param;
 
-		public void Init(Transform aTraModel)
+		public void Init(UnitType aType)
 		{
-			aTraModel.parent = _TraDeckUnit;
-			aTraModel.ResetLocalTransform();
+			_Param = MasterMan.i._UnitParamMaster[(int)aType];
+			_TxtCost.text = _Param.Cost.ToString();
+
+			Unit unit;
+			unit = ResourceMan.i.GetUnit(_Param.Type);
+			unit = Instantiate(unit);
+			unit.transform.parent = _TraDeckUnit;
+			unit.transform.ResetLocalTransform();
 		}
 
 
@@ -24,7 +31,7 @@ namespace BC
 		{
 			get
 			{
-				return CameraMan.i._UICam;
+				return CameraMan.i._3DUICam;
 			}
 		}
 
@@ -36,6 +43,16 @@ namespace BC
 		public override void OnPointerUp(PointerEventData eventData)
 		{
 			CameraMan.i._DragCamera.enabled = true;
+
+			if (PlayerMan.i._myPlayer.GetTP() >= _Param.Cost)
+			{
+				Ray r = CameraMan.i._MainCam.ScreenPointToRay(eventData.position);
+				RaycastHit rh;
+				if(Physics.Raycast(r, out rh))
+				{
+					PlayerMan.i._myPlayer.PlaceUnit(_Param, rh.point);
+				}
+			}
 		}
 
 		public void EditorUpdate()

@@ -8,7 +8,8 @@ namespace BC
 	public class CameraMan : Singleton<CameraMan>
 	{
 		public DragCamera _DragCamera;
-		public Camera _UICam;
+		public Camera _3DUICam;
+		public Camera _MainCam;
 
 		public int _ScreenW = 540;
 		public int _ScreenH = 960;
