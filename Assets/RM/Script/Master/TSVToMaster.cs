@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -204,5 +205,5 @@ public class <type_name>Master : ScriptableObject
 		}
 	}
 }
-
+#endif
 
