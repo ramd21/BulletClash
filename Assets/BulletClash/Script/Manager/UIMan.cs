@@ -77,12 +77,14 @@ namespace BC
 			}
 		}
 
+#if UNITY_EDITOR
 		public void EditorUpdate()
 		{
 			_ImgTPGaugeArr = transform.FindAllRecurcive<Image>("fill", true);
 			_TxtPoint = transform.FindRecurcive<Text>("point", true);
 			_UnitCardArr = GetComponentsInChildren<UnitCard>();
 		}
+#endif
 	}
 }
 

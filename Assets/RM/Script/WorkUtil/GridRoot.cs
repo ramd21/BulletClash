@@ -96,7 +96,6 @@ namespace RM
 			}
 		}
 
-
 		void OnValidate()
 		{
 			Apply();

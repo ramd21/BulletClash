@@ -9,11 +9,22 @@ namespace RM
 	{
 		public float _Range;
 
-		public override void EditorUpdate()
+		void Start()
+		{
+			SetScale();
+		}
+
+		void SetScale()
 		{
 			_light.range = _Range * transform.lossyScale.magnitude;
-
 		}
+
+#if UNITY_EDITOR
+		public override void EditorUpdate()
+		{
+			SetScale();
+		}
+#endif
 	}
 }
 

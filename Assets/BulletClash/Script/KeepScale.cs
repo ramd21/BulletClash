@@ -18,8 +18,12 @@ namespace BC
 		float _TageRatio;
 		float _CurRatio;
 
-#if UNITY_EDITOR
-		public override void EditorUpdate()
+		void Awake()
+		{
+			SetScale();
+		}
+
+		void SetScale()
 		{
 			_ScreenSize = new Vector2Int(Screen.width, Screen.height);
 			_TageRatio = (float)_TageX / _TageY;
@@ -35,6 +39,13 @@ namespace BC
 				//縦が広い
 				transform.localScale = Vector3.one * ((float)Screen.width / _TageX) * _Scale;
 			}
+		}
+
+
+#if UNITY_EDITOR
+		public override void EditorUpdate()
+		{
+			SetScale();
 		}
 #endif
 

@@ -1,9 +1,10 @@
-﻿#if UNITY_EDITOR
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.Reflection;
 using System;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace RM
 {
 	public class TSVToMaster : RMBehaviour
 	{
+#if UNITY_EDITOR
 		public UnityEngine.Object _OutFolder;
 		public TextAsset[] _TSVArr;
 
@@ -74,6 +76,7 @@ public struct <type_name>
 		else
 		{
 			mst._DatArr = arr;
+			EditorUtility.SetDirty(mst);
 			AssetDatabase.SaveAssets();
 		}
 	}
@@ -212,7 +215,6 @@ public class <type_name>Master : ScriptableObject
 				//Debug.Log(mArr[0]);
 			}
 		}
+#endif
 	}
 }
-#endif
-

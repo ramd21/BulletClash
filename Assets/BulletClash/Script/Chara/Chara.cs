@@ -15,11 +15,12 @@ namespace BC
 		Coll[] _CollArr;
 
 		public abstract void UpdateView();
-
+#if UNITY_EDITOR
 		public override void EditorUpdate()
 		{
 			_CollArr = GetComponents<Coll>();
 		}
+#endif
 	}
 }
 

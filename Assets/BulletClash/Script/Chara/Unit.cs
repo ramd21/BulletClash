@@ -76,13 +76,14 @@ namespace BC
 			}
 		}
 
+#if UNITY_EDITOR
 		public override void EditorUpdate()
 		{
 			base.EditorUpdate();
 
 			_CvsHp = GetComponentInChildren<Canvas>();
 			_ImgHp = transform.FindRecurcive<Image>("hp", true);
-			_Bat = GetComponent<bat.opt.Bake.BAT_DeepBaker>();
+			_Bat = GetComponentInChildren<bat.opt.Bake.BAT_DeepBaker>();
 		}
 
 		void OnDrawGizmos()
@@ -90,6 +91,8 @@ namespace BC
 			Gizmos.color = Color.green;
 			Gizmos.DrawWireSphere(transform.position, 1f);
 		}
+#endif
+
 	}
 }
 

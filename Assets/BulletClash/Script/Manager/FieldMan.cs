@@ -26,11 +26,12 @@ namespace BC
 			_TraBorder[3].SetScale(_FieldSize.x / 10, 1, 1);
 			_TraBorder[3].SetPosition(transform.position - _FieldSize.y / 2 / 10 * Vector3.forward);
 		}
-
+#if UNITY_EDITOR
 		void OnDrawGizmos()
 		{
 			Gizmos.DrawWireCube(transform.position, _FieldSize.ToVector3XZ() / 10);
 		}
+#endif
 	}
 }
 

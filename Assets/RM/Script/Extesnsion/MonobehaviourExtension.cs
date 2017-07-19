@@ -45,6 +45,28 @@ namespace RM
 				aOnDone();
 		}
 
+		static public Coroutine WaitForFrames(this MonoBehaviour aThis, int aWait, Action aOnDone = null)
+		{
+			return aThis.StartCoroutine(WaitForFramesCoroutine(aWait, aOnDone));
+		}
+
+		static public IEnumerator WaitForFramesCoroutine(int aWait, Action aOnDone)
+		{
+			int cnt = 0;
+			while (true)
+			{
+				if (cnt == aWait)
+					break;
+
+				yield return null;
+				cnt++;
+			}
+			
+			if (aOnDone != null)
+				aOnDone();
+		}
+
+
 		static public Coroutine WaitUntil(this MonoBehaviour aThis, Func<bool> aCondition, Action aOnDone = null, bool aRepeat = false)
 		{
 			return aThis.StartCoroutine(WaitUntilCoroutine(aThis, aCondition, aOnDone, aRepeat));

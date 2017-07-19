@@ -2,15 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using RM;
 
-public class Init : MonoBehaviour
+namespace BC
 {
-	public int _ScreenW = 540;
-	public int _ScreenH = 960;
-	void Awake()
+	public class Init : MonoBehaviour
 	{
-		Screen.SetResolution(_ScreenW, _ScreenH, true);
+		public int _ScreenW = 540;
+		public int _ScreenH = 960;
 
-		SceneManager.LoadScene("BulletClash");
+		void Awake()
+		{
+			Screen.SetResolution(_ScreenH, _ScreenW, true);
+
+			this.WaitForFrames(5, ()=> 
+			{
+				Debug.Log(Time.frameCount);
+
+				this.WaitForFrames(5, () =>
+				{
+					Debug.Log(Time.frameCount);
+
+					SceneManager.LoadScene("battle");
+				});
+			});
+		}
 	}
 }
+
+
+

@@ -11,6 +11,12 @@ namespace BC
 		public Camera _3DUICam;
 		public Camera _MainCam;
 
+		public int _ScreenW = 540;
+		public int _ScreenH = 960;
+
+		
+
+
 		//public int _ScreenW = 540;
 		//public int _ScreenH = 960;
 

@@ -6,11 +6,12 @@ using RM;
 
 namespace BC
 {
-	public class LinkTransform : EditorUpdateBehaviour
+	[ExecuteInEditMode]
+	public class LinkTransform : RMBehaviour
 	{
 		public Transform _Tage;
 
-		public override void EditorUpdate()
+		void Update()
 		{
 			transform.position = _Tage.position;
 		}

@@ -55,13 +55,15 @@ namespace BC
 				}
 			}
 		}
-
+#if UNITY_EDITOR
 		public void EditorUpdate()
 		{
 			_TxtCost = GetComponentInChildren<Text>();
 			_TraDeckUnit = transform.FindRecurcive("deck_unit", true);
 
 		}
+#endif
+
 	}
 }
 

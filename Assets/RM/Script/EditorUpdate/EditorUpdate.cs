@@ -5,12 +5,16 @@ namespace RM
 {
 	interface IEditorUpdate
 	{
+#if UNITY_EDITOR
 		void EditorUpdate();
+		bool enabled { get; }
+#endif
 	}
 
 	[ExecuteInEditMode]
 	public class EditorUpdate : RMBehaviour
 	{
+#if UNITY_EDITOR
 		void Update()
 		{
 			if (Application.isPlaying)
@@ -26,6 +30,8 @@ namespace RM
 				w[i].EditorUpdate();
 			}
 		}
+#endif
+
 	}
 }
 

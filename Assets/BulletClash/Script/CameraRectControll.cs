@@ -13,17 +13,44 @@ namespace BC
 		float _TageRatio;
 		float _CurRatio;
 
-		public Vector2Int _ScreenSize;
-#if UNITY_EDITOR
-#endif
-		public override void EditorUpdate()
+		public enum Mode
 		{
-			_ScreenSize = new Vector2Int(Screen.width, Screen.height);
+			on_enable,
+			start,
+		}
+
+		public Mode _Mode;
+
+
+		void OnEnable()
+		{
+			Deb.MethodLog();
+			if(_Mode  == Mode.on_enable)
+				SetCameraRect();
+		}
+
+		void Start()
+		{
+			Deb.MethodLog();
+			if (_Mode == Mode.start)
+				SetCameraRect();
+		}
+
+		void SetCameraRect()
+		{
 			_TageRatio = _WidthRatio / _HeightRatio;
 			_CurRatio = (float)Screen.width / (float)Screen.height;
 
 			float w, h;
 			float x, y;
+
+			if (_CurRatio == _TageRatio)
+			{
+				_camera.rect = new Rect(new Vector2(0, 0), new Vector2(1, 1));
+				if (_camera.orthographic)
+					_camera.orthographicSize = Screen.height / 2;
+				return;
+			}
 
 			if (_CurRatio > _TageRatio)
 			{
@@ -48,6 +75,14 @@ namespace BC
 					_camera.orthographicSize = (Screen.height * h) / 2;
 			}
 		}
+
+#if UNITY_EDITOR
+		public override void EditorUpdate()
+		{
+			SetCameraRect();
+		}
+#endif
+
 	}
 }
 

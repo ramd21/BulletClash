@@ -1,21 +1,23 @@
-﻿#if UNITY_EDITOR
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace RM
 {
 	public class BuildAndDeploy : EditorUpdateBehaviour
 	{
+#if UNITY_EDITOR
 		public string _DeplayGateUserName;
 		public string _DeplayGateToken;
 		public UnityEngine.Object _CurlExe;
+		public bool _IL2CPP;
 
 		string _filePath { get { return Directory.GetCurrentDirectory() + "/" + Application.productName + ".apk"; } }
 
@@ -35,12 +37,18 @@ namespace RM
 
 			UnityEngine.Debug.Log("start build android");
 			string filePath = Directory.GetCurrentDirectory() + "/" + Application.productName + ".apk";
+
+			BuildOptions opt = BuildOptions.None;
+			if (_IL2CPP)
+				opt |= BuildOptions.Il2CPP;
+
+
 			BuildPipeline.BuildPlayer
 			(
 				EditorBuildSettings.scenes.Where(i => i.enabled).ToArray(),
 				filePath,
 				BuildTarget.Android,
-				BuildOptions.None
+				opt
 			);
 		}
 
@@ -81,7 +89,7 @@ namespace RM
 				EditorPrefs.SetBool("build_android", false);
 			}
 		}
+#endif
 	}
 }
-#endif
 

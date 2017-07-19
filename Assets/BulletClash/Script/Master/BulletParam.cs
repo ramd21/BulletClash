@@ -47,6 +47,7 @@ public struct BulletParam
 		else
 		{
 			mst._DatArr = arr;
+			EditorUtility.SetDirty(mst);
 			AssetDatabase.SaveAssets();
 		}
 	}

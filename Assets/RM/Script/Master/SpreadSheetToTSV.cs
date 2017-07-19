@@ -1,15 +1,18 @@
-﻿#if UNITY_EDITOR
+﻿
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 namespace RM
 {
 	public class SpreadSheetToTSV : EditorUpdateBehaviour
 	{
+#if UNITY_EDITOR
 		public UnityEngine.Object _OutFolder;
 		public string _Url;
 		public string _FileName;
@@ -80,6 +83,6 @@ namespace RM
 				}
 			}
 		}
+#endif
 	}
 }
-#endif

@@ -22,8 +22,8 @@ namespace BC
 			{
 				Unit unit = _UnitArr[(int)aType];
 				unit = Instantiate(unit);
-				unit.gameObject.SetActive(false);
 				unit._Bat.StartBake();
+				unit.gameObject.SetActive(false);
 				//DestroyImmediate(unit._Bat);
 
 				_MeshBakedUnitDic.Add(aType, unit);
