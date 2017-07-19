@@ -14,7 +14,8 @@ namespace BC
 		float _CurRatio;
 
 		public Vector2Int _ScreenSize;
-
+#if UNITY_EDITOR
+#endif
 		public override void EditorUpdate()
 		{
 			_ScreenSize = new Vector2Int(Screen.width, Screen.height);

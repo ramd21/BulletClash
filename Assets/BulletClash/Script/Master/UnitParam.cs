@@ -53,6 +53,7 @@ public struct UnitParam
 		else
 		{
 			mst._DatArr = arr;
+			EditorUtility.SetDirty(mst);
 			AssetDatabase.SaveAssets();
 		}
 	}

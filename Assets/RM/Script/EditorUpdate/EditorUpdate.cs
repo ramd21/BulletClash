@@ -13,6 +13,9 @@ namespace RM
 	{
 		void Update()
 		{
+			if (Application.isPlaying)
+				return;
+
 			IEditorUpdate[] w = GetComponents<IEditorUpdate>();
 
 			if (w.Length == 0)

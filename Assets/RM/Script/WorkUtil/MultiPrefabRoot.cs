@@ -1,13 +1,12 @@
-﻿#if UNITY_EDITOR
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace RM
 {
 	public class MultiPrefabRoot : MonoBehaviour
 	{
+#if UNITY_EDITOR
 		public Object _Folder;
 
 		[Button("ApplyOrCreate")]
@@ -25,6 +24,6 @@ namespace RM
 					transform.GetChild(i).gameObject.CreatePrefab(_Folder.GetAssetPath());
 			}
 		}
+#endif
 	}
 }
-#endif

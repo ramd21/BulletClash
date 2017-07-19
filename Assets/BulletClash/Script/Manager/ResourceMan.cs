@@ -13,10 +13,23 @@ namespace BC
 		public Unit[] _UnitArr;
 		public Bullet[] _BulletArr;
 
+		Dictionary<UnitType, Unit> _MeshBakedUnitDic = new Dictionary<UnitType, Unit>();
+
 
 		public Unit GetUnit(UnitType aType)
 		{
-			return _UnitArr[(int)aType];
+			if (!_MeshBakedUnitDic.ContainsKey(aType))
+			{
+				Unit unit = _UnitArr[(int)aType];
+				unit = Instantiate(unit);
+				unit.gameObject.SetActive(false);
+				unit._Bat.StartBake();
+				//DestroyImmediate(unit._Bat);
+
+				_MeshBakedUnitDic.Add(aType, unit);
+			}
+
+			return _MeshBakedUnitDic[aType];
 		}
 
 		public Bullet GetBullet(BulletType aType)

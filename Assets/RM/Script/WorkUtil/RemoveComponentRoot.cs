@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +6,7 @@ namespace RM
 {
 	public class RemoveComponentRoot : RMBehaviour
 	{
+#if UNITY_EDITOR
 		public string _ComponentName;
 
 		[Button("Remove")]
@@ -23,8 +23,8 @@ namespace RM
 					DestroyImmediate(w[i]);
 			}
 		}
+#endif
 	}
 }
-#endif
 
 

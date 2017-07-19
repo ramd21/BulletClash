@@ -13,6 +13,7 @@ namespace BC
 
 		public float _BaseZ;
 
+#if UNITY_EDITOR
 		public override void EditorUpdate()
 		{
 			Vector3 v3 = transform.position;
@@ -21,6 +22,8 @@ namespace BC
 
 			_Tage.position = _Cam.ScreenToWorldPoint(v3);
 		}
+#endif
+
 	}
 }
 

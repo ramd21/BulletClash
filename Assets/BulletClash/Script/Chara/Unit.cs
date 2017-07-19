@@ -14,7 +14,14 @@ namespace BC
 		public Image _ImgHp;
 		bool _AngleSet;
 
+		public bat.opt.Bake.BAT_DeepBaker _Bat;
+
 		void Awake()
+		{
+			//DestroyImmediate(_Bat);
+		}
+
+		void Start()
 		{
 			_CvsHp.gameObject.SetActive(false);
 		}
@@ -75,6 +82,7 @@ namespace BC
 
 			_CvsHp = GetComponentInChildren<Canvas>();
 			_ImgHp = transform.FindRecurcive<Image>("hp", true);
+			_Bat = GetComponent<bat.opt.Bake.BAT_DeepBaker>();
 		}
 
 		void OnDrawGizmos()

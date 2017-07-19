@@ -11,15 +11,15 @@ namespace BC
 		public Camera _3DUICam;
 		public Camera _MainCam;
 
-		public int _ScreenW = 540;
-		public int _ScreenH = 960;
+		//public int _ScreenW = 540;
+		//public int _ScreenH = 960;
 
-		[RuntimeInitializeOnLoadMethod]
-		static void Init()
-		{
-			Deb.MethodLog();
-			Screen.SetResolution(i._ScreenW, i._ScreenH, true);
-		}
+		//[RuntimeInitializeOnLoadMethod]
+		//static void Init()
+		//{
+		//	Deb.MethodLog();
+		//	Screen.SetResolution(i._ScreenW, i._ScreenH, true);
+		//}
 	}
 }
 

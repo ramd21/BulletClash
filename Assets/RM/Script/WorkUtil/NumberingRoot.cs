@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +6,7 @@ namespace RM
 {
 	public class NumberingRoot : RMBehaviour
 	{
+#if UNITY_EDITOR
 		public string _BaseName;
 
 		public int _StartNum;
@@ -24,7 +24,7 @@ namespace RM
 				transform.GetChild(i).name = _BaseName + (_StartNum + i);
 			}
 		}
+#endif
 	}
 }
-#endif
 

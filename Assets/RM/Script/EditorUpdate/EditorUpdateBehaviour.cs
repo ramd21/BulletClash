@@ -7,7 +7,9 @@ namespace RM
 	[RequireComponent(typeof(EditorUpdate))]
 	public abstract class EditorUpdateBehaviour : RMBehaviour, IEditorUpdate
 	{
+#if UNITY_EDITOR
 		public abstract void EditorUpdate();
+#endif
 	}
 }
 

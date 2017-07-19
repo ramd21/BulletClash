@@ -1,12 +1,12 @@
-﻿#if UNITY_EDITOR
+﻿using System.Collections.Generic;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RM
 {
 	public class GridRoot : RMBehaviour
 	{
+#if UNITY_EDITOR
 		public Vector2 _Inter;
 
 		public int _RowCnt;
@@ -101,7 +101,7 @@ namespace RM
 		{
 			Apply();
 		}
+#endif
 	}
 }
-#endif
 

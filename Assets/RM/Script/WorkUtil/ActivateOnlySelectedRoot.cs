@@ -1,13 +1,15 @@
-﻿#if UNITY_EDITOR
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace RM
 {
 	public class ActivateOnlySelectedRoot : EditorUpdateBehaviour
 	{
+#if UNITY_EDITOR
 		public override void EditorUpdate()
 		{
 			if (Selection.activeTransform)
@@ -29,6 +31,6 @@ namespace RM
 				}
 			}
 		}
+#endif
 	}
 }
-#endif
