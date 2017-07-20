@@ -14,7 +14,7 @@ namespace RM
 
 		void Remove()
 		{
-			Component[] w = GetComponentsInChildren<Component>();
+			Component[] w = GetComponentsInChildren<Component>(true);
 
 			for (int i = 0; i < w.Length; i++)
 			{
