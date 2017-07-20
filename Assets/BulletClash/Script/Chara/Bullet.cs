@@ -38,26 +38,26 @@ namespace BC
 			_Coll._Update = true;
 		}
 
+
+
 		public void HitBulletCheck()
 		{
-			int len;
-			int vs;
-
-			Bullet b;
 			if (_PlayerId == 0)
-				vs = 1;
+				gVs = 1;
 			else
-				vs = 0;
+				gVs = 0;
 
-			len = CharaMan.i._BulletList[vs].Count;
-			for (int i = 0; i < len; i++)
+			gBulletList = gCharaMan._BulletList[gVs];
+
+			gLen = gBulletList.Count;
+			for (int i = 0; i < gLen; i++)
 			{
-				b = CharaMan.i._BulletList[vs][i];
-				if (b._State == ActiveState.active)
+				gB = gBulletList[i];
+				if (gB._State == ActiveState.active)
 				{
-					if (b.IsHitBullet(this))
+					if (gB.IsHitBullet(this))
 					{
-						b.DeactivateReq();
+						gB.DeactivateReq();
 						DeactivateReq();
 					}
 				}
@@ -66,24 +66,22 @@ namespace BC
 
 		public void HitUnitCheck()
 		{
-			int len;
-			int vs;
-
-			Unit u;
 			if (_PlayerId == 0)
-				vs = 1;
+				gVs = 1;
 			else
-				vs = 0;
+				gVs = 0;
 
-			len = CharaMan.i._UnitList[vs].Count;
-			for (int i = 0; i < len; i++)
+			gUnitList = gCharaMan._UnitList[gVs];
+
+			gLen = gUnitList.Count;
+			for (int i = 0; i < gLen; i++)
 			{
-				u = CharaMan.i._UnitList[vs][i];
-				if (u._State == ActiveState.active)
+				gU = gUnitList[i];
+				if (gU._State == ActiveState.active)
 				{
-					if (u.IsHitBullet(this))
+					if (gU.IsHitBullet(this))
 					{
-						u.Dmg(1);
+						gU.Dmg(1);
 						DeactivateReq();
 					}
 				}
@@ -106,10 +104,9 @@ namespace BC
 				DeactivateReq();
 		}
 
-
 		public override void UpdateView()
 		{
-			transform.position = _Tra._Pos.ToVector3XZ() / GameMan.i._DistDiv;
+			transform.position = _Tra._Pos.ToVector3XZ() / GameMan.cDistDiv;
 			transform.LookAt(transform.position + _Tra._Dir.ToVector3XZ(), Vector3.up);
 		}
 

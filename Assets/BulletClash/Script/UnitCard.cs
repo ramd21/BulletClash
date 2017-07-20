@@ -51,7 +51,7 @@ namespace BC
 				RaycastHit rh;
 				if(Physics.Raycast(r, out rh))
 				{
-					PlayerMan.i._myPlayer.PlaceUnit(_Param, rh.point.ToVector2IntXZ() * GameMan.i._DistDiv);
+					PlayerMan.i._myPlayer.PlaceUnit(_Param, rh.point.ToVector2IntXZ() * GameMan.cDistDiv);
 				}
 			}
 		}

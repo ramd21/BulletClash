@@ -21,11 +21,15 @@ namespace BC
 
 		Unit _Tage;
 
-		void Start()
+		protected override void Start()
 		{
+			base.Start();
 			_CvsHp.gameObject.SetActive(false);
-			ActivateReq(transform.position.ToVector2IntXZ() * GameMan.i._DistDiv);
-			CharaMan.i._TowerList[_PlayerId].Add(this);
+			this.WaitForEndOfFrame(()=> 
+			{
+				gCharaMan._TowerList[_PlayerId].Add(this);
+				ActivateReq(transform.position.ToVector2IntXZ() * GameMan.cDistDiv);
+			});
 		}
 
 		public void ActivateReq(Vector2Int aPos)
@@ -59,8 +63,8 @@ namespace BC
 
 			if (_Param.FireInter == 0)
 			{
-				Bullet b = CharaMan.i.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
-				b.ActivateReq(_Tra._Pos, _Tage._Tra._Pos - _Tra._Pos);
+				gB = gCharaMan.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
+				gB.ActivateReq(_Tra._Pos, _Tage._Tra._Pos - _Tra._Pos);
 				_Param.FireInter = _ParamDef.FireInter;
 			}
 
@@ -69,28 +73,25 @@ namespace BC
 
 		public void SearchTage()
 		{
-			int len;
-			int vs;
 			int min = int.MaxValue;
 			int dist;
 
-			Unit u;
 			_Tage = null;
 			if (_PlayerId == 0)
-				vs = 1;
+				gVs = 1;
 			else
-				vs = 0;
+				gVs = 0;
 
-			len = CharaMan.i._UnitList[vs].Count;
-			for (int i = 0; i < len; i++)
+			gLen = gCharaMan._UnitList[gVs].Count;
+			for (int i = 0; i < gLen; i++)
 			{
-				u = CharaMan.i._UnitList[vs][i];
-				if (u._State == ActiveState.active)
+				gU = gCharaMan._UnitList[gVs][i];
+				if (gU._State == ActiveState.active)
 				{
-					dist = RMMath.GetApproxDist(_Tra._Pos, u._Tra._Pos);
+					dist = RMMath.GetApproxDist(_Tra._Pos, gU._Tra._Pos);
 					if (dist < min)
 					{
-						_Tage = u;
+						_Tage = gU;
 						min = dist;
 					}
 				}
@@ -106,7 +107,7 @@ namespace BC
 
 		public override void UpdateView()
 		{
-			transform.position = _Tra._Pos.ToVector3XZ() / GameMan.i._DistDiv;
+			transform.position = _Tra._Pos.ToVector3XZ() / GameMan.cDistDiv;
 
 			_CvsHp.gameObject.SetActive(true);
 			_ImgHp.fillAmount = (float)_Param.Hp / _ParamDef.Hp;

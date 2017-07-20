@@ -67,16 +67,16 @@ namespace BC
 
 		public bool IsHit(Coll aVS)
 		{
-			if (aVS._r < _l)
-				return false;
-
-			if (_r < aVS._l)
-				return false;
-
 			if (aVS._t < _b)
 				return false;
 
 			if (_t < aVS._b)
+				return false;
+
+			if (aVS._r < _l)
+				return false;
+
+			if (_r < aVS._l)
 				return false;
 
 			return true;
@@ -89,7 +89,7 @@ namespace BC
 		private void OnDrawGizmos()
 		{
 			Gizmos.color = Color.yellow;
-			Gizmos.DrawWireCube(transform.position + _Offset.ToVector3XZ() / GameMan.i._DistDiv, _Size.ToVector3XZ() / GameMan.i._DistDiv);
+			Gizmos.DrawWireCube(transform.position + _Offset.ToVector3XZ() / GameMan.cDistDiv, _Size.ToVector3XZ() / GameMan.cDistDiv);
 		}
 
 		public override void EditorUpdate()

@@ -10,17 +10,15 @@ namespace BC
 		public int _TPMax;
 		public int _TPTimer;
 
-		public int _DistDiv;
+		public const int cDistDiv = 100;
 
 
-		protected override void Awake()
+
+		private void Start()
 		{
-			base.Awake();
-
 			UIMan.i.Init();
 			PlayerMan.i.Init();
 			CharaMan.i.Init();
-
 		}
 
 		void FixedUpdate()

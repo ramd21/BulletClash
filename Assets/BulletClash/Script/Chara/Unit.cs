@@ -18,13 +18,10 @@ namespace BC
 
 		public bat.opt.Bake.BAT_DeepBaker _Bat;
 
-		void Awake()
-		{
-			//DestroyImmediate(_Bat);
-		}
 
-		void Start()
+		protected override void Start()
 		{
+			base.Start();
 			_CvsHp.gameObject.SetActive(false);
 		}
 
@@ -53,7 +50,8 @@ namespace BC
 
 		protected void UpdateCollReq()
 		{
-			for (int i = 0; i < _CollArr.Length; i++)
+			gLen = _CollArr.Length;
+			for (int i = 0; i < gLen; i++)
 			{
 				_CollArr[i]._Update = true;
 			}
@@ -61,7 +59,8 @@ namespace BC
 
 		public bool IsHitBullet(Bullet aVS)
 		{
-			for (int i = 0; i < _CollArr.Length; i++)
+			gLen = _CollArr.Length;
+			for (int i = 0; i < gLen; i++)
 			{
 				if (_CollArr[i].IsHit(aVS._Coll))
 					return true;
@@ -79,7 +78,7 @@ namespace BC
 		{
 			if (_Param.FireInter == 0)
 			{
-				Bullet b = CharaMan.i.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
+				Bullet b = gCharaMan.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
 				if (_PlayerId == 0)
 					b.ActivateReq(_Tra._Pos, Vector2Int.up);
 				else
@@ -98,7 +97,7 @@ namespace BC
 
 		public override void UpdateView()
 		{
-			transform.position = _Tra._Pos.ToVector3XZ() / GameMan.i._DistDiv;
+			transform.position = _Tra._Pos.ToVector3XZ() / GameMan.cDistDiv;
 
 			_CvsHp.gameObject.SetActive(true);
 			_ImgHp.fillAmount = (float)_Param.Hp / _ParamDef.Hp;
