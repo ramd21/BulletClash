@@ -26,11 +26,11 @@ namespace BC
 			_CvsHp.gameObject.SetActive(false);
 		}
 
-		public void ActivateReq(Vector3 aPos)
+		public void ActivateReq(Vector2Int aPos)
 		{
 			gameObject.SetActive(false);
 			_State = ActiveState.activate_req;
-			_Pos = aPos;
+			_Tra._Pos = aPos;
 			_Param = _ParamDef;
 		}
 
@@ -39,30 +39,61 @@ namespace BC
 			_State = ActiveState.deactivate_req;
 		}
 
+		public void Move()
+		{
+			if (_PlayerId == 0)
+				_Tra._Pos.y += _Param.Spd;
+			else
+				_Tra._Pos.y -= _Param.Spd;
+
+			UpdateCollReq();
+		}
+
+		public void HitCheck()
+		{
+			int len;
+			if (_PlayerId == 0)
+			{
+				len = CharaMan.i._BulletList[1].Count;
+				for (int i = 0; i < len; i++)
+				{
+
+				}
+			}
+			else
+			{
+				len = CharaMan.i._BulletList[0].Count;
+				for (int i = 0; i < len; i++)
+				{
+
+				}
+			}
+		}
+
+
 		public void Act()
 		{
 			_Param.Hp--;
-			if (_Param.Hp == 0)
-				DeactivateReq();
-
-			if (_PlayerId == 0)
-				_Pos += Vector3.forward * _Param.Spd / 10;
-			else
-				_Pos -= Vector3.forward * _Param.Spd / 10;
-
+			
 			if (_Param.FireInter == 0)
 			{
 				Bullet bullet = CharaMan.i.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
-				bullet.ActivateReq(_Pos);
+				bullet.ActivateReq(_Tra._Pos);
 				_Param.FireInter = _ParamDef.FireInter;
 			}
 
 			_Param.FireInter--;
 		}
 
+		public void OMFrameEnd()
+		{
+			if (_Param.Hp <= 0)
+				DeactivateReq();
+		}
+
 		public override void UpdateView()
 		{
-			transform.position = _Pos;
+			transform.position = _Tra._Pos.ToVector3XZ() / GameMan.i._DistDiv;
 
 			_CvsHp.gameObject.SetActive(true);
 			_ImgHp.fillAmount = (float)_Param.Hp / _ParamDef.Hp;

@@ -26,6 +26,17 @@ namespace RM
 					aV3.z / aV3Div.z
 				);
 		}
+
+		static public Vector2Int ToVector2IntXY(this Vector3 aV3)
+		{
+			return new Vector2Int((int)aV3.x, (int)aV3.y);
+		}
+
+		static public Vector2Int ToVector2IntXZ(this Vector3 aV3)
+		{
+			return new Vector2Int((int)aV3.x, (int)aV3.z);
+		}
+
 		static public Vector2 ToVector2XY(this Vector3 aV3)
 		{
 			return new Vector2(aV3.x, aV3.y);

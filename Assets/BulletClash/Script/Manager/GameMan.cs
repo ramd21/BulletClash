@@ -10,6 +10,8 @@ namespace BC
 		public int _TPMax;
 		public int _TPTimer;
 
+		public int _DistDiv;
+
 
 		protected override void Awake()
 		{

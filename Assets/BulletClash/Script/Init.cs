@@ -15,16 +15,9 @@ namespace BC
 		{
 			Screen.SetResolution(_ScreenH, _ScreenW, true);
 
-			this.WaitForFrames(5, ()=> 
+			this.WaitForFrames(1, ()=> 
 			{
-				Debug.Log(Time.frameCount);
-
-				this.WaitForFrames(5, () =>
-				{
-					Debug.Log(Time.frameCount);
-
-					SceneManager.LoadScene("battle");
-				});
+				SceneManager.LoadScene("battle");
 			});
 		}
 	}

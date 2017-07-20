@@ -13,11 +13,11 @@ namespace BC
 		public BulletParam _ParamDef;
 		bool _AngleSet;
 
-		public void ActivateReq(Vector3 aPos)
+		public void ActivateReq(Vector2Int aPos)
 		{
 			gameObject.SetActive(false);
 			_State = ActiveState.activate_req;
-			_Pos = aPos;
+			_Tra._Pos = aPos;
 			_Param = _ParamDef;
 		}
 
@@ -26,21 +26,66 @@ namespace BC
 			_State = ActiveState.deactivate_req;
 		}
 
+		public void Move()
+		{
+			if (_PlayerId == 0)
+				_Tra._Pos.y += _Param.Spd;
+			else
+				_Tra._Pos.y -= _Param.Spd;
+
+			UpdateCollReq();
+		}
+
+		public void HitCheck()
+		{
+			int len;
+			Bullet b;
+			if (_PlayerId == 0)
+			{
+				len = CharaMan.i._BulletList[1].Count;
+				for (int i = 0; i < len; i++)
+				{
+					b = CharaMan.i._BulletList[1][i];
+					if (b.IsHitBullet(this))
+					{
+					}
+				}
+			}
+			else
+			{
+				len = CharaMan.i._BulletList[0].Count;
+				for (int i = 0; i < len; i++)
+				{
+					b = CharaMan.i._BulletList[0][i];
+					if (b.IsHitBullet(this))
+					{
+					}
+				}
+			}
+		}
+
+		protected bool IsHitBullet(Bullet aVS)
+		{
+			return _CollArr[0].IsHit(aVS._CollArr[0]);
+		}
+
+
+
 		public void Act()
 		{
 			_Param.Timer--;
-			if (_Param.Timer == 0)
-				DeactivateReq();
-
-			if (_PlayerId == 0)
-				_Pos += Vector3.forward * _Param.Spd / 10;
-			else
-				_Pos -= Vector3.forward * _Param.Spd / 10;
 		}
+
+		public void OMFrameEnd()
+		{
+			if (_Param.Timer <= 0)
+				DeactivateReq();
+		}
+
 
 		public override void UpdateView()
 		{
-			transform.position = _Pos;
+			transform.position = _Tra._Pos.ToVector3XZ() / GameMan.i._DistDiv;
 
 			if (!_AngleSet)
 			{

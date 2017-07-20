@@ -10,6 +10,9 @@ namespace BC
 		public List<Unit>[] _UnitList;
 		public List<Bullet>[] _BulletList;
 
+		Transform[] _TraPlayerParent;
+
+
 		public void Init()
 		{
 			_UnitList = new List<Unit>[2];
@@ -19,6 +22,9 @@ namespace BC
 			_BulletList = new List<Bullet>[2];
 			_BulletList[0] = new List<Bullet>();
 			_BulletList[1] = new List<Bullet>();
+
+			_TraPlayerParent = new Transform[2];
+
 		}
 
 		public Unit GetPoolOrNewUnit(int aPlayerId, UnitType aType)
@@ -34,6 +40,16 @@ namespace BC
 
 			unit = ResourceMan.i.GetUnit(aType);
 			unit = Instantiate(unit);
+
+			if (!_TraPlayerParent[aPlayerId])
+			{
+				GameObject go = new GameObject("player_" + aPlayerId);
+				go.transform.parent = transform;
+				_TraPlayerParent[aPlayerId] = go.transform;
+			}
+
+			unit.transform.parent = _TraPlayerParent[aPlayerId];
+
 			unit._ParamDef = MasterMan.i._UnitParam[(int)aType];
 			unit._PlayerId = aPlayerId;
 
@@ -54,6 +70,15 @@ namespace BC
 
 			bullet = ResourceMan.i.GetBullet(aType);
 			bullet = Instantiate(bullet);
+
+			if (!_TraPlayerParent[aPlayerId])
+			{
+				GameObject go = new GameObject("player_" + aPlayerId);
+				go.transform.parent = transform;
+				_TraPlayerParent[aPlayerId] = go.transform;
+			}
+
+			bullet.transform.parent = _TraPlayerParent[aPlayerId];
 			bullet._ParamDef = MasterMan.i._BulletParam[(int)aType];
 			bullet._PlayerId = aPlayerId;
 
@@ -106,6 +131,51 @@ namespace BC
 				{
 					unit = _UnitList[i][j];
 					if (unit._State == ActiveState.active)
+						unit.Move();
+				}
+			}
+
+			for (int i = 0; i < 2; i++)
+			{
+				len2 = _BulletList[i].Count;
+				for (int j = 0; j < len2; j++)
+				{
+					bullet = _BulletList[i][j];
+					if (bullet._State == ActiveState.active)
+						bullet.Move();
+				}
+			}
+
+			for (int i = 0; i < 2; i++)
+			{
+				len2 = _UnitList[i].Count;
+				for (int j = 0; j < len2; j++)
+				{
+					unit = _UnitList[i][j];
+					if (unit._State == ActiveState.active)
+						unit.HitCheck();
+				}
+			}
+
+			for (int i = 0; i < 2; i++)
+			{
+				len2 = _BulletList[i].Count;
+				for (int j = 0; j < len2; j++)
+				{
+					bullet = _BulletList[i][j];
+					if (bullet._State == ActiveState.active)
+						bullet.HitCheck();
+				}
+			}
+
+
+			for (int i = 0; i < 2; i++)
+			{
+				len2 = _UnitList[i].Count;
+				for (int j = 0; j < len2; j++)
+				{
+					unit = _UnitList[i][j];
+					if (unit._State == ActiveState.active)
 						unit.Act();
 				}
 			}
@@ -120,6 +190,34 @@ namespace BC
 						bullet.Act();
 				}
 			}
+
+
+
+
+
+			for (int i = 0; i < 2; i++)
+			{
+				len2 = _UnitList[i].Count;
+				for (int j = 0; j < len2; j++)
+				{
+					unit = _UnitList[i][j];
+					if (unit._State == ActiveState.active)
+						unit.OMFrameEnd();
+				}
+			}
+
+			for (int i = 0; i < 2; i++)
+			{
+				len2 = _BulletList[i].Count;
+				for (int j = 0; j < len2; j++)
+				{
+					bullet = _BulletList[i][j];
+					if (bullet._State == ActiveState.active)
+						bullet.OMFrameEnd();
+				}
+			}
+
+
 			//act<<
 
 

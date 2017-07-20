@@ -22,7 +22,7 @@ namespace BC
 			return _TPTimerTotal / GameMan.i._TPTimer;
 		}
 
-		public void PlaceUnit(UnitParam aParam, Vector3 aPos)
+		public void PlaceUnit(UnitParam aParam, Vector2Int aPos)
 		{
 			_TPTimerTotal -= aParam.Cost * GameMan.i._TPTimer;
 			Unit unit = CharaMan.i.GetPoolOrNewUnit(_Id, aParam.Type);
@@ -32,7 +32,7 @@ namespace BC
 		public void AI()
 		{
 			if (GetTP() >= 3)
-				PlaceUnit(MasterMan.i._UnitParam[0], Vector3.zero);
+				PlaceUnit(MasterMan.i._UnitParam[0], Vector2Int.zero);
 		}
 
 		public void Act()
