@@ -14,7 +14,8 @@ namespace BC
 		public int _ScreenW = 540;
 		public int _ScreenH = 960;
 
-		
+		public float _MainCamZMax;
+		public float _MainCamZMin;
 
 
 		//public int _ScreenW = 540;
@@ -26,8 +27,19 @@ namespace BC
 		//	Deb.MethodLog();
 		//	Screen.SetResolution(i._ScreenW, i._ScreenH, true);
 		//}
+
+		void Update()
+		{
+			if (_MainCam.transform.position.z < _MainCamZMin)
+				_MainCam.transform.SetPositionZ(_MainCamZMin);
+
+			if (_MainCam.transform.position.z > _MainCamZMax)
+				_MainCam.transform.SetPositionZ(_MainCamZMax);
+		}
 	}
 }
+
+
 
 
 

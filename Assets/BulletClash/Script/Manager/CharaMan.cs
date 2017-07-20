@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RM;
+using System;
 
 namespace BC
 {
 	public class CharaMan : Singleton<CharaMan>
 	{
-		public List<Unit>[] _UnitList;
-		public List<Bullet>[] _BulletList;
+		public List<Unit>[]		_UnitList;
+		public List<Bullet>[]	_BulletList;
+		public List<Tower>[]	_TowerList;
+
 
 		Transform[] _TraPlayerParent;
+
+		//static int len;
 
 
 		public void Init()
@@ -23,23 +28,28 @@ namespace BC
 			_BulletList[0] = new List<Bullet>();
 			_BulletList[1] = new List<Bullet>();
 
+			_TowerList = new List<Tower>[2];
+			_TowerList[0] = new List<Tower>();
+			_TowerList[1] = new List<Tower>();
+
 			_TraPlayerParent = new Transform[2];
 
 		}
 
 		public Unit GetPoolOrNewUnit(int aPlayerId, UnitType aType)
 		{
-			int len = _UnitList[aPlayerId].Count;
-			Unit unit;
+			int len;
+			len = _UnitList[aPlayerId].Count;
+			Unit u;
 			for (int i = 0; i < len; i++)
 			{
-				unit = _UnitList[aPlayerId][i];
-				if (unit._State == ActiveState.inactive && unit._ParamDef.Type == aType)
-					return unit;
+				u = _UnitList[aPlayerId][i];
+				if (u._State == ActiveState.inactive && u._ParamDef.Type == aType)
+					return u;
 			}
 
-			unit = ResourceMan.i.GetUnit(aType);
-			unit = Instantiate(unit);
+			u = ResourceMan.i.GetUnit(aType);
+			u = Instantiate(u);
 
 			if (!_TraPlayerParent[aPlayerId])
 			{
@@ -48,28 +58,29 @@ namespace BC
 				_TraPlayerParent[aPlayerId] = go.transform;
 			}
 
-			unit.transform.parent = _TraPlayerParent[aPlayerId];
+			u.transform.parent = _TraPlayerParent[aPlayerId];
 
-			unit._ParamDef = MasterMan.i._UnitParam[(int)aType];
-			unit._PlayerId = aPlayerId;
+			u._ParamDef = MasterMan.i._UnitParam[(int)aType];
+			u._PlayerId = aPlayerId;
 
-			_UnitList[aPlayerId].Add(unit);
-			return unit;
+			_UnitList[aPlayerId].Add(u);
+			return u;
 		}
 
 		public Bullet GetPoolOrNewBullet(int aPlayerId, BulletType aType)
 		{
-			int len = _BulletList[aPlayerId].Count;
-			Bullet bullet;
+			int len;
+			len = _BulletList[aPlayerId].Count;
+			Bullet b;
 			for (int i = 0; i < len; i++)
 			{
-				bullet = _BulletList[aPlayerId][i];
-				if (bullet._State == ActiveState.inactive && bullet._ParamDef.Type == aType)
-					return bullet;
+				b = _BulletList[aPlayerId][i];
+				if (b._State == ActiveState.inactive && b._ParamDef.Type == aType)
+					return b;
 			}
 
-			bullet = ResourceMan.i.GetBullet(aType);
-			bullet = Instantiate(bullet);
+			b = ResourceMan.i.GetBullet(aType);
+			b = Instantiate(b);
 
 			if (!_TraPlayerParent[aPlayerId])
 			{
@@ -78,207 +89,150 @@ namespace BC
 				_TraPlayerParent[aPlayerId] = go.transform;
 			}
 
-			bullet.transform.parent = _TraPlayerParent[aPlayerId];
-			bullet._ParamDef = MasterMan.i._BulletParam[(int)aType];
-			bullet._PlayerId = aPlayerId;
+			b.transform.parent = _TraPlayerParent[aPlayerId];
+			b._ParamDef = MasterMan.i._BulletParam[(int)aType];
+			b._PlayerId = aPlayerId;
 
-			_BulletList[aPlayerId].Add(bullet);
-			return bullet;
+			_BulletList[aPlayerId].Add(b);
+			return b;
+		}
+
+		void Activate<T>(List<T>[] aCharaList) where T : Chara
+		{
+			int len;
+			T t;
+			for (int i = 0; i < 2; i++)
+			{
+				len = aCharaList[i].Count;
+				for (int j = 0; j < len; j++)
+				{
+					t = aCharaList[i][j];
+					if (t._State == ActiveState.activate_req)
+					{
+						t._State = ActiveState.active;
+						t.gameObject.SetActive(true);
+					}
+				}
+			}
+		}
+
+		void Deactivate<T>(List<T>[] aCharaList) where T : Chara
+		{
+			int len;
+			T t;
+			for (int i = 0; i < 2; i++)
+			{
+				len = aCharaList[i].Count;
+				for (int j = 0; j < len; j++)
+				{
+					t = aCharaList[i][j];
+					if (t._State == ActiveState.deactivate_req)
+					{
+						t._State = ActiveState.inactive;
+						t.gameObject.SetActive(false);
+					}
+				}
+			}
+		}
+
+		void Act<T>(List<T>[] aCharaList, Action<T> aOnAct) where T : Chara
+		{
+			int len;
+			T t;
+			for (int i = 0; i < 2; i++)
+			{
+				len = aCharaList[i].Count;
+				for (int j = 0; j < len; j++)
+				{
+					t = aCharaList[i][j];
+					if (t._State == ActiveState.active)
+					{
+						aOnAct(t);
+					}
+				}
+			}
 		}
 
 		public void Act()
 		{
-			int len2;
-
-
 			//activate_req>>
-			Unit unit;
-			for (int i = 0; i < 2; i++)
-			{
-				len2 = _UnitList[i].Count;
-				for (int j = 0; j < len2; j++)
-				{
-					unit = _UnitList[i][j];
-					if (unit._State == ActiveState.activate_req)
-					{
-						unit._State = ActiveState.active;
-						unit.gameObject.SetActive(true);
-					}
-				}
-			}
-
-			Bullet bullet;
-			for (int i = 0; i < 2; i++)
-			{
-				len2 = _BulletList[i].Count;
-				for (int j = 0; j < len2; j++)
-				{
-					bullet = _BulletList[i][j];
-					if (bullet._State == ActiveState.activate_req)
-					{
-						bullet._State = ActiveState.active;
-						bullet.gameObject.SetActive(true);
-					}
-				}
-			}
+			Activate(_UnitList);
+			Activate(_BulletList);
+			Activate(_TowerList);
 			//activate_req<<
 
 			//act>>
-			for (int i = 0; i < 2; i++)
-			{
-				len2 = _UnitList[i].Count;
-				for (int j = 0; j < len2; j++)
-				{
-					unit = _UnitList[i][j];
-					if (unit._State == ActiveState.active)
-						unit.Move();
-				}
-			}
 
-			for (int i = 0; i < 2; i++)
-			{
-				len2 = _BulletList[i].Count;
-				for (int j = 0; j < len2; j++)
-				{
-					bullet = _BulletList[i][j];
-					if (bullet._State == ActiveState.active)
-						bullet.Move();
-				}
-			}
+			Act(_UnitList, (a) => a.Move());
+			Act(_BulletList, (a) => a.Move());
 
-			for (int i = 0; i < 2; i++)
-			{
-				len2 = _UnitList[i].Count;
-				for (int j = 0; j < len2; j++)
-				{
-					unit = _UnitList[i][j];
-					if (unit._State == ActiveState.active)
-						unit.HitCheck();
-				}
-			}
+			Act(_TowerList, (a) => a.SearchTage());
 
-			for (int i = 0; i < 2; i++)
-			{
-				len2 = _BulletList[i].Count;
-				for (int j = 0; j < len2; j++)
-				{
-					bullet = _BulletList[i][j];
-					if (bullet._State == ActiveState.active)
-						bullet.HitCheck();
-				}
-			}
+			Act(_BulletList, (a) => a.HitBulletCheck());
+			Act(_BulletList, (a) => a.HitUnitCheck());
+
+			Act(_TowerList, (a) => a.Fire());
+			Act(_UnitList, (a) => a.Fire());
+			Act(_BulletList, (a) => a.DecTimer());
 
 
-			for (int i = 0; i < 2; i++)
-			{
-				len2 = _UnitList[i].Count;
-				for (int j = 0; j < len2; j++)
-				{
-					unit = _UnitList[i][j];
-					if (unit._State == ActiveState.active)
-						unit.Act();
-				}
-			}
+			Act(_UnitList, (a) => a.OMFrameEnd());
+			Act(_BulletList, (a) => a.OMFrameEnd());
 
-			for (int i = 0; i < 2; i++)
-			{
-				len2 = _BulletList[i].Count;
-				for (int j = 0; j < len2; j++)
-				{
-					bullet = _BulletList[i][j];
-					if (bullet._State == ActiveState.active)
-						bullet.Act();
-				}
-			}
-
-
-
-
-
-			for (int i = 0; i < 2; i++)
-			{
-				len2 = _UnitList[i].Count;
-				for (int j = 0; j < len2; j++)
-				{
-					unit = _UnitList[i][j];
-					if (unit._State == ActiveState.active)
-						unit.OMFrameEnd();
-				}
-			}
-
-			for (int i = 0; i < 2; i++)
-			{
-				len2 = _BulletList[i].Count;
-				for (int j = 0; j < len2; j++)
-				{
-					bullet = _BulletList[i][j];
-					if (bullet._State == ActiveState.active)
-						bullet.OMFrameEnd();
-				}
-			}
 
 
 			//act<<
 
 
 			//deactivate_req>>
-			for (int i = 0; i < 2; i++)
-			{
-				len2 = _UnitList[i].Count;
-				for (int j = 0; j < len2; j++)
-				{
-					unit = _UnitList[i][j];
-					if (unit._State == ActiveState.deactivate_req)
-					{
-						unit._State = ActiveState.inactive;
-						unit.gameObject.SetActive(false);
-					}
-				}
-			}
-
-			for (int i = 0; i < 2; i++)
-			{
-				len2 = _BulletList[i].Count;
-				for (int j = 0; j < len2; j++)
-				{
-					bullet = _BulletList[i][j];
-					if (bullet._State == ActiveState.deactivate_req)
-					{
-						bullet._State = ActiveState.inactive;
-						bullet.gameObject.SetActive(false);
-					}
-				}
-			}
+			Deactivate(_UnitList);
+			Deactivate(_BulletList);
+			Deactivate(_TowerList);
 			//deactivate_req<<
 		}
 
 		public void UpdateView()
 		{
 			int len, len2;
+			Unit u;
+			Bullet b;
+			Tower tw;
+
+
 			len = _UnitList.Length;
-			Unit unit;
 			for (int i = 0; i < len; i++)
 			{
 				len2 = _UnitList[i].Count;
 				for (int j = 0; j < len2; j++)
 				{
-					unit = _UnitList[i][j];
-					if (unit._State == ActiveState.active)
-						unit.UpdateView();
+					u = _UnitList[i][j];
+					if (u._State == ActiveState.active)
+						u.UpdateView();
 				}
 			}
 
 
 			len = _BulletList.Length;
-			Bullet bullet;
 			for (int i = 0; i < len; i++)
 			{
 				len2 = _BulletList[i].Count;
 				for (int j = 0; j < len2; j++)
 				{
-					bullet = _BulletList[i][j];
-					if (bullet._State == ActiveState.active)
-						bullet.UpdateView();
+					b = _BulletList[i][j];
+					if (b._State == ActiveState.active)
+						b.UpdateView();
+				}
+			}
+
+			len = _TowerList.Length;
+			for (int i = 0; i < len; i++)
+			{
+				len2 = _TowerList[i].Count;
+				for (int j = 0; j < len2; j++)
+				{
+					tw = _TowerList[i][j];
+					if (tw._State == ActiveState.active)
+						tw.UpdateView();
 				}
 			}
 		}

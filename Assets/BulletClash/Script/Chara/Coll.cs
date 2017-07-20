@@ -67,16 +67,16 @@ namespace BC
 
 		public bool IsHit(Coll aVS)
 		{
-			if (aVS._R < _L)
+			if (aVS._r < _l)
 				return false;
 
-			if (_R < aVS._L)
+			if (_r < aVS._l)
 				return false;
 
-			if (aVS._T < _B)
+			if (aVS._t < _b)
 				return false;
 
-			if (_T < aVS._B)
+			if (_t < aVS._b)
 				return false;
 
 			return true;

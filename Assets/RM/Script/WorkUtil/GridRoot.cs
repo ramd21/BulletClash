@@ -95,11 +95,6 @@ namespace RM
 				}
 			}
 		}
-
-		void OnValidate()
-		{
-			Apply();
-		}
 #endif
 	}
 }

@@ -32,7 +32,10 @@ namespace BC
 		public void AI()
 		{
 			if (GetTP() >= 3)
-				PlaceUnit(MasterMan.i._UnitParam[0], Vector2Int.zero);
+			{
+				Vector2Int pos = new Vector2Int(Random.Range(-2000, 2000), Random.Range(0, 8000));
+				PlaceUnit(MasterMan.i._UnitParam[0], pos);
+			}
 		}
 
 		public void Act()

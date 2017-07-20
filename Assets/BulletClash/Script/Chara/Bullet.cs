@@ -11,13 +11,14 @@ namespace BC
 	{
 		public BulletParam _Param;
 		public BulletParam _ParamDef;
-		bool _AngleSet;
+		public Coll _Coll;
 
-		public void ActivateReq(Vector2Int aPos)
+		public void ActivateReq(Vector2Int aPos, Vector2Int aDir)
 		{
 			gameObject.SetActive(false);
 			_State = ActiveState.activate_req;
 			_Tra._Pos = aPos;
+			_Tra._Dir = aDir;
 			_Param = _ParamDef;
 		}
 
@@ -28,50 +29,73 @@ namespace BC
 
 		public void Move()
 		{
-			if (_PlayerId == 0)
-				_Tra._Pos.y += _Param.Spd;
-			else
-				_Tra._Pos.y -= _Param.Spd;
-
+			_Tra._Pos += Vector2Int.RoundToInt(_Tra._Dir.normalized * _Param.Spd);
 			UpdateCollReq();
 		}
 
-		public void HitCheck()
+		protected void UpdateCollReq()
+		{
+			_Coll._Update = true;
+		}
+
+		public void HitBulletCheck()
 		{
 			int len;
+			int vs;
+
 			Bullet b;
 			if (_PlayerId == 0)
-			{
-				len = CharaMan.i._BulletList[1].Count;
-				for (int i = 0; i < len; i++)
-				{
-					b = CharaMan.i._BulletList[1][i];
-					if (b.IsHitBullet(this))
-					{
-					}
-				}
-			}
+				vs = 1;
 			else
+				vs = 0;
+
+			len = CharaMan.i._BulletList[vs].Count;
+			for (int i = 0; i < len; i++)
 			{
-				len = CharaMan.i._BulletList[0].Count;
-				for (int i = 0; i < len; i++)
+				b = CharaMan.i._BulletList[vs][i];
+				if (b._State == ActiveState.active)
 				{
-					b = CharaMan.i._BulletList[0][i];
 					if (b.IsHitBullet(this))
 					{
+						b.DeactivateReq();
+						DeactivateReq();
 					}
 				}
 			}
 		}
 
-		protected bool IsHitBullet(Bullet aVS)
+		public void HitUnitCheck()
 		{
-			return _CollArr[0].IsHit(aVS._CollArr[0]);
+			int len;
+			int vs;
+
+			Unit u;
+			if (_PlayerId == 0)
+				vs = 1;
+			else
+				vs = 0;
+
+			len = CharaMan.i._UnitList[vs].Count;
+			for (int i = 0; i < len; i++)
+			{
+				u = CharaMan.i._UnitList[vs][i];
+				if (u._State == ActiveState.active)
+				{
+					if (u.IsHitBullet(this))
+					{
+						u.Dmg(1);
+						DeactivateReq();
+					}
+				}
+			}
 		}
 
+		public bool IsHitBullet(Bullet aVS)
+		{
+			return _Coll.IsHit(aVS._Coll);
+		}
 
-
-		public void Act()
+		public void DecTimer()
 		{
 			_Param.Timer--;
 		}
@@ -86,15 +110,15 @@ namespace BC
 		public override void UpdateView()
 		{
 			transform.position = _Tra._Pos.ToVector3XZ() / GameMan.i._DistDiv;
-
-			if (!_AngleSet)
-			{
-				if (_PlayerId == 1)
-					transform.SetEulerAnglesY(180);
-				_AngleSet = true;
-			}
-			
+			transform.LookAt(transform.position + _Tra._Dir.ToVector3XZ(), Vector3.up);
 		}
+
+#if UNITY_EDITOR
+		public override void EditorUpdate()
+		{
+			_Coll = GetComponent<Coll>();
+		}
+#endif
 	}
 }
 

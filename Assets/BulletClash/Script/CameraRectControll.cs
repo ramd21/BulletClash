@@ -24,14 +24,12 @@ namespace BC
 
 		void OnEnable()
 		{
-			Deb.MethodLog();
-			if(_Mode  == Mode.on_enable)
+			if (_Mode == Mode.on_enable)
 				SetCameraRect();
 		}
 
 		void Start()
 		{
-			Deb.MethodLog();
 			if (_Mode == Mode.start)
 				SetCameraRect();
 		}

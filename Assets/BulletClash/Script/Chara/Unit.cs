@@ -14,6 +14,8 @@ namespace BC
 		public Image _ImgHp;
 		bool _AngleSet;
 
+		public Coll[] _CollArr;
+
 		public bat.opt.Bake.BAT_DeepBaker _Bat;
 
 		void Awake()
@@ -49,36 +51,39 @@ namespace BC
 			UpdateCollReq();
 		}
 
-		public void HitCheck()
+		protected void UpdateCollReq()
 		{
-			int len;
-			if (_PlayerId == 0)
+			for (int i = 0; i < _CollArr.Length; i++)
 			{
-				len = CharaMan.i._BulletList[1].Count;
-				for (int i = 0; i < len; i++)
-				{
-
-				}
-			}
-			else
-			{
-				len = CharaMan.i._BulletList[0].Count;
-				for (int i = 0; i < len; i++)
-				{
-
-				}
+				_CollArr[i]._Update = true;
 			}
 		}
 
-
-		public void Act()
+		public bool IsHitBullet(Bullet aVS)
 		{
-			_Param.Hp--;
-			
+			for (int i = 0; i < _CollArr.Length; i++)
+			{
+				if (_CollArr[i].IsHit(aVS._Coll))
+					return true;
+			}
+
+			return false;
+		}
+
+		public void Dmg(int aDmg)
+		{
+			_Param.Hp -= aDmg;
+		}
+
+		public void Fire()
+		{
 			if (_Param.FireInter == 0)
 			{
-				Bullet bullet = CharaMan.i.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
-				bullet.ActivateReq(_Tra._Pos);
+				Bullet b = CharaMan.i.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
+				if (_PlayerId == 0)
+					b.ActivateReq(_Tra._Pos, Vector2Int.up);
+				else
+					b.ActivateReq(_Tra._Pos, Vector2Int.down);
 				_Param.FireInter = _ParamDef.FireInter;
 			}
 
@@ -100,7 +105,6 @@ namespace BC
 
 			if (!_AngleSet)
 			{
-				transform.SetEulerAnglesX(90);
 				if (_PlayerId == 1)
 					transform.SetEulerAnglesY(180);
 				_AngleSet = true;
@@ -110,17 +114,18 @@ namespace BC
 #if UNITY_EDITOR
 		public override void EditorUpdate()
 		{
-			base.EditorUpdate();
-
 			_CvsHp = GetComponentInChildren<Canvas>();
 			_ImgHp = transform.FindRecurcive<Image>("hp", true);
 			_Bat = GetComponentInChildren<bat.opt.Bake.BAT_DeepBaker>();
+
+			_CollArr = GetComponents<Coll>();
+			_Tra = GetComponent<BCTra>();
 		}
 
 		void OnDrawGizmos()
 		{
 			Gizmos.color = Color.green;
-			Gizmos.DrawWireSphere(transform.position, 1f);
+			Gizmos.DrawWireSphere(transform.position, 1.5f);
 		}
 #endif
 

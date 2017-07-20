@@ -7,7 +7,8 @@ namespace BC
 {
 	public class BCTra : RMBehaviour
 	{
-		public Vector2Int _Pos;
+		public Vector2Int	_Pos;
+		public Vector2		_Dir;
 
 #if UNITY_EDITOR
 		private void OnDrawGizmos()
