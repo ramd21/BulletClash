@@ -19,9 +19,8 @@ namespace BC
 		public bat.opt.Bake.BAT_DeepBaker _Bat;
 
 
-		protected override void Start()
+		void Start()
 		{
-			base.Start();
 			_CvsHp.gameObject.SetActive(false);
 		}
 
@@ -50,8 +49,9 @@ namespace BC
 
 		protected void UpdateCollReq()
 		{
-			gLen = _CollArr.Length;
-			for (int i = 0; i < gLen; i++)
+			int len;
+			len = _CollArr.Length;
+			for (int i = 0; i < len; i++)
 			{
 				_CollArr[i]._Update = true;
 			}
@@ -59,8 +59,9 @@ namespace BC
 
 		public bool IsHitBullet(Bullet aVS)
 		{
-			gLen = _CollArr.Length;
-			for (int i = 0; i < gLen; i++)
+			int len;
+			len = _CollArr.Length;
+			for (int i = 0; i < len; i++)
 			{
 				if (_CollArr[i].IsHit(aVS._Coll))
 					return true;
@@ -78,7 +79,7 @@ namespace BC
 		{
 			if (_Param.FireInter == 0)
 			{
-				Bullet b = gCharaMan.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
+				Bullet b = CharaMan.i.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
 				if (_PlayerId == 0)
 					b.ActivateReq(_Tra._Pos, Vector2Int.up);
 				else

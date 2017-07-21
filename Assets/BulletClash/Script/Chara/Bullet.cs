@@ -42,22 +42,25 @@ namespace BC
 
 		public void HitBulletCheck()
 		{
+			int vs;
+
 			if (_PlayerId == 0)
-				gVs = 1;
+				vs = 1;
 			else
-				gVs = 0;
+				vs = 0;
 
-			gBulletList = gCharaMan._BulletList[gVs];
+			int len;
+			len = CharaMan.i._BulletList[vs].Count;
 
-			gLen = gBulletList.Count;
-			for (int i = 0; i < gLen; i++)
+			Bullet b;
+			for (int i = 0; i < len; i++)
 			{
-				gB = gBulletList[i];
-				if (gB._State == ActiveState.active)
+				b = CharaMan.i._BulletList[vs][i];
+				if (b._State == ActiveState.active)
 				{
-					if (gB.IsHitBullet(this))
+					if (b.IsHitBullet(this))
 					{
-						gB.DeactivateReq();
+						b.DeactivateReq();
 						DeactivateReq();
 					}
 				}
@@ -66,22 +69,23 @@ namespace BC
 
 		public void HitUnitCheck()
 		{
+			int vs;
 			if (_PlayerId == 0)
-				gVs = 1;
+				vs = 1;
 			else
-				gVs = 0;
+				vs = 0;
 
-			gUnitList = gCharaMan._UnitList[gVs];
-
-			gLen = gUnitList.Count;
-			for (int i = 0; i < gLen; i++)
+			int len;
+			len = CharaMan.i._UnitList[vs].Count;
+			Unit u;
+			for (int i = 0; i < len; i++)
 			{
-				gU = gUnitList[i];
-				if (gU._State == ActiveState.active)
+				u = CharaMan.i._UnitList[vs][i];
+				if (u._State == ActiveState.active)
 				{
-					if (gU.IsHitBullet(this))
+					if (u.IsHitBullet(this))
 					{
-						gU.Dmg(1);
+						u.Dmg(1);
 						DeactivateReq();
 					}
 				}
