@@ -25,6 +25,7 @@ namespace BC
 			unit.gameObject.SetActive(true);
 			unit.transform.parent = _TraDeckUnit;
 			unit.transform.ResetLocalTransform();
+			unit._CvsHp.gameObject.SetActive(false);
 		}
 
 

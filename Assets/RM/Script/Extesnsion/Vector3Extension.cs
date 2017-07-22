@@ -52,17 +52,17 @@ namespace RM
 			return new Vector2(aV3.y, aV3.z);
 		}
 
-		static public Vector3 ToVector3XY(this Vector3 aV3)
+		static public Vector3 ToVector3XY0(this Vector3 aV3)
 		{
 			return new Vector3(aV3.x, aV3.y, 0);
 		}
 
-		static public Vector3 ToVector3XZ(this Vector3 aV3)
+		static public Vector3 ToVector3X0Y(this Vector3 aV3)
 		{
 			return new Vector3(aV3.x, 0, aV3.y);
 		}
 
-		static public Vector3 ToVector3YZ(this Vector3 aV3)
+		static public Vector3 ToVector30XY(this Vector3 aV3)
 		{
 			return new Vector3(0, aV3.x, aV3.y);
 		}

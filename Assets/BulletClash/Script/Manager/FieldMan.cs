@@ -29,7 +29,7 @@ namespace BC
 #if UNITY_EDITOR
 		void OnDrawGizmos()
 		{
-			Gizmos.DrawWireCube(transform.position, _FieldSize.ToVector3XZ() / 10);
+			Gizmos.DrawWireCube(transform.position, _FieldSize.ToVector3XZ() / GameMan.cDistDiv);
 		}
 #endif
 	}

@@ -12,23 +12,35 @@ namespace BC
 
 		public const int cDistDiv = 100;
 
-
-
-		private void Start()
+		bool _Init;
+		protected override void Awake()
 		{
-			UIMan.i.Init();
-			PlayerMan.i.Init();
-			CharaMan.i.Init();
+			base.Awake();
+
+			this.WaitForEndOfFrame(()=> 
+			{
+				UIMan.i.Init();
+				PlayerMan.i.Init();
+				CharaMan.i.Init();
+				CollMan.i.Init();
+				_Init = true;
+			});
 		}
 
 		void FixedUpdate()
 		{
+			if (!_Init)
+				return;
+
 			PlayerMan.i.Act();
 			CharaMan.i.Act();
 		}
 
 		void Update()
 		{
+			if (!_Init)
+				return;
+
 			CharaMan.i.UpdateView();
 		}
 	}

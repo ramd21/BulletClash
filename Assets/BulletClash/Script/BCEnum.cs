@@ -7,5 +7,13 @@
 		active,
 		deactivate_req,
 	}
+
+	public enum CharaType
+	{
+		unit,
+		bullet,
+		tower,
+		max,
+	}
 }
 

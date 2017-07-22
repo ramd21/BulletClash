@@ -13,12 +13,21 @@ namespace BC
 		public BulletParam _ParamDef;
 		public Coll _Coll;
 
+		public void Init(int aPlayerId, BulletType aType)
+		{
+			_PlayerId = aPlayerId;
+			_VSId = (_PlayerId + 1) % 2;
+			_Type = CharaType.bullet;
+			_ParamDef = MasterMan.i._BulletParam[(int)aType];
+			_Coll.Init(_PlayerId, this);
+		}
+
 		public void ActivateReq(Vector2Int aPos, Vector2Int aDir)
 		{
 			gameObject.SetActive(false);
 			_State = ActiveState.activate_req;
 			_Tra._Pos = aPos;
-			_Tra._Dir = aDir;
+			_Tra.SetDir(aDir);
 			_Param = _ParamDef;
 		}
 
@@ -27,41 +36,32 @@ namespace BC
 			_State = ActiveState.deactivate_req;
 		}
 
-		public void Move()
+		public void SetPos()
 		{
-			_Tra._Pos += Vector2Int.RoundToInt(_Tra._Dir.normalized * _Param.Spd);
-			UpdateCollReq();
+			_Tra._Pos += Vector2Int.RoundToInt(_Tra._DirNorm * _Param.Spd);
+			_Coll.UpdatePos();
 		}
-
-		protected void UpdateCollReq()
-		{
-			_Coll._Update = true;
-		}
-
-
 
 		public void HitBulletCheck()
 		{
-			int vs;
-
-			if (_PlayerId == 0)
-				vs = 1;
-			else
-				vs = 0;
-
+			List<Coll> collList;
 			int len;
-			len = CharaMan.i._BulletList[vs].Count;
-
-			Bullet b;
-			for (int i = 0; i < len; i++)
+			Coll c;
+			for (int i = 0; i < 9; i++)
 			{
-				b = CharaMan.i._BulletList[vs][i];
-				if (b._State == ActiveState.active)
+				if (_Coll._CollBlock[i] < 0)
+					continue;
+
+				collList = CollMan.i._BlockCollList[_VSId, (int)CharaType.bullet, _Coll._CollBlock[i]];
+				len = collList.Count;
+
+				for (int j = 0; j < len; j++)
 				{
-					if (b.IsHitBullet(this))
+					c = collList[j];
+					if (_Coll.IsHit(c))
 					{
-						b.DeactivateReq();
 						DeactivateReq();
+						(c._Chara as Bullet).DeactivateReq();
 					}
 				}
 			}
@@ -69,24 +69,24 @@ namespace BC
 
 		public void HitUnitCheck()
 		{
-			int vs;
-			if (_PlayerId == 0)
-				vs = 1;
-			else
-				vs = 0;
-
+			List<Coll> collList;
 			int len;
-			len = CharaMan.i._UnitList[vs].Count;
-			Unit u;
-			for (int i = 0; i < len; i++)
+			Coll c;
+			for (int i = 0; i < 9; i++)
 			{
-				u = CharaMan.i._UnitList[vs][i];
-				if (u._State == ActiveState.active)
+				if (_Coll._CollBlock[i] < 0)
+					continue;
+
+				collList = CollMan.i._BlockCollList[_VSId, (int)CharaType.unit, _Coll._CollBlock[i]];
+				len = collList.Count;
+
+				for (int j = 0; j < len; j++)
 				{
-					if (u.IsHitBullet(this))
+					c = collList[j];
+					if (_Coll.IsHit(c))
 					{
-						u.Dmg(1);
 						DeactivateReq();
+						(c._Chara as Unit).DeactivateReq();
 					}
 				}
 			}
@@ -111,7 +111,7 @@ namespace BC
 		public override void UpdateView()
 		{
 			transform.position = _Tra._Pos.ToVector3XZ() / GameMan.cDistDiv;
-			transform.LookAt(transform.position + _Tra._Dir.ToVector3XZ(), Vector3.up);
+			transform.LookAt(transform.position + _Tra._DirNorm.ToVector3XZ(), Vector3.up);
 		}
 
 #if UNITY_EDITOR

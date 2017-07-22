@@ -12,8 +12,7 @@ namespace BC
 		public List<Bullet>[]	_BulletList;
 		public List<Tower>[]	_TowerList;
 
-
-		Transform[] _TraPlayerParent;
+		public Transform[] _TraPlayerParent;
 
 		//static int len;
 
@@ -34,6 +33,15 @@ namespace BC
 
 			_TraPlayerParent = new Transform[2];
 
+			GameObject go;
+
+			go = new GameObject("player_" + 0);
+			go.transform.parent = transform;
+			_TraPlayerParent[0] = go.transform;
+
+			go = new GameObject("player_" + 1);
+			go.transform.parent = transform;
+			_TraPlayerParent[1] = go.transform;
 		}
 
 		public Unit GetPoolOrNewUnit(int aPlayerId, UnitType aType)
@@ -50,20 +58,9 @@ namespace BC
 
 			u = ResourceMan.i.GetUnit(aType);
 			u = Instantiate(u);
-
-			if (!_TraPlayerParent[aPlayerId])
-			{
-				GameObject go = new GameObject("player_" + aPlayerId);
-				go.transform.parent = transform;
-				_TraPlayerParent[aPlayerId] = go.transform;
-			}
-
 			u.transform.parent = _TraPlayerParent[aPlayerId];
-
-			u._ParamDef = MasterMan.i._UnitParam[(int)aType];
-			u._PlayerId = aPlayerId;
-
 			_UnitList[aPlayerId].Add(u);
+			u.Init(aPlayerId, aType);
 			return u;
 		}
 
@@ -81,19 +78,10 @@ namespace BC
 
 			b = ResourceMan.i.GetBullet(aType);
 			b = Instantiate(b);
-
-			if (!_TraPlayerParent[aPlayerId])
-			{
-				GameObject go = new GameObject("player_" + aPlayerId);
-				go.transform.parent = transform;
-				_TraPlayerParent[aPlayerId] = go.transform;
-			}
-
 			b.transform.parent = _TraPlayerParent[aPlayerId];
-			b._ParamDef = MasterMan.i._BulletParam[(int)aType];
-			b._PlayerId = aPlayerId;
-
 			_BulletList[aPlayerId].Add(b);
+
+			b.Init(aPlayerId, aType);
 			return b;
 		}
 
@@ -163,8 +151,10 @@ namespace BC
 
 			//act>>
 
-			Act(_UnitList, (a) => a.Move());
-			Act(_BulletList, (a) => a.Move());
+			CollMan.i.Clear();
+
+			Act(_UnitList, (a) => a.SetPos());
+			Act(_BulletList, (a) => a.SetPos());
 
 			Act(_TowerList, (a) => a.SearchTage());
 

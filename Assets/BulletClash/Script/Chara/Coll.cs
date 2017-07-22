@@ -12,71 +12,76 @@ namespace BC
 		public Vector2Int _Size;
 		public Vector2Int _Offset;
 
-		int _L;
-		int _R;
-		int _T;
-		int _B;
+		public int _PlayerId;
+		public int[] _CollBlock;
 
-		public bool _Update;
+		public Chara _Chara;
 
-		public int _l
+		public int _L;
+		public int _R;
+		public int _T;
+		public int _B;
+
+		void Awake()
 		{
-			get
-			{
-				if (_Update)
-					UpdateLRTB();
-				return _L;
-			}
-		}
-		public int _r
-		{
-			get
-			{
-				if (_Update)
-					UpdateLRTB();
-				return _R;
-			}
-		}
-		public int _t
-		{
-			get
-			{
-				if (_Update)
-					UpdateLRTB();
-				return _T;
-			}
-		}
-		public int _b
-		{
-			get
-			{
-				if (_Update)
-					UpdateLRTB();
-				return _B;
-			}
+			_CollBlock = new int[9];
 		}
 
-		void UpdateLRTB()
+		public void Init(int aPlayerId, Chara aChara)
 		{
+			_PlayerId = aPlayerId;
+			_Chara = aChara;
+		}
+
+
+		public void UpdatePos()
+		{
+			CollMan collMan = CollMan.i;
+
 			_L = _Tra._Pos.x - _Size.x / 2 + _Offset.x;
 			_R = _Tra._Pos.x + _Size.x / 2 + _Offset.x;
 			_T = _Tra._Pos.y + _Size.y / 2 + _Offset.y;
 			_B = _Tra._Pos.y - _Size.y / 2 + _Offset.y;
-			_Update = false;
+
+
+			int x, y;
+			x = _Tra._Pos.x - collMan._Offset.x + _Offset.x;
+			y = _Tra._Pos.y - collMan._Offset.y + _Offset.y;
+
+			int block = (x / collMan._BlockBase) % collMan._XCnt + (y / collMan._BlockBase) * collMan._XCnt;
+
+			bool isR = block % collMan._XCnt == collMan._XCnt - 1;
+			bool isL = block % collMan._XCnt == 0;
+
+			int val;
+
+			val = block - collMan._XCnt - 1; 			_CollBlock[0] =	isL ? -1 : val >= collMan._CollBlockCnt ? -1 : val;
+			val = block - collMan._XCnt;	 			_CollBlock[1] = val >= collMan._CollBlockCnt ? -1 : val;
+			val = block - collMan._XCnt + 1;	 		_CollBlock[2] = isR ? -1 : val >= collMan._CollBlockCnt ? -1 : val;
+
+			val = block - 1; 							_CollBlock[3] = isL ? -1 : val >= collMan._CollBlockCnt ? -1 : val;
+			val = block;	 							_CollBlock[4] = val >= collMan._CollBlockCnt ? -1 : val;
+			val = block + 1;	 						_CollBlock[5] = isR ? -1 : val >= collMan._CollBlockCnt ? -1 : val;
+
+			val = block + collMan._XCnt - 1; 			_CollBlock[6] = isL ? -1 : val >= collMan._CollBlockCnt ? -1 : val;
+			val = block + collMan._XCnt;	 			_CollBlock[7] = val >= collMan._CollBlockCnt ? -1 : val;
+			val = block + collMan._XCnt + 1;	 		_CollBlock[8] = isR ? -1 : val >= collMan._CollBlockCnt ? -1 : val;
+
+			collMan._BlockCollList[_PlayerId, (int)_Chara._Type, block].Add(this);
 		}
 
 		public bool IsHit(Coll aVS)
 		{
-			if (aVS._t < _b)
+			if (aVS._T < _B)
 				return false;
 
-			if (_t < aVS._b)
+			if (_T < aVS._B)
 				return false;
 
-			if (aVS._r < _l)
+			if (aVS._R < _L)
 				return false;
 
-			if (_r < aVS._l)
+			if (_R < aVS._L)
 				return false;
 
 			return true;

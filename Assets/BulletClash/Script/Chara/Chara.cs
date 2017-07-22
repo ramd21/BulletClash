@@ -9,8 +9,10 @@ namespace BC
 	public abstract class Chara : EditorUpdateBehaviour
 	{
 		public int _PlayerId;
+		public int _VSId;
 		public ActiveState _State;
 		public BCTra _Tra;
+		public CharaType _Type;
 
 		public abstract void UpdateView();
 #if UNITY_EDITOR

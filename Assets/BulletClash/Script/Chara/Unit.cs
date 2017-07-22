@@ -18,10 +18,15 @@ namespace BC
 
 		public bat.opt.Bake.BAT_DeepBaker _Bat;
 
-
-		void Start()
+		public void Init(int aPlayerId, UnitType aType)
 		{
-			_CvsHp.gameObject.SetActive(false);
+			_PlayerId = aPlayerId;
+			_VSId = (_PlayerId + 1) % 2;
+			_Type = CharaType.unit;
+			_ParamDef = MasterMan.i._UnitParam[(int)aType];
+			
+			for (int i = 0; i < _CollArr.Length; i++)
+				_CollArr[i].Init(_PlayerId, this);
 		}
 
 		public void ActivateReq(Vector2Int aPos)
@@ -37,24 +42,15 @@ namespace BC
 			_State = ActiveState.deactivate_req;
 		}
 
-		public void Move()
+		public void SetPos()
 		{
 			if (_PlayerId == 0)
 				_Tra._Pos.y += _Param.Spd;
 			else
 				_Tra._Pos.y -= _Param.Spd;
 
-			UpdateCollReq();
-		}
-
-		protected void UpdateCollReq()
-		{
-			int len;
-			len = _CollArr.Length;
-			for (int i = 0; i < len; i++)
-			{
-				_CollArr[i]._Update = true;
-			}
+			for (int i = 0; i < _CollArr.Length; i++)
+				_CollArr[i].UpdatePos();
 		}
 
 		public bool IsHitBullet(Bullet aVS)
@@ -100,7 +96,6 @@ namespace BC
 		{
 			transform.position = _Tra._Pos.ToVector3XZ() / GameMan.cDistDiv;
 
-			_CvsHp.gameObject.SetActive(true);
 			_ImgHp.fillAmount = (float)_Param.Hp / _ParamDef.Hp;
 
 			if (!_AngleSet)

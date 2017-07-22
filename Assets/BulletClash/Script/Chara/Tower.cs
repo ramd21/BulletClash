@@ -23,12 +23,24 @@ namespace BC
 
 		void Start()
 		{
-			_CvsHp.gameObject.SetActive(false);
 			this.WaitForEndOfFrame(()=> 
 			{
+				Init(_PlayerId);
+				_CvsHp.gameObject.SetActive(false);
 				CharaMan.i._TowerList[_PlayerId].Add(this);
 				ActivateReq(transform.position.ToVector2IntXZ() * GameMan.cDistDiv);
+				_Coll.UpdatePos();
 			});
+		}
+
+		public void Init(int aPlayerId)
+		{
+			_PlayerId = aPlayerId;
+			_VSId = (_PlayerId + 1) % 2;
+			_Type = CharaType.tower;
+			transform.parent = CharaMan.i._TraPlayerParent[_PlayerId];
+			CharaMan.i._TowerList[_PlayerId].Add(this);
+			_Coll.Init(_PlayerId, this);
 		}
 
 		public void ActivateReq(Vector2Int aPos)
