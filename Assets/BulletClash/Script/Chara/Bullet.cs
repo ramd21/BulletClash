@@ -5,6 +5,8 @@ using RM;
 using UnityEngine.UI;
 using System;
 
+	
+
 namespace BC
 {
 	public class Bullet : Chara
@@ -35,9 +37,15 @@ namespace BC
 			_Param = _ParamDef;
 		}
 
-		public void DeactivateReq()
+		public override void DeactivateReq()
 		{
 			_State = ActiveState.deactivate_req;
+		}
+
+		public override void OnDeactivate()
+		{
+			base.OnDeactivate();
+			_Coll.Deactivate();
 		}
 
 		public void SetPos()
@@ -68,17 +76,25 @@ namespace BC
 
 		public void HitBulletCheck()
 		{
-			List<Coll> collList;
-			int len;
+			FastList<Coll> collList;
 			Coll c;
+			int len;
 			for (int i = 0; i < 9; i++)
 			{
-				if (_Coll._CollBlock[i] < 0)
-					continue;
-
+				//Debug.Log(_VSPlayerId);
+				//Debug.Log(_Coll._CollBlock[i]);
 				collList = CollMan.i._BlockCollList[_VSPlayerId, (int)CharaType.bullet, _Coll._CollBlock[i]];
+				
+				//foreach (var item in collList)
+				//{
+				//	c = item.Value;
+				//	if (_Coll.IsHit(c))
+				//	{
+				//		DeactivateReq();
+				//		(c._Chara as Bullet).DeactivateReq();
+				//	}
+				//}
 				len = collList.Count;
-
 				for (int j = 0; j < len; j++)
 				{
 					c = collList[j];
@@ -93,17 +109,35 @@ namespace BC
 
 		public void HitUnitCheck()
 		{
-			List<Coll> collList;
-			int len;
+			FastList<Coll> collList;
 			Coll c;
+			int len;
 			for (int i = 0; i < 9; i++)
 			{
-				if (_Coll._CollBlock[i] < 0)
-					continue;
-
 				collList = CollMan.i._BlockCollList[_VSPlayerId, (int)CharaType.unit, _Coll._CollBlock[i]];
-				len = collList.Count;
+				//foreach (var item in collList)
+				//{
+				//	c = item.Value;
+				//	if (_Coll.IsHit(c))
+				//	{
+				//		DeactivateReq();
+				//		(c._Chara as Unit).DeactivateReq();
+				//	}
+				//}
 
+				//len = collDic.Count;
+
+				//for (int j = 0; j < len; j++)
+				//{
+				//	c = collDic[j];
+				//	if (_Coll.IsHit(c))
+				//	{
+				//		DeactivateReq();
+				//		(c._Chara as Unit).DeactivateReq();
+				//	}
+				//}
+
+				len = collList.Count;
 				for (int j = 0; j < len; j++)
 				{
 					c = collList[j];

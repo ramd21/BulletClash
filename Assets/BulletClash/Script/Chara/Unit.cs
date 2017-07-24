@@ -41,9 +41,16 @@ namespace BC
 			_Param = _ParamDef;
 		}
 
-		public void DeactivateReq()
+		public override void DeactivateReq()
 		{
 			_State = ActiveState.deactivate_req;
+		}
+
+		public override void OnActivate()
+		{
+			base.OnDeactivate();
+			for (int i = 0; i < _CollArr.Length; i++)
+				_CollArr[i].Deactivate();
 		}
 
 		public void SetPos()

@@ -19,6 +19,22 @@ namespace BC
 		{
 			transform.position = (_Tra._Pos + FieldMan.i._Offset).ToVector3XZ() / GameMan.cDistDiv;
 		}
+
+		public virtual void ActivateReq()
+		{
+		}
+
+		public virtual void DeactivateReq()
+		{
+		}
+
+		public virtual void OnActivate()
+		{
+		}
+
+		public virtual void OnDeactivate()
+		{
+		}
 #if UNITY_EDITOR
 		
 #endif

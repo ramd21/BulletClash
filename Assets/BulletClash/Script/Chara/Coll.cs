@@ -18,6 +18,7 @@ namespace BC
 		public int _PlayerId;
 		public int[] _CollBlock;
 
+		int _CollBlockCur;
 		int _CollBlockLast = int.MaxValue;
 
 		public Chara _Chara;
@@ -42,57 +43,76 @@ namespace BC
 
 		public void Deactivate()
 		{
-
+			//CollMan.i._BlockCollList[_PlayerId, (int)_Chara._Type, _CollBlockCur].Remove(_Id);
+			//CollMan.i._BlockCollList[_PlayerId, (int)_Chara._Type, _CollBlockCur].Remove(this);
+			//_CollBlockLast = int.MaxValue;
 		}
 
 		public void UpdatePos()
 		{
-			CollMan collMan = CollMan.i;
 			Vector2Int pos = _Tra._Pos;
+			UpdateLRTB(pos);
+			UpdateCollMan(pos);
+		}
 
-			_L = pos.x - _Size.x / 2 + _Offset.x;
-			_R = pos.x + _Size.x / 2 + _Offset.x;
-			_T = pos.y + _Size.y / 2 + _Offset.y;
-			_B = pos.y - _Size.y / 2 + _Offset.y;
+		void UpdateLRTB(Vector2Int aPos)
+		{
+			int x = aPos.x + _Offset.x;
+			int y = aPos.y + _Offset.y;
+			int sX = _Size.x >> 1;
+			int sY = _Size.y >> 1;
 
+			_L = x - sX;
+			_R = x + sX;
+			_T = y + sY;
+			_B = y - sY;
+		}
+
+		void UpdateCollMan(Vector2Int aPos)
+		{
+			CollMan collMan = CollMan.i;
 
 			int x, y;
-			x = pos.x + _Offset.x;
-			y = pos.y + _Offset.y;
+			x = aPos.x + _Offset.x + collMan._ZeroPosOffset.x;
+			y = aPos.y + _Offset.y + collMan._ZeroPosOffset.y;
 
-			int block = (x / collMan._DivDist) % collMan._XCnt + (y / collMan._DivDist) * collMan._XCnt;
-
-			_CollBlock[0] = block - collMan._XCnt - 1;
-			_CollBlock[1] = block - collMan._XCnt;
-			_CollBlock[2] = block - collMan._XCnt + 1;
-
-			_CollBlock[3] = block - 1;
-			_CollBlock[4] = block;	
-			_CollBlock[5] = block + 1;
-
-			_CollBlock[6] = block + collMan._XCnt - 1;	
-			_CollBlock[7] = block + collMan._XCnt;		
-			_CollBlock[8] = block + collMan._XCnt + 1;
-
-			if (block != _CollBlockLast)
+			_CollBlockCur = (x / collMan._DivDist) % collMan._XCnt + (y / collMan._DivDist) * collMan._XCnt;
+			
+			if (_CollBlockCur != _CollBlockLast)
 			{
-				if (_CollBlockLast != int.MaxValue)
-					collMan._BlockCollList[_PlayerId, (int)_Chara._Type, _CollBlockLast].Remove(this);
-				collMan._BlockCollList[_PlayerId, (int)_Chara._Type, block].Add(this);
+				int a, b, c;
+
+				a = _CollBlockCur - 1;
+				b = _CollBlockCur;
+				c = _CollBlockCur + 1;
+
+				_CollBlock[0] = a - collMan._XCnt;
+				_CollBlock[1] = b - collMan._XCnt;
+				_CollBlock[2] = c - collMan._XCnt;
+
+				_CollBlock[3] = a;
+				_CollBlock[4] = b;
+				_CollBlock[5] = c;
+
+				_CollBlock[6] = a + collMan._XCnt;
+				_CollBlock[7] = b + collMan._XCnt;
+				_CollBlock[8] = c + collMan._XCnt;
+
+				//if (_CollBlockLast != int.MaxValue)
+				//	collMan._BlockCollList[_PlayerId, (int)_Chara._Type, _CollBlockLast].Remove(_Id);
+				//collMan._BlockCollList[_PlayerId, (int)_Chara._Type, _CollBlockCur].Add(_Id, this);
+
+				//if (_CollBlockLast != int.MaxValue)
+				//	collMan._BlockCollList[_PlayerId, (int)_Chara._Type, _CollBlockLast].Remove(this);
+				
 			}
 
-			_CollBlockLast = _CollBlock[4];
+			collMan._BlockCollList[_PlayerId, (int)_Chara._Type, _CollBlockCur].Add(this);
+			_CollBlockLast = _CollBlockCur;
 		}
 
 		public bool IsHit(Coll aVS)
 		{
-			//int dist = RMMath.GetApproxDist(aVS._Tra._Pos, _Tra._Pos);
-			//if (dist < 200)
-			//	return true;
-			//else
-			//	return false;
-
-
 			if (aVS._T < _B)
 				return false;
 
@@ -107,8 +127,6 @@ namespace BC
 
 			return true;
 		}
-
-
 
 #if UNITY_EDITOR
 

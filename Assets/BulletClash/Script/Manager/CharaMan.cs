@@ -99,6 +99,7 @@ namespace BC
 					{
 						t._State = ActiveState.active;
 						t.gameObject.SetActive(true);
+						t.OnActivate();
 					}
 				}
 			}
@@ -118,10 +119,11 @@ namespace BC
 					{
 						t._State = ActiveState.inactive;
 						t.gameObject.SetActive(false);
+						t.OnDeactivate();
 					}
 				}
 			}
-		}
+		} 
 
 		void Act<T>(List<T>[] aCharaList, Action<T> aOnAct) where T : Chara
 		{
@@ -151,7 +153,7 @@ namespace BC
 
 			//act>>
 
-			//CollMan.i.Clear();
+			CollMan.i.Clear();
 
 			Act(_UnitList, (a) => a.SetPos());
 			Act(_BulletList, (a) => a.SetPos());
@@ -159,7 +161,7 @@ namespace BC
 			Act(_TowerList, (a) => a.SearchTage());
 
 			Act(_BulletList, (a) => a.HitBulletCheck());
-			Act(_BulletList, (a) => a.HitUnitCheck());
+			//Act(_BulletList, (a) => a.HitUnitCheck());
 
 			Act(_TowerList, (a) => a.Fire());
 			Act(_UnitList, (a) => a.Fire());

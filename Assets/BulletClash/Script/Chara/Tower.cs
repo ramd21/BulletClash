@@ -56,6 +56,7 @@ namespace BC
 		public void DeactivateReq()
 		{
 			_State = ActiveState.deactivate_req;
+
 		}
 
 		public bool IsHitBullet(Bullet aVS)
