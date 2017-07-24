@@ -17,7 +17,6 @@ namespace RM
 		public string _DeplayGateUserName;
 		public string _DeplayGateToken;
 		public UnityEngine.Object _CurlExe;
-		public bool _IL2CPP;
 
 		string _filePath { get { return Directory.GetCurrentDirectory() + "/" + Application.productName + ".apk"; } }
 
@@ -35,20 +34,28 @@ namespace RM
 		{
 			EditorPrefs.SetBool("build_android", true);
 
+			if (!Directory.Exists(Directory.GetCurrentDirectory() + "/BuildHistory"))
+				Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/BuildHistory");
+
+			if (File.Exists(_filePath))
+			{
+				string[] strFileArr = Directory.GetFiles(Directory.GetCurrentDirectory() + "/BuildHistory/");
+
+				int last = 0;
+				if (strFileArr.Length != 0)
+					last = Path.GetFileNameWithoutExtension(strFileArr[strFileArr.Length - 1]).Split('_')[1].ToInt();
+
+				File.Move(_filePath, Directory.GetCurrentDirectory() + "/BuildHistory/" + Application.productName + "_" + (last + 1) + ".apk");
+			}
+
 			UnityEngine.Debug.Log("start build android");
 			string filePath = Directory.GetCurrentDirectory() + "/" + Application.productName + ".apk";
-
-			BuildOptions opt = BuildOptions.None;
-			if (_IL2CPP)
-				opt |= BuildOptions.Il2CPP;
-
-
 			BuildPipeline.BuildPlayer
 			(
 				EditorBuildSettings.scenes.Where(i => i.enabled).ToArray(),
 				filePath,
 				BuildTarget.Android,
-				opt
+				BuildOptions.None
 			);
 		}
 
@@ -56,8 +63,10 @@ namespace RM
 		public int _Deploy;
 		void Deploy()
 		{
-			EditorPrefs.SetBool("deploy", true);
+			if (!File.Exists(_filePath))
+				return;
 
+			EditorPrefs.SetBool("deploy", true);
 			UnityEngine.Debug.Log("start deploy");
 			string arg = " -F \"token=" + _DeplayGateToken + "\" -F \"file=@" + _filePath + "\" https://deploygate.com/api/users/" + _DeplayGateUserName + "/apps";
 			ProcessStartInfo psi = new ProcessStartInfo();
@@ -77,11 +86,11 @@ namespace RM
 				EditorPrefs.SetBool("build android and deploy", false);
 			}
 
-			if (EditorPrefs.GetBool("deploy", false))
-			{
-				UnityEngine.Debug.Log("done deploy");
-				EditorPrefs.SetBool("deploy", false);
-			}
+			//if (EditorPrefs.GetBool("deploy", false))
+			//{
+			//	UnityEngine.Debug.Log("done deploy");
+			//	EditorPrefs.SetBool("deploy", false);
+			//}
 
 			if (EditorPrefs.GetBool("build_android", false))
 			{

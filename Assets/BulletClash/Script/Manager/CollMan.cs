@@ -30,8 +30,6 @@ namespace BC
 						_BlockCollList[i, j, k] = new List<Coll>(100);
 				}
 			}
-
-			
 		}
 
 		public void Clear()
@@ -49,9 +47,13 @@ namespace BC
 
 
 #if UNITY_EDITOR
+		public Color _Color;
+
 		void OnDrawGizmos()
 		{
 			_BlockCnt = _XCnt * _YCnt;
+
+			Gizmos.color = _Color;
 
 			Vector3 posA, posB;
 
@@ -89,13 +91,6 @@ namespace BC
 				labelPos = transform.position + Vector3.right * _DivDist * (i % _XCnt) + Vector3.forward * _DivDist * (i / _XCnt);
 				labelPos += Vector3.forward * _DivDist / 2;
 				labelPos += Vector3.right * _DivDist / 2;
-				//int x, y;
-				//int morton;
-				//x = (int)(labelPos.x / _DivDist);
-				//y = (int)(labelPos.z / _DivDist);
-
-				//morton = Get2DMortonNumber((ushort)x, (ushort)y);
-
 				Handles.Label((labelPos + _Offset.ToVector3XZ()) / GameMan.cDistDiv, i.ToString(), gs);
 			}
 		}

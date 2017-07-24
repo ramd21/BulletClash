@@ -37,41 +37,44 @@ namespace BC
 		public void UpdatePos()
 		{
 			CollMan collMan = CollMan.i;
+			Vector2Int pos = _Tra._Pos;
 
-			_L = _Tra._Pos.x - _Size.x / 2 + _Offset.x;
-			_R = _Tra._Pos.x + _Size.x / 2 + _Offset.x;
-			_T = _Tra._Pos.y + _Size.y / 2 + _Offset.y;
-			_B = _Tra._Pos.y - _Size.y / 2 + _Offset.y;
+			_L = pos.x - _Size.x / 2 + _Offset.x;
+			_R = pos.x + _Size.x / 2 + _Offset.x;
+			_T = pos.y + _Size.y / 2 + _Offset.y;
+			_B = pos.y - _Size.y / 2 + _Offset.y;
 
 
 			int x, y;
-			x = _Tra._Pos.x + _Offset.x;
-			y = _Tra._Pos.y + _Offset.y;
+			x = pos.x + _Offset.x;
+			y = pos.y + _Offset.y;
 
 			int block = (x / collMan._DivDist) % collMan._XCnt + (y / collMan._DivDist) * collMan._XCnt;
 
-			bool isR = block % collMan._XCnt == collMan._XCnt - 1;
-			bool isL = block % collMan._XCnt == 0;
+			_CollBlock[0] = block - collMan._XCnt - 1;
+			_CollBlock[1] = block - collMan._XCnt;
+			_CollBlock[2] = block - collMan._XCnt + 1;
 
-			int val;
+			_CollBlock[3] = block - 1;
+			_CollBlock[4] = block;	
+			_CollBlock[5] = block + 1;
 
-			val = block - collMan._XCnt - 1; 			_CollBlock[0] =	isL ? -1 : val >= collMan._BlockCnt ? -1 : val;
-			val = block - collMan._XCnt;	 			_CollBlock[1] = val >= collMan._BlockCnt ? -1 : val;
-			val = block - collMan._XCnt + 1;	 		_CollBlock[2] = isR ? -1 : val >= collMan._BlockCnt ? -1 : val;
-
-			val = block - 1; 							_CollBlock[3] = isL ? -1 : val >= collMan._BlockCnt ? -1 : val;
-			val = block;	 							_CollBlock[4] = val >= collMan._BlockCnt ? -1 : val;
-			val = block + 1;	 						_CollBlock[5] = isR ? -1 : val >= collMan._BlockCnt ? -1 : val;
-
-			val = block + collMan._XCnt - 1; 			_CollBlock[6] = isL ? -1 : val >= collMan._BlockCnt ? -1 : val;
-			val = block + collMan._XCnt;	 			_CollBlock[7] = val >= collMan._BlockCnt ? -1 : val;
-			val = block + collMan._XCnt + 1;	 		_CollBlock[8] = isR ? -1 : val >= collMan._BlockCnt ? -1 : val;
+			_CollBlock[6] = block + collMan._XCnt - 1;	
+			_CollBlock[7] = block + collMan._XCnt;		
+			_CollBlock[8] = block + collMan._XCnt + 1;	
 
 			collMan._BlockCollList[_PlayerId, (int)_Chara._Type, block].Add(this);
 		}
 
 		public bool IsHit(Coll aVS)
 		{
+			//int dist = RMMath.GetApproxDist(aVS._Tra._Pos, _Tra._Pos);
+			//if (dist < 200)
+			//	return true;
+			//else
+			//	return false;
+
+
 			if (aVS._T < _B)
 				return false;
 
