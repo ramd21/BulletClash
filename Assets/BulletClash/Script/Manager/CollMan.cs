@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using RM;
 using System;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 namespace BC
 {
