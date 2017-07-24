@@ -50,22 +50,35 @@ namespace BC
 
 			int block = (x / collMan._DivDist) % collMan._XCnt + (y / collMan._DivDist) * collMan._XCnt;
 
-			bool isR = block % collMan._XCnt == collMan._XCnt - 1;
-			bool isL = block % collMan._XCnt == 0;
+			//bool isR = block % collMan._XCnt == collMan._XCnt - 1;
+			//bool isL = block % collMan._XCnt == 0;
 
 			int val;
 
-			val = block - collMan._XCnt - 1; 			_CollBlock[0] =	isL ? -1 : val >= collMan._BlockCnt ? -1 : val;
-			val = block - collMan._XCnt;	 			_CollBlock[1] = val >= collMan._BlockCnt ? -1 : val;
-			val = block - collMan._XCnt + 1;	 		_CollBlock[2] = isR ? -1 : val >= collMan._BlockCnt ? -1 : val;
+			//val = block - collMan._XCnt - 1; 			_CollBlock[0] =	isL ? -1 : val >= collMan._BlockCnt ? -1 : val;
+			//val = block - collMan._XCnt;	 			_CollBlock[1] = val >= collMan._BlockCnt ? -1 : val;
+			//val = block - collMan._XCnt + 1;	 		_CollBlock[2] = isR ? -1 : val >= collMan._BlockCnt ? -1 : val;
 
-			val = block - 1; 							_CollBlock[3] = isL ? -1 : val >= collMan._BlockCnt ? -1 : val;
-			val = block;	 							_CollBlock[4] = val >= collMan._BlockCnt ? -1 : val;
-			val = block + 1;	 						_CollBlock[5] = isR ? -1 : val >= collMan._BlockCnt ? -1 : val;
+			//val = block - 1; 							_CollBlock[3] = isL ? -1 : val >= collMan._BlockCnt ? -1 : val;
+			//val = block;	 							_CollBlock[4] = val >= collMan._BlockCnt ? -1 : val;
+			//val = block + 1;	 						_CollBlock[5] = isR ? -1 : val >= collMan._BlockCnt ? -1 : val;
 
-			val = block + collMan._XCnt - 1; 			_CollBlock[6] = isL ? -1 : val >= collMan._BlockCnt ? -1 : val;
-			val = block + collMan._XCnt;	 			_CollBlock[7] = val >= collMan._BlockCnt ? -1 : val;
-			val = block + collMan._XCnt + 1;	 		_CollBlock[8] = isR ? -1 : val >= collMan._BlockCnt ? -1 : val;
+			//val = block + collMan._XCnt - 1; 			_CollBlock[6] = isL ? -1 : val >= collMan._BlockCnt ? -1 : val;
+			//val = block + collMan._XCnt;	 			_CollBlock[7] = val >= collMan._BlockCnt ? -1 : val;
+			//val = block + collMan._XCnt + 1;	 		_CollBlock[8] = isR ? -1 : val >= collMan._BlockCnt ? -1 : val;
+
+
+			val = block - collMan._XCnt - 1;			_CollBlock[0] = val;
+			val = block - collMan._XCnt;				_CollBlock[1] = val;
+			val = block - collMan._XCnt + 1;			_CollBlock[2] = val;
+
+			val = block - 1;							_CollBlock[3] = val;
+			val = block;								_CollBlock[4] = val;
+			val = block + 1;							_CollBlock[5] = val;
+
+			val = block + collMan._XCnt - 1;			_CollBlock[6] = val;
+			val = block + collMan._XCnt;				_CollBlock[7] = val;
+			val = block + collMan._XCnt + 1;			_CollBlock[8] = val;
 
 			collMan._BlockCollList[_PlayerId, (int)_Chara._Type, block].Add(this);
 		}
