@@ -19,6 +19,7 @@ namespace RM
 		public UnityEngine.Object _CurlExe;
 
 		public bool _IL2CPP;
+		public bool _Development;
 
 		string _filePath { get { return Directory.GetCurrentDirectory() + "/" + Application.productName + ".apk"; } }
 
@@ -56,7 +57,10 @@ namespace RM
 			BuildOptions opt = BuildOptions.None;
 
 			if (_IL2CPP)
-				opt = BuildOptions.Il2CPP;
+				opt |= BuildOptions.Il2CPP;
+
+			if(_Development)
+				opt |= BuildOptions.Development;
 
 			BuildPipeline.BuildPlayer
 			(
