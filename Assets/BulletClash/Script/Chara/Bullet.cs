@@ -33,8 +33,8 @@ namespace BC
 			gameObject.SetActive(false);
 			_State = ActiveState.activate_req;
 			_Tra._Pos = aPos;
-			_Tra.SetDir(aDir);
 			_Param = _ParamDef;
+			_Tra.SetDir(aDir, _Param.Spd);
 		}
 
 		public override void DeactivateReq()
@@ -50,26 +50,30 @@ namespace BC
 
 		public void SetPos()
 		{
-			_Tra._Pos += Vector2Int.RoundToInt(_Tra._DirNorm * _Param.Spd);
+			_Tra._Pos += _Tra._Move;
 
 			if (_Tra._Pos.y > FieldMan.i._Size.y)
 			{
 				DeactivateReq();
+				return;
 			}
 
 			if (_Tra._Pos.y < 0)
 			{
 				DeactivateReq();
+				return;
 			}
 
 			if (_Tra._Pos.x > FieldMan.i._Size.x)
 			{
 				DeactivateReq();
+				return;
 			}
 
 			if (_Tra._Pos.x < 0)
 			{
 				DeactivateReq();
+				return;
 			}
 			_Coll.UpdatePos();
 		}
@@ -81,19 +85,7 @@ namespace BC
 			int len;
 			for (int i = 0; i < 9; i++)
 			{
-				//Debug.Log(_VSPlayerId);
-				//Debug.Log(_Coll._CollBlock[i]);
-				collList = CollMan.i._BlockCollList[_VSPlayerId, (int)CharaType.bullet, _Coll._CollBlock[i]];
-				
-				//foreach (var item in collList)
-				//{
-				//	c = item.Value;
-				//	if (_Coll.IsHit(c))
-				//	{
-				//		DeactivateReq();
-				//		(c._Chara as Bullet).DeactivateReq();
-				//	}
-				//}
+				collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.bullet, _Coll._CollBlock[i]);
 				len = collList.Count;
 				for (int j = 0; j < len; j++)
 				{
@@ -114,29 +106,7 @@ namespace BC
 			int len;
 			for (int i = 0; i < 9; i++)
 			{
-				collList = CollMan.i._BlockCollList[_VSPlayerId, (int)CharaType.unit, _Coll._CollBlock[i]];
-				//foreach (var item in collList)
-				//{
-				//	c = item.Value;
-				//	if (_Coll.IsHit(c))
-				//	{
-				//		DeactivateReq();
-				//		(c._Chara as Unit).DeactivateReq();
-				//	}
-				//}
-
-				//len = collDic.Count;
-
-				//for (int j = 0; j < len; j++)
-				//{
-				//	c = collDic[j];
-				//	if (_Coll.IsHit(c))
-				//	{
-				//		DeactivateReq();
-				//		(c._Chara as Unit).DeactivateReq();
-				//	}
-				//}
-
+				collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.unit, _Coll._CollBlock[i]);
 				len = collList.Count;
 				for (int j = 0; j < len; j++)
 				{
@@ -144,15 +114,10 @@ namespace BC
 					if (_Coll.IsHit(c))
 					{
 						DeactivateReq();
-						(c._Chara as Unit).DeactivateReq();
+						(c._Chara as Unit).Dmg(1);
 					}
 				}
 			}
-		}
-
-		public bool IsHitBullet(Bullet aVS)
-		{
-			return _Coll.IsHit(aVS._Coll);
 		}
 
 		public void DecTimer()
@@ -169,7 +134,7 @@ namespace BC
 		public override void UpdateView()
 		{
 			base.UpdateView();
-			transform.LookAt(transform.position + _Tra._DirNorm.ToVector3XZ(), Vector3.up);
+			transform.LookAt(transform.position + _Tra._Dir.ToVector3XZ(), Vector3.up);
 		}
 
 #if UNITY_EDITOR

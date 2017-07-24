@@ -40,7 +40,7 @@ namespace BC
 
 			_PlayerId = aPlayerId;
 			_VSPlayerId = (_PlayerId + 1) % 2;
-			_Type = CharaType.tower;
+			_Type = CharaType.unit;
 
 			_Coll.InstantiateInit(_PlayerId, this);
 		}

@@ -63,11 +63,14 @@ namespace BC
 			if (_Tra._Pos.y > FieldMan.i._Size.y)
 			{
 				DeactivateReq();
+				return;
 			}
 
 			if (_Tra._Pos.y < 0)
 			{
 				DeactivateReq();
+				return;
+
 			}
 
 			for (int i = 0; i < _CollArr.Length; i++)

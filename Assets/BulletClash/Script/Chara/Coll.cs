@@ -28,6 +28,9 @@ namespace BC
 		public int _T;
 		public int _B;
 
+		int _OffsetX;
+		int _OffsetY;
+
 		void Awake()
 		{
 			_CollBlock = new int[9];
@@ -39,6 +42,9 @@ namespace BC
 			_Chara = aChara;
 			_Id = gCnt;
 			gCnt++;
+
+			_OffsetX = _Offset.x + CollMan.i._ZeroPosOffset.x;
+			_OffsetY = _Offset.y + CollMan.i._ZeroPosOffset.y;
 		}
 
 		public void Deactivate()
@@ -51,14 +57,8 @@ namespace BC
 		public void UpdatePos()
 		{
 			Vector2Int pos = _Tra._Pos;
-			UpdateLRTB(pos);
-			UpdateCollMan(pos);
-		}
-
-		void UpdateLRTB(Vector2Int aPos)
-		{
-			int x = aPos.x + _Offset.x;
-			int y = aPos.y + _Offset.y;
+			int x = pos.x + _Offset.x;
+			int y = pos.y + _Offset.y;
 			int sX = _Size.x >> 1;
 			int sY = _Size.y >> 1;
 
@@ -66,15 +66,12 @@ namespace BC
 			_R = x + sX;
 			_T = y + sY;
 			_B = y - sY;
-		}
 
-		void UpdateCollMan(Vector2Int aPos)
-		{
+
 			CollMan collMan = CollMan.i;
 
-			int x, y;
-			x = aPos.x + _Offset.x + collMan._ZeroPosOffset.x;
-			y = aPos.y + _Offset.y + collMan._ZeroPosOffset.y;
+			x = pos.x + _OffsetX;
+			y = pos.y + _OffsetY;
 
 			_CollBlockCur = (x / collMan._DivDist) % collMan._XCnt + (y / collMan._DivDist) * collMan._XCnt;
 			
@@ -97,17 +94,9 @@ namespace BC
 				_CollBlock[6] = a + collMan._XCnt;
 				_CollBlock[7] = b + collMan._XCnt;
 				_CollBlock[8] = c + collMan._XCnt;
-
-				//if (_CollBlockLast != int.MaxValue)
-				//	collMan._BlockCollList[_PlayerId, (int)_Chara._Type, _CollBlockLast].Remove(_Id);
-				//collMan._BlockCollList[_PlayerId, (int)_Chara._Type, _CollBlockCur].Add(_Id, this);
-
-				//if (_CollBlockLast != int.MaxValue)
-				//	collMan._BlockCollList[_PlayerId, (int)_Chara._Type, _CollBlockLast].Remove(this);
-				
 			}
 
-			collMan._BlockCollList[_PlayerId, (int)_Chara._Type, _CollBlockCur].Add(this);
+			collMan.AddColl(this, _PlayerId, _Chara._Type, _CollBlockCur);
 			_CollBlockLast = _CollBlockCur;
 		}
 

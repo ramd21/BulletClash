@@ -16,42 +16,44 @@ namespace BC
 		public int _YCnt;
 		public Vector2Int _ZeroPosOffset;
 
-		//public List<Coll>[,,] _BlockCollList;
-
-		public FastList<Coll>[,,] _BlockCollList;
+		FastList<Coll>[] _BlockCollList;
 		public int _BlockCnt;
+
+		int _Max;
+		int _PlayerOffset;
 
 		public void Init()
 		{
-			_BlockCollList = new FastList<Coll>[2, (int)CharaType.max, _XCnt * _YCnt];
-			for (int i = 0; i < 2; i++)
+			_BlockCnt = _XCnt * _YCnt;
+			_Max = 2 * (int)CharaType.max * _BlockCnt;
+			_BlockCollList = new FastList<Coll>[_Max];
+			for (int i = 0; i < _Max; i++)
 			{
-				for (int j = 0; j < (int)CharaType.max; j++)
-				{
-					for (int k = 0; k < _BlockCollList.GetLength(2); k++)
-						_BlockCollList[i, j, k] = new FastList<Coll>(50, 10);
-				}
+				_BlockCollList[i] = new FastList<Coll>(50, 10);
 			}
+
+			_PlayerOffset = _BlockCnt * (int)CharaType.max;
 		}
 
 		public void Clear()
 		{
-			int len, len2;
-			len = (int)CharaType.max;
-			for (int i = 0; i < 2; i++)
+			for (int i = 0; i < _Max; i++)
 			{
-				for (int j = 0; j < len; j++)
-				{
-					len2 = _BlockCollList.GetLength(2);
-					for (int k = 0; k < len2; k++)
-					{
-						_BlockCollList[i, j, k].Clear();
-						_BlockCollList[i, j, k].Clear();
-					}
-				}
+				_BlockCollList[i].Clear();
 			}
 		}
 
+		public void AddColl(Coll aAdd, int aPlayerId, CharaType aType, int aBlock)
+		{
+			int pos = (_PlayerOffset * aPlayerId) + (_BlockCnt * (int)aType) + aBlock;
+			_BlockCollList[pos].Add(aAdd);
+		}
+
+		public FastList<Coll> GetCollList(int aPlayerId, CharaType aType, int aBlock)
+		{
+			int pos = (_PlayerOffset * aPlayerId) + (_BlockCnt * (int)aType) + aBlock;
+			return _BlockCollList[pos];
+		}
 
 #if UNITY_EDITOR
 		public Color _Color;

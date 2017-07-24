@@ -12,7 +12,6 @@
 	{
 		unit,
 		bullet,
-		tower,
 		max,
 	}
 }
