@@ -53,6 +53,16 @@ namespace BC
 			else
 				_Tra._Pos.y -= _Param.Spd;
 
+			if (_Tra._Pos.y > FieldMan.i._Size.y)
+			{
+				DeactivateReq();
+			}
+
+			if (_Tra._Pos.y < 0)
+			{
+				DeactivateReq();
+			}
+
 			for (int i = 0; i < _CollArr.Length; i++)
 				_CollArr[i].UpdatePos();
 		}

@@ -43,6 +43,26 @@ namespace BC
 		public void SetPos()
 		{
 			_Tra._Pos += Vector2Int.RoundToInt(_Tra._DirNorm * _Param.Spd);
+
+			if (_Tra._Pos.y > FieldMan.i._Size.y)
+			{
+				DeactivateReq();
+			}
+
+			if (_Tra._Pos.y < 0)
+			{
+				DeactivateReq();
+			}
+
+			if (_Tra._Pos.x > FieldMan.i._Size.x)
+			{
+				DeactivateReq();
+			}
+
+			if (_Tra._Pos.x < 0)
+			{
+				DeactivateReq();
+			}
 			_Coll.UpdatePos();
 		}
 
