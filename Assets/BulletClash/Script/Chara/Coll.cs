@@ -8,12 +8,17 @@ namespace BC
 {
 	public class Coll : EditorUpdateBehaviour
 	{
+		static int gCnt;
+
+		public int _Id;
 		public BCTra _Tra;
 		public Vector2Int _Size;
 		public Vector2Int _Offset;
 
 		public int _PlayerId;
 		public int[] _CollBlock;
+
+		int _CollBlockLast = int.MaxValue;
 
 		public Chara _Chara;
 
@@ -31,8 +36,14 @@ namespace BC
 		{
 			_PlayerId = aPlayerId;
 			_Chara = aChara;
+			_Id = gCnt;
+			gCnt++;
 		}
 
+		public void Deactivate()
+		{
+
+		}
 
 		public void UpdatePos()
 		{
@@ -61,9 +72,16 @@ namespace BC
 
 			_CollBlock[6] = block + collMan._XCnt - 1;	
 			_CollBlock[7] = block + collMan._XCnt;		
-			_CollBlock[8] = block + collMan._XCnt + 1;	
+			_CollBlock[8] = block + collMan._XCnt + 1;
 
-			collMan._BlockCollList[_PlayerId, (int)_Chara._Type, block].Add(this);
+			if (block != _CollBlockLast)
+			{
+				if (_CollBlockLast != int.MaxValue)
+					collMan._BlockCollList[_PlayerId, (int)_Chara._Type, _CollBlockLast].Remove(this);
+				collMan._BlockCollList[_PlayerId, (int)_Chara._Type, block].Add(this);
+			}
+
+			_CollBlockLast = _CollBlock[4];
 		}
 
 		public bool IsHit(Coll aVS)

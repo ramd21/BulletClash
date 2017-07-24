@@ -151,7 +151,7 @@ namespace BC
 
 			//act>>
 
-			CollMan.i.Clear();
+			//CollMan.i.Clear();
 
 			Act(_UnitList, (a) => a.SetPos());
 			Act(_BulletList, (a) => a.SetPos());

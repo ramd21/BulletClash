@@ -15,6 +15,8 @@ namespace BC
 		public int _XCnt;
 		public int _YCnt;
 		public Vector2Int _Offset;
+		//public List<Coll>[,,] _BlockCollList;
+
 		public List<Coll>[,,] _BlockCollList;
 		public int _BlockCnt;
 
@@ -27,28 +29,28 @@ namespace BC
 				for (int j = 0; j < (int)CharaType.max; j++)
 				{
 					for (int k = 0; k < _BlockCollList.GetLength(2); k++)
-						_BlockCollList[i, j, k] = new List<Coll>(100);
+						_BlockCollList[i, j, k] = new List<Coll>(50);
 				}
 			}
 		}
 
-		public void Clear()
-		{
-			for (int i = 0; i < 2; i++)
-			{
-				for (int j = 0; j < (int)CharaType.max; j++)
-				{
-					for (int k = 0; k < _BlockCollList.GetLength(2); k++)
-						_BlockCollList[i, j, k].Clear();
-				}
-			}
-		}
+		//public void Clear()
+		//{
+		//	for (int i = 0; i < 2; i++)
+		//	{
+		//		for (int j = 0; j < (int)CharaType.max; j++)
+		//		{
+		//			for (int k = 0; k < _BlockCollList.GetLength(2); k++)
+		//				_BlockCollList[i, j, k].Clear();
+		//		}
+		//	}
+		//}
 
 
 
 #if UNITY_EDITOR
 		public Color _Color;
-
+		public bool _ShowNum;
 		void OnDrawGizmos()
 		{
 			_BlockCnt = _XCnt * _YCnt;
@@ -79,6 +81,9 @@ namespace BC
 				Gizmos.DrawLine(posA / GameMan.cDistDiv, posB / GameMan.cDistDiv);
 			}
 
+
+			if (!_ShowNum)
+				return;
 			//ラベル
 			Vector3 labelPos;
 			GUIStyle gs = new GUIStyle();
