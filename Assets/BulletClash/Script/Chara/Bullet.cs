@@ -9,17 +9,21 @@ namespace BC
 {
 	public class Bullet : Chara
 	{
+		static int gCnt;
 		public BulletParam _Param;
 		public BulletParam _ParamDef;
 		public Coll _Coll;
 
-		public void Init(int aPlayerId, BulletType aType)
+		public void InstantiateInit(int aPlayerId, BulletType aType)
 		{
+			_Id = gCnt;
+			gCnt++;
+
 			_PlayerId = aPlayerId;
-			_VSId = (_PlayerId + 1) % 2;
+			_VSPlayerId = (_PlayerId + 1) % 2;
 			_Type = CharaType.bullet;
 			_ParamDef = MasterMan.i._BulletParam[(int)aType];
-			_Coll.Init(_PlayerId, this);
+			_Coll.InstantiateInit(_PlayerId, this);
 		}
 
 		public void ActivateReq(Vector2Int aPos, Vector2Int aDir)
@@ -52,7 +56,7 @@ namespace BC
 				if (_Coll._CollBlock[i] < 0)
 					continue;
 
-				collList = CollMan.i._BlockCollList[_VSId, (int)CharaType.bullet, _Coll._CollBlock[i]];
+				collList = CollMan.i._BlockCollList[_VSPlayerId, (int)CharaType.bullet, _Coll._CollBlock[i]];
 				len = collList.Count;
 
 				for (int j = 0; j < len; j++)
@@ -77,7 +81,7 @@ namespace BC
 				if (_Coll._CollBlock[i] < 0)
 					continue;
 
-				collList = CollMan.i._BlockCollList[_VSId, (int)CharaType.unit, _Coll._CollBlock[i]];
+				collList = CollMan.i._BlockCollList[_VSPlayerId, (int)CharaType.unit, _Coll._CollBlock[i]];
 				len = collList.Count;
 
 				for (int j = 0; j < len; j++)
@@ -110,7 +114,7 @@ namespace BC
 
 		public override void UpdateView()
 		{
-			transform.position = _Tra._Pos.ToVector3XZ() / GameMan.cDistDiv;
+			base.UpdateView();
 			transform.LookAt(transform.position + _Tra._DirNorm.ToVector3XZ(), Vector3.up);
 		}
 

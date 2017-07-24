@@ -27,7 +27,7 @@ namespace BC
 			_CollBlock = new int[9];
 		}
 
-		public void Init(int aPlayerId, Chara aChara)
+		public void InstantiateInit(int aPlayerId, Chara aChara)
 		{
 			_PlayerId = aPlayerId;
 			_Chara = aChara;
@@ -45,27 +45,27 @@ namespace BC
 
 
 			int x, y;
-			x = _Tra._Pos.x - collMan._Offset.x + _Offset.x;
-			y = _Tra._Pos.y - collMan._Offset.y + _Offset.y;
+			x = _Tra._Pos.x + _Offset.x;
+			y = _Tra._Pos.y + _Offset.y;
 
-			int block = (x / collMan._BlockBase) % collMan._XCnt + (y / collMan._BlockBase) * collMan._XCnt;
+			int block = (x / collMan._DivDist) % collMan._XCnt + (y / collMan._DivDist) * collMan._XCnt;
 
 			bool isR = block % collMan._XCnt == collMan._XCnt - 1;
 			bool isL = block % collMan._XCnt == 0;
 
 			int val;
 
-			val = block - collMan._XCnt - 1; 			_CollBlock[0] =	isL ? -1 : val >= collMan._CollBlockCnt ? -1 : val;
-			val = block - collMan._XCnt;	 			_CollBlock[1] = val >= collMan._CollBlockCnt ? -1 : val;
-			val = block - collMan._XCnt + 1;	 		_CollBlock[2] = isR ? -1 : val >= collMan._CollBlockCnt ? -1 : val;
+			val = block - collMan._XCnt - 1; 			_CollBlock[0] =	isL ? -1 : val >= collMan._BlockCnt ? -1 : val;
+			val = block - collMan._XCnt;	 			_CollBlock[1] = val >= collMan._BlockCnt ? -1 : val;
+			val = block - collMan._XCnt + 1;	 		_CollBlock[2] = isR ? -1 : val >= collMan._BlockCnt ? -1 : val;
 
-			val = block - 1; 							_CollBlock[3] = isL ? -1 : val >= collMan._CollBlockCnt ? -1 : val;
-			val = block;	 							_CollBlock[4] = val >= collMan._CollBlockCnt ? -1 : val;
-			val = block + 1;	 						_CollBlock[5] = isR ? -1 : val >= collMan._CollBlockCnt ? -1 : val;
+			val = block - 1; 							_CollBlock[3] = isL ? -1 : val >= collMan._BlockCnt ? -1 : val;
+			val = block;	 							_CollBlock[4] = val >= collMan._BlockCnt ? -1 : val;
+			val = block + 1;	 						_CollBlock[5] = isR ? -1 : val >= collMan._BlockCnt ? -1 : val;
 
-			val = block + collMan._XCnt - 1; 			_CollBlock[6] = isL ? -1 : val >= collMan._CollBlockCnt ? -1 : val;
-			val = block + collMan._XCnt;	 			_CollBlock[7] = val >= collMan._CollBlockCnt ? -1 : val;
-			val = block + collMan._XCnt + 1;	 		_CollBlock[8] = isR ? -1 : val >= collMan._CollBlockCnt ? -1 : val;
+			val = block + collMan._XCnt - 1; 			_CollBlock[6] = isL ? -1 : val >= collMan._BlockCnt ? -1 : val;
+			val = block + collMan._XCnt;	 			_CollBlock[7] = val >= collMan._BlockCnt ? -1 : val;
+			val = block + collMan._XCnt + 1;	 		_CollBlock[8] = isR ? -1 : val >= collMan._BlockCnt ? -1 : val;
 
 			collMan._BlockCollList[_PlayerId, (int)_Chara._Type, block].Add(this);
 		}
@@ -94,7 +94,16 @@ namespace BC
 		private void OnDrawGizmos()
 		{
 			Gizmos.color = Color.yellow;
-			Gizmos.DrawWireCube(transform.position + _Offset.ToVector3XZ() / GameMan.cDistDiv, _Size.ToVector3XZ() / GameMan.cDistDiv);
+
+			if (Application.isPlaying)
+			{
+				Vector3 pos = (_Tra._Pos + FieldMan.i._Offset).ToVector3XZ() / GameMan.cDistDiv;
+				Gizmos.DrawWireCube(pos, _Size.ToVector3XZ() / GameMan.cDistDiv);
+			}
+			else
+			{
+				Gizmos.DrawWireCube(transform.position + _Offset.ToVector3XZ() / GameMan.cDistDiv, _Size.ToVector3XZ() / GameMan.cDistDiv);
+			}
 		}
 
 		public override void EditorUpdate()

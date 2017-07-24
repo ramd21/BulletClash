@@ -8,6 +8,7 @@ namespace BC
 {
 	public class Unit : Chara
 	{
+		static int gCnt;
 		public UnitParam _Param;
 		public UnitParam _ParamDef;
 		public Canvas _CvsHp;
@@ -18,15 +19,18 @@ namespace BC
 
 		public bat.opt.Bake.BAT_DeepBaker _Bat;
 
-		public void Init(int aPlayerId, UnitType aType)
+		public void InstantiateInit(int aPlayerId, UnitType aType)
 		{
+			_Id = gCnt;
+			gCnt++;
+
 			_PlayerId = aPlayerId;
-			_VSId = (_PlayerId + 1) % 2;
+			_VSPlayerId = (_PlayerId + 1) % 2;
 			_Type = CharaType.unit;
 			_ParamDef = MasterMan.i._UnitParam[(int)aType];
-			
+
 			for (int i = 0; i < _CollArr.Length; i++)
-				_CollArr[i].Init(_PlayerId, this);
+				_CollArr[i].InstantiateInit(_PlayerId, this);
 		}
 
 		public void ActivateReq(Vector2Int aPos)
@@ -94,7 +98,7 @@ namespace BC
 
 		public override void UpdateView()
 		{
-			transform.position = _Tra._Pos.ToVector3XZ() / GameMan.cDistDiv;
+			base.UpdateView();
 
 			_ImgHp.fillAmount = (float)_Param.Hp / _ParamDef.Hp;
 

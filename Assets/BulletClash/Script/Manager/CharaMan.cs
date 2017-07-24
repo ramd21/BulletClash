@@ -60,7 +60,7 @@ namespace BC
 			u = Instantiate(u);
 			u.transform.parent = _TraPlayerParent[aPlayerId];
 			_UnitList[aPlayerId].Add(u);
-			u.Init(aPlayerId, aType);
+			u.InstantiateInit(aPlayerId, aType);
 			return u;
 		}
 
@@ -81,7 +81,7 @@ namespace BC
 			b.transform.parent = _TraPlayerParent[aPlayerId];
 			_BulletList[aPlayerId].Add(b);
 
-			b.Init(aPlayerId, aType);
+			b.InstantiateInit(aPlayerId, aType);
 			return b;
 		}
 

@@ -33,7 +33,7 @@ namespace BC
 		{
 			if (GetTP() >= 3)
 			{
-				Vector2Int pos = new Vector2Int(Random.Range(-2000, 2000), Random.Range(0, 8000));
+				Vector2Int pos = new Vector2Int(Random.Range(200, FieldMan.i._Size.x - 200), Random.Range((FieldMan.i._Size.y / 4) * 3 + 200, FieldMan.i._Size.y - 200));
 				PlaceUnit(MasterMan.i._UnitParam[0], pos);
 			}
 		}

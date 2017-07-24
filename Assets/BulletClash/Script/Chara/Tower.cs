@@ -8,6 +8,7 @@ namespace BC
 {
 	public class Tower : Chara
 	{
+		static int gCnt;
 		public UnitParam _Param;
 		public UnitParam _ParamDef;
 		public Canvas _CvsHp;
@@ -23,24 +24,25 @@ namespace BC
 
 		void Start()
 		{
-			this.WaitForEndOfFrame(()=> 
+			this.WaitForEndOfFrame(() =>
 			{
-				Init(_PlayerId);
-				_CvsHp.gameObject.SetActive(false);
+				InstantiateInit(_PlayerId);
 				CharaMan.i._TowerList[_PlayerId].Add(this);
-				ActivateReq(transform.position.ToVector2IntXZ() * GameMan.cDistDiv);
+				transform.parent = CharaMan.i._TraPlayerParent[_PlayerId];
+				ActivateReq(transform.position.ToVector2IntXZ() * GameMan.cDistDiv - FieldMan.i._Offset);
 				_Coll.UpdatePos();
 			});
 		}
-
-		public void Init(int aPlayerId)
+		public void InstantiateInit(int aPlayerId)
 		{
+			_Id = gCnt;
+			gCnt++;
+
 			_PlayerId = aPlayerId;
-			_VSId = (_PlayerId + 1) % 2;
+			_VSPlayerId = (_PlayerId + 1) % 2;
 			_Type = CharaType.tower;
-			transform.parent = CharaMan.i._TraPlayerParent[_PlayerId];
-			CharaMan.i._TowerList[_PlayerId].Add(this);
-			_Coll.Init(_PlayerId, this);
+
+			_Coll.InstantiateInit(_PlayerId, this);
 		}
 
 		public void ActivateReq(Vector2Int aPos)
@@ -121,7 +123,7 @@ namespace BC
 
 		public override void UpdateView()
 		{
-			transform.position = _Tra._Pos.ToVector3XZ() / GameMan.cDistDiv;
+			base.UpdateView();
 
 			_CvsHp.gameObject.SetActive(true);
 			_ImgHp.fillAmount = (float)_Param.Hp / _ParamDef.Hp;

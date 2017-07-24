@@ -8,28 +8,66 @@ namespace BC
 {
 	public class FieldMan : Singleton<FieldMan>, IEditorUpdate
 	{
-		public Vector2Int _FieldSize;
+		public Vector2Int _Size;
+		public Vector2Int _Offset;
 
 		public Transform[] _TraBorder;
 
 		public void EditorUpdate()
 		{
-			_TraBorder[0].SetScale(1, 1, _FieldSize.y / GameMan.cDistDiv);
-			_TraBorder[0].SetPosition(transform.position + (_FieldSize.x / 2) / GameMan.cDistDiv * Vector3.right);
+			Vector3 pos;
 
-			_TraBorder[1].SetScale(_FieldSize.x / GameMan.cDistDiv, 1, 1);
-			_TraBorder[1].SetPosition(transform.position + (_FieldSize.y / 2) / GameMan.cDistDiv * Vector3.forward);
+			if (_Size.y / GameMan.cDistDiv == 0)
+				_TraBorder[0].SetScale(1, 1, 1);
+			else
+				_TraBorder[0].SetScale(1, 1, _Size.y / GameMan.cDistDiv);
 
-			_TraBorder[2].SetScale(1, 1, _FieldSize.y / GameMan.cDistDiv);
-			_TraBorder[2].SetPosition(transform.position - (_FieldSize.x / 2) / GameMan.cDistDiv * Vector3.right);
+			pos = transform.position;
+			pos += Vector3.forward * _Size.y / 2;
+			pos += _Offset.ToVector3XZ();
 
-			_TraBorder[3].SetScale(_FieldSize.x / GameMan.cDistDiv, 1, 1);
-			_TraBorder[3].SetPosition(transform.position - (_FieldSize.y / 2) / GameMan.cDistDiv * Vector3.forward);
+			_TraBorder[0].SetPosition(pos / GameMan.cDistDiv);
+
+			if (_Size.y / GameMan.cDistDiv == 0)
+				_TraBorder[1].SetScale(1, 1, 1);
+			else
+				_TraBorder[1].SetScale(1, 1, _Size.y / GameMan.cDistDiv);
+
+			pos = transform.position;
+			pos += Vector3.forward * _Size.y / 2;
+			pos += Vector3.right * _Size.x;
+			pos += _Offset.ToVector3XZ();
+			_TraBorder[1].SetPosition(pos / GameMan.cDistDiv);
+
+			if (_Size.x / GameMan.cDistDiv == 0)
+				_TraBorder[2].SetScale(1, 1, 1);
+			else
+				_TraBorder[2].SetScale(_Size.x / GameMan.cDistDiv, 1, 1);
+
+			pos = transform.position;
+			pos += Vector3.right * _Size.x / 2;
+			pos += _Offset.ToVector3XZ();
+			_TraBorder[2].SetPosition(pos / GameMan.cDistDiv);
+
+			if (_Size.x / GameMan.cDistDiv == 0)
+				_TraBorder[3].SetScale(1, 1, 1);
+			else
+				_TraBorder[3].SetScale(_Size.x / GameMan.cDistDiv, 1, 1);
+
+			pos = transform.position;
+			pos += Vector3.right * _Size.x / 2;
+			pos += Vector3.forward * _Size.y;
+			pos += _Offset.ToVector3XZ();
+			_TraBorder[3].SetPosition(pos / GameMan.cDistDiv);
 		}
+
+
+
+
 #if UNITY_EDITOR
 		void OnDrawGizmos()
 		{
-			Gizmos.DrawWireCube(transform.position, _FieldSize.ToVector3XZ() / GameMan.cDistDiv);
+			Gizmos.DrawWireCube(transform.position, _Size.ToVector3XZ() / GameMan.cDistDiv);
 		}
 #endif
 	}
