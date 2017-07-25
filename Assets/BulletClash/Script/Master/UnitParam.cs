@@ -9,8 +9,10 @@ public struct UnitParam
 {
 	public UnitType Type;
 	public int Hp;
-	public int Spd;
+	public int SpdY;
+	public int SpdX;
 	public int Cost;
+	public int Range;
 	public BulletType Bullet;
 	public int FireInter;
 
@@ -27,10 +29,12 @@ public struct UnitParam
 				UnitParam dat = new UnitParam();
 				dat.Type = strMultiArr[i, 0].ToEnum<UnitType>();
 				dat.Hp = strMultiArr[i, 1].ToInt();
-				dat.Spd = strMultiArr[i, 2].ToInt();
-				dat.Cost = strMultiArr[i, 3].ToInt();
-				dat.Bullet = strMultiArr[i, 4].ToEnum<BulletType>();
-				dat.FireInter = strMultiArr[i, 5].ToInt();
+				dat.SpdY = strMultiArr[i, 2].ToInt();
+				dat.SpdX = strMultiArr[i, 3].ToInt();
+				dat.Cost = strMultiArr[i, 4].ToInt();
+				dat.Range = strMultiArr[i, 5].ToInt();
+				dat.Bullet = strMultiArr[i, 6].ToEnum<BulletType>();
+				dat.FireInter = strMultiArr[i, 7].ToInt();
 				arr[i - 2] = dat;
 			}
 		}

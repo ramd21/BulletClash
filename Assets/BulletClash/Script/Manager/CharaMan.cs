@@ -11,8 +11,10 @@ namespace BC
 		public List<Unit>[]		_UnitList;
 		public List<Bullet>[]	_BulletList;
 		public List<Tower>[]	_TowerList;
+		public List<BulletHit> _BulletHitList;
 
 		public Transform[] _TraPlayerParent;
+		public Transform _TraEffParent;
 
 		//static int len;
 
@@ -42,6 +44,10 @@ namespace BC
 			go = new GameObject("player_" + 1);
 			go.transform.parent = transform;
 			_TraPlayerParent[1] = go.transform;
+
+			go = new GameObject("eff");
+			go.transform.parent = transform;
+			_TraEffParent = go.transform;
 		}
 
 		public Unit GetPoolOrNewUnit(int aPlayerId, UnitType aType)
@@ -87,7 +93,27 @@ namespace BC
 			return b;
 		}
 
-		void Activate<T>(List<T>[] aCharaList) where T : Chara
+		public BulletHit GetPoolOrNewBulletHit()
+		{
+			int len;
+			len = _BulletHitList.Count;
+			BulletHit bh;
+			for (int i = 0; i < len; i++)
+			{
+				bh = _BulletHitList[i];
+				if (bh._State == ActiveState.inactive)
+					return bh;
+			}
+			GameObject go = ResourceMan.i.GetEffect(4);
+			go = Instantiate(go);
+			go.transform.parent = _TraEffParent;
+
+			bh = go.AddComponent<BulletHit>();
+			_BulletHitList.Add(bh);
+			return bh;
+		}
+
+		void Activate<T>(List<T>[] aCharaList) where T : BHObj
 		{
 			int len;
 			T t;
@@ -107,7 +133,7 @@ namespace BC
 			}
 		}
 
-		void Deactivate<T>(List<T>[] aCharaList) where T : Chara
+		void Deactivate<T>(List<T>[] aCharaList) where T : BHObj
 		{
 			int len;
 			T t;
@@ -127,7 +153,7 @@ namespace BC
 			}
 		} 
 
-		void Act<T>(List<T>[] aCharaList, Action<T> aOnAct) where T : Chara
+		void Act<T>(List<T>[] aCharaList, Action<T> aOnAct) where T : BHObj
 		{
 			int len;
 			T t;
@@ -141,6 +167,22 @@ namespace BC
 					{
 						aOnAct(t);
 					}
+				}
+			}
+		}
+
+		void UpdateView<T>(List<T>[] aCharaList) where T : BHObj
+		{
+			int len;
+			T t;
+			for (int i = 0; i < 2; i++)
+			{
+				len = aCharaList[i].Count;
+				for (int j = 0; j < len; j++)
+				{
+					t = aCharaList[i][j];
+					if (t._State == ActiveState.active)
+						t.UpdateView();
 				}
 			}
 		}
@@ -160,6 +202,7 @@ namespace BC
 			Act(_UnitList, (a) => a.SetPos());
 			Act(_BulletList, (a) => a.SetPos());
 
+			Act(_UnitList, (a) => a.SearchTage());
 			Act(_TowerList, (a) => a.SearchTage());
 
 			Act(_BulletList, (a) => a.HitBulletCheck());
@@ -170,10 +213,17 @@ namespace BC
 			Act(_BulletList, (a) => a.DecTimer());
 
 
-			Act(_UnitList, (a) => a.OMFrameEnd());
+			Act(_UnitList, (a) => a.OnFrameEnd());
 			Act(_BulletList, (a) => a.OMFrameEnd());
 
 
+			int len;
+			len = _BulletHitList.Count;
+			for (int i = 0; i < len; i++)
+			{
+				if (_BulletHitList[i]._State == ActiveState.active)
+					_BulletHitList[i].Act();
+			}
 
 			//act<<
 
@@ -187,47 +237,16 @@ namespace BC
 
 		public void UpdateView()
 		{
-			int len, len2;
-			Unit u;
-			Bullet b;
-			Tower tw;
+			UpdateView(_UnitList);
+			UpdateView(_BulletList);
+			UpdateView(_TowerList);
 
-
-			len = _UnitList.Length;
+			int len;
+			len = _BulletHitList.Count;
 			for (int i = 0; i < len; i++)
 			{
-				len2 = _UnitList[i].Count;
-				for (int j = 0; j < len2; j++)
-				{
-					u = _UnitList[i][j];
-					if (u._State == ActiveState.active)
-						u.UpdateView();
-				}
-			}
-
-
-			len = _BulletList.Length;
-			for (int i = 0; i < len; i++)
-			{
-				len2 = _BulletList[i].Count;
-				for (int j = 0; j < len2; j++)
-				{
-					b = _BulletList[i][j];
-					if (b._State == ActiveState.active)
-						b.UpdateView();
-				}
-			}
-
-			len = _TowerList.Length;
-			for (int i = 0; i < len; i++)
-			{
-				len2 = _TowerList[i].Count;
-				for (int j = 0; j < len2; j++)
-				{
-					tw = _TowerList[i][j];
-					if (tw._State == ActiveState.active)
-						tw.UpdateView();
-				}
+				if (_BulletHitList[i]._State == ActiveState.active)
+					_BulletHitList[i].UpdateView();
 			}
 		}
 	}

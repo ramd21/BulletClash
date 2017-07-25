@@ -6,35 +6,12 @@ using RM;
 namespace BC
 {
 	[RequireComponent(typeof(BCTra))]
-	public abstract class Chara : EditorUpdateBehaviour
+	public abstract class Chara : BHObj
 	{
-		public int _Id;
 		public int _PlayerId;
 		public int _VSPlayerId;
-		public ActiveState _State;
-		public BCTra _Tra;
 		public CharaType _Type;
 
-		public virtual void UpdateView()
-		{
-			transform.position = (_Tra._Pos + FieldMan.i._Offset).ToVector3XZ() / GameMan.cDistDiv;
-		}
-
-		public virtual void ActivateReq()
-		{
-		}
-
-		public virtual void DeactivateReq()
-		{
-		}
-
-		public virtual void OnActivate()
-		{
-		}
-
-		public virtual void OnDeactivate()
-		{
-		}
 #if UNITY_EDITOR
 		
 #endif

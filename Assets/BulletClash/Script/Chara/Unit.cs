@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace BC
 {
-	public class Unit : Chara
+	public class Unit : Chara, IEditorUpdate
 	{
 		static int gCnt;
 		public UnitParam _Param;
@@ -18,6 +18,9 @@ namespace BC
 		public Coll[] _CollArr;
 
 		public bat.opt.Bake.BAT_DeepBaker _Bat;
+
+		Chara _Tage;
+		int _TageDist;
 
 		public void InstantiateInit(int aPlayerId, UnitType aType)
 		{
@@ -56,9 +59,30 @@ namespace BC
 		public void SetPos()
 		{
 			if (_PlayerId == 0)
-				_Tra._Pos.y += _Param.Spd;
+				_Tra._Pos.y += _Param.SpdY;
 			else
-				_Tra._Pos.y -= _Param.Spd;
+				_Tra._Pos.y -= _Param.SpdY;
+
+			if (_Tage)
+			{
+				if (_Tage._Tra._Pos.x > _Tra._Pos.x)
+				{
+					_Tra._Pos.x += _Param.SpdX;
+					if (_Tra._Pos.x > _Tage._Tra._Pos.x)
+						_Tra._Pos.x = _Tage._Tra._Pos.x;
+				}
+				else
+				{
+					if (_Tage._Tra._Pos.x < _Tra._Pos.x)
+					{
+						_Tra._Pos.x -= _Param.SpdX;
+						if (_Tra._Pos.x < _Tage._Tra._Pos.x)
+							_Tra._Pos.x = _Tage._Tra._Pos.x;
+					}
+				}
+			}
+
+
 
 			if (_Tra._Pos.y > FieldMan.i._Size.y)
 			{
@@ -77,26 +101,81 @@ namespace BC
 				_CollArr[i].UpdatePos();
 		}
 
-		public bool IsHitBullet(Bullet aVS)
-		{
-			int len;
-			len = _CollArr.Length;
-			for (int i = 0; i < len; i++)
-			{
-				if (_CollArr[i].IsHit(aVS._Coll))
-					return true;
-			}
-
-			return false;
-		}
-
 		public void Dmg(int aDmg)
 		{
 			_Param.Hp -= aDmg;
 		}
 
+		public void SearchTage()
+		{
+			_TageDist = int.MaxValue;
+			int dist;
+			int len;
+			_Tage = null;
+
+			Unit u;
+			len = CharaMan.i._UnitList[_VSPlayerId].Count;
+			for (int i = 0; i < len; i++)
+			{
+				u = CharaMan.i._UnitList[_VSPlayerId][i];
+				if (u._State == ActiveState.active)
+				{
+					if (_PlayerId == 0)
+					{
+						if (u._Tra._Pos.y <= _Tra._Pos.y)
+							continue;
+					}
+					else
+					{
+						if (u._Tra._Pos.y >= _Tra._Pos.y)
+							continue;
+					}
+
+					dist = RMMath.GetApproxDist(_Tra._Pos, u._Tra._Pos);
+					if (dist < _TageDist)
+					{
+						_Tage = u;
+						_TageDist = dist;
+					}
+				}
+			}
+
+			Tower tw;
+			len = CharaMan.i._TowerList[_VSPlayerId].Count;
+			for (int i = 0; i < len; i++)
+			{
+				tw = CharaMan.i._TowerList[_VSPlayerId][i];
+				if (tw._State == ActiveState.active)
+				{
+					if (_PlayerId == 0)
+					{
+						if (tw._Tra._Pos.y <= _Tra._Pos.y)
+							continue;
+					}
+					else
+					{
+						if (tw._Tra._Pos.y >= _Tra._Pos.y)
+							continue;
+					}
+
+					dist = RMMath.GetApproxDist(_Tra._Pos, tw._Tra._Pos);
+					if (dist < _TageDist)
+					{
+						_Tage = tw;
+						_TageDist = dist;
+					}
+				}
+			}
+		}
+
 		public void Fire()
 		{
+			if (!_Tage)
+				return;
+
+			if (_TageDist > _Param.Range)
+				return;
+
 			if (_Param.FireInter == 0)
 			{
 				Bullet b = CharaMan.i.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
@@ -110,7 +189,7 @@ namespace BC
 			_Param.FireInter--;
 		}
 
-		public void OMFrameEnd()
+		public void OnFrameEnd()
 		{
 			if (_Param.Hp <= 0)
 				DeactivateReq();
@@ -131,7 +210,7 @@ namespace BC
 		}
 
 #if UNITY_EDITOR
-		public override void EditorUpdate()
+		public void EditorUpdate()
 		{
 			_CvsHp = GetComponentInChildren<Canvas>();
 			_ImgHp = transform.FindRecurcive<Image>("hp", true);

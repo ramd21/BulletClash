@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace BC
 {
-	public class Tower : Chara
+	public class Tower : Chara, IEditorUpdate
 	{
 		static int gCnt;
 		public UnitParam _Param;
@@ -20,7 +20,8 @@ namespace BC
 		public Transform _TraRot;
 		public Transform _TraCannon;
 
-		Unit _Tage;
+		Chara _Tage;
+		int _TageDist;
 
 		void Start()
 		{
@@ -53,20 +54,35 @@ namespace BC
 			_Param = _ParamDef;
 		}
 
-		public void DeactivateReq()
-		{
-			_State = ActiveState.deactivate_req;
-
-		}
-
-		public bool IsHitBullet(Bullet aVS)
-		{
-			return _Coll.IsHit(aVS._Coll);
-		}
 
 		public void Dmg(int aDmg)
 		{
 			_Param.Hp -= aDmg;
+		}
+
+
+		public void SearchTage()
+		{
+			_TageDist = int.MaxValue;
+			int dist;
+			int len;
+			_Tage = null;
+
+			Unit u;
+			len = CharaMan.i._UnitList[_VSPlayerId].Count;
+			for (int i = 0; i < len; i++)
+			{
+				u = CharaMan.i._UnitList[_VSPlayerId][i];
+				if (u._State == ActiveState.active)
+				{
+					dist = RMMath.GetApproxDist(_Tra._Pos, u._Tra._Pos);
+					if (dist < _TageDist)
+					{
+						_Tage = u;
+						_TageDist = dist;
+					}
+				}
+			}
 		}
 
 		public void Fire()
@@ -74,6 +90,8 @@ namespace BC
 			if (!_Tage)
 				return;
 
+			if (_TageDist > _Param.Range)
+				return;
 
 			if (_Param.FireInter == 0)
 			{
@@ -85,38 +103,7 @@ namespace BC
 			_Param.FireInter--;
 		}
 
-		public void SearchTage()
-		{
-			int min = int.MaxValue;
-			int dist;
-			int len;
-			int vs;
-
-			_Tage = null;
-			if (_PlayerId == 0)
-				vs = 1;
-			else
-				vs = 0;
-
-			Unit u;
-			len = CharaMan.i._UnitList[vs].Count;
-			for (int i = 0; i < len; i++)
-			{
-				u = CharaMan.i._UnitList[vs][i];
-				if (u._State == ActiveState.active)
-				{
-					dist = RMMath.GetApproxDist(_Tra._Pos, u._Tra._Pos);
-					if (dist < min)
-					{
-						_Tage = u;
-						min = dist;
-					}
-				}
-			}
-		}
-
-
-		public void OMFrameEnd()
+		public void OnFrameEnd()
 		{
 			if (_Param.Hp <= 0)
 				DeactivateReq();
@@ -143,7 +130,7 @@ namespace BC
 		}
 
 #if UNITY_EDITOR
-		public override void EditorUpdate()
+		public void EditorUpdate()
 		{
 			_CvsHp = GetComponentInChildren<Canvas>();
 			_ImgHp = transform.FindRecurcive<Image>("hp", true);

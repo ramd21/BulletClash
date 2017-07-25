@@ -16,13 +16,18 @@ namespace BC
 		public Chara _Chara;
 		public int _Id;
 
+		public GameObject _GoEff;
+
 		void Awake()
 		{
-			GameObject go = ResourceMan.i.GetEffect(_Id + _Chara._PlayerId);
-			go = Instantiate(go);
-			go.transform.parent = transform;
-			go.transform.ResetLocalTransform();
-			go.transform.SetScale(Vector3.one);
+			if (_GoEff)
+				return;
+
+			_GoEff = ResourceMan.i.GetEffect(_Id + _Chara._PlayerId);
+			_GoEff = Instantiate(_GoEff);
+			_GoEff.transform.parent = transform;
+			_GoEff.transform.ResetLocalTransform();
+			_GoEff.transform.SetScale(Vector3.one);
 		}
 
 #if UNITY_EDITOR

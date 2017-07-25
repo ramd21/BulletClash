@@ -9,7 +9,7 @@ using System;
 
 namespace BC
 {
-	public class Bullet : Chara
+	public class Bullet : Chara, IEditorUpdate
 	{
 		static int gCnt;
 		public BulletParam _Param;
@@ -94,6 +94,11 @@ namespace BC
 					{
 						DeactivateReq();
 						(c._Chara as Bullet).DeactivateReq();
+						BulletHit bh = CharaMan.i.GetPoolOrNewBulletHit();
+						bh.SetPos(_Tra._Pos + new Vector2Int((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
+
+						//bh.transform.position = 
+
 					}
 				}
 			}
@@ -138,7 +143,7 @@ namespace BC
 		}
 
 #if UNITY_EDITOR
-		public override void EditorUpdate()
+		public void EditorUpdate()
 		{
 			_Coll = GetComponent<Coll>();
 		}

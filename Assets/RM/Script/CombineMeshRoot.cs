@@ -54,7 +54,7 @@ namespace RM
 			_meshFilter.mesh = new Mesh();
 			_meshFilter.mesh.CombineMeshes(combine);
 			//meshFilters[i].gameObject.SetActive(true);
-			_meshRenderer.sharedMaterial = meshFilters[1].GetComponent<MeshRenderer>().sharedMaterial;
+			_meshRenderer.sharedMaterial = meshFilters[0].GetComponent<MeshRenderer>().sharedMaterial;
 
 			transform.ResetTransform();
 

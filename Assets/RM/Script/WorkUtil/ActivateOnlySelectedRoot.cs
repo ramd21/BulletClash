@@ -12,6 +12,9 @@ namespace RM
 #if UNITY_EDITOR
 		public override void EditorUpdate()
 		{
+
+
+
 			if (Selection.activeTransform)
 			{
 				if (Selection.activeTransform.IsOffspringOf(transform))

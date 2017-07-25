@@ -20,6 +20,9 @@ namespace RM
 
 		string _filePath { get { return Directory.GetCurrentDirectory() + "/" + Application.productName + ".apk"; } }
 
+		public bool _Development;
+		public bool _IL2CPP;
+
 		[Button("BuildAndroidAndDeploy")]
 		public int _BuildAndroidAndDeploy;
 		void BuildAndroidAndDeploy()
@@ -63,12 +66,21 @@ namespace RM
 
 			UnityEngine.Debug.Log("start build android");
 			string filePath = Directory.GetCurrentDirectory() + "/" + Application.productName + ".apk";
+
+			BuildOptions opt = BuildOptions.None;
+
+			if (_Development)
+				opt |= BuildOptions.Development;
+
+			if (_IL2CPP)
+				opt |= BuildOptions.Il2CPP;
+
 			BuildPipeline.BuildPlayer
 			(
 				EditorBuildSettings.scenes.Where(i => i.enabled).ToArray(),
 				filePath,
 				BuildTarget.Android,
-				BuildOptions.None
+				opt
 			);
 		}
 
