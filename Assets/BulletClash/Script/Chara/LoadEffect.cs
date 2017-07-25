@@ -50,6 +50,9 @@ namespace BC
 
 		public override void EditorUpdate()
 		{
+			if (!_ResourceMan)
+				_ResourceMan = GameObject.FindObjectOfType<ResourceMan>();
+
 			_Chara = transform.GetComponentInParent<Chara>();
 		}
 #endif

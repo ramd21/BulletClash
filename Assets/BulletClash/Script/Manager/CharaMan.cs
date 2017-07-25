@@ -78,6 +78,7 @@ namespace BC
 			}
 
 			b = ResourceMan.i.GetBullet(aType);
+			b._PlayerId = aPlayerId;
 			b = Instantiate(b);
 			b.transform.parent = _TraPlayerParent[aPlayerId];
 			_BulletList[aPlayerId].Add(b);
