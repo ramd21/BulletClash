@@ -57,6 +57,7 @@ namespace BC
 			}
 
 			u = ResourceMan.i.GetUnit(aType);
+			u._PlayerId = aPlayerId;
 			u = Instantiate(u);
 			u.transform.parent = _TraPlayerParent[aPlayerId];
 			_UnitList[aPlayerId].Add(u);

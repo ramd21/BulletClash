@@ -21,6 +21,7 @@ namespace BC
 
 			Unit unit;
 			unit = ResourceMan.i.GetUnit(_Param.Type);
+			unit._PlayerId = 0;
 			unit = Instantiate(unit);
 			unit.gameObject.SetActive(true);
 			unit.transform.parent = _TraDeckUnit;

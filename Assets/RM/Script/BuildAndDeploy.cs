@@ -18,9 +18,6 @@ namespace RM
 		public string _DeplayGateToken;
 		public UnityEngine.Object _CurlExe;
 
-		public bool _IL2CPP;
-		public bool _Development;
-
 		string _filePath { get { return Directory.GetCurrentDirectory() + "/" + Application.productName + ".apk"; } }
 
 		[Button("BuildAndroidAndDeploy")]
@@ -44,30 +41,34 @@ namespace RM
 			{
 				string[] strFileArr = Directory.GetFiles(Directory.GetCurrentDirectory() + "/BuildHistory/");
 
+				List<int> numList = new List<int>();
+
 				int last = 0;
 				if (strFileArr.Length != 0)
-					last = Path.GetFileNameWithoutExtension(strFileArr[strFileArr.Length - 1]).Split('_')[1].ToInt();
+				{
+					for (int i = 0; i < strFileArr.Length; i++)
+					{
+						strFileArr[i] = Path.GetFileNameWithoutExtension(strFileArr[i]);
+						strFileArr[i] = strFileArr[i].Split('_')[1];
+
+						numList.Add(strFileArr[i].ToInt());
+					}
+
+					numList.Sort();
+					last = numList[numList.Count - 1];
+				}
 
 				File.Move(_filePath, Directory.GetCurrentDirectory() + "/BuildHistory/" + Application.productName + "_" + (last + 1) + ".apk");
 			}
 
 			UnityEngine.Debug.Log("start build android");
 			string filePath = Directory.GetCurrentDirectory() + "/" + Application.productName + ".apk";
-
-			BuildOptions opt = BuildOptions.None;
-
-			if (_IL2CPP)
-				opt |= BuildOptions.Il2CPP;
-
-			if(_Development)
-				opt |= BuildOptions.Development;
-
 			BuildPipeline.BuildPlayer
 			(
 				EditorBuildSettings.scenes.Where(i => i.enabled).ToArray(),
 				filePath,
 				BuildTarget.Android,
-				opt
+				BuildOptions.None
 			);
 		}
 

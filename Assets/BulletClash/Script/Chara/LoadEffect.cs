@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RM;
 using UnityEngine.UI;
+using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -10,13 +11,14 @@ using UnityEditor;
 
 namespace BC
 {
-	public class LoadEffect : RMBehaviour
+	public class LoadEffect : EditorUpdateBehaviour
 	{
+		public Chara _Chara;
 		public int _Id;
 
 		void Awake()
 		{
-			GameObject go = ResourceMan.i.GetEffect(_Id);
+			GameObject go = ResourceMan.i.GetEffect(_Id + _Chara._PlayerId);
 			go = Instantiate(go);
 			go.transform.parent = transform;
 			go.transform.ResetLocalTransform();
@@ -46,6 +48,10 @@ namespace BC
 			DestroyImmediate(_GoPreview);
 		}
 
+		public override void EditorUpdate()
+		{
+			_Chara = transform.GetComponentInParent<Chara>();
+		}
 #endif
 
 	}
