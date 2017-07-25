@@ -10,8 +10,9 @@ namespace BC
 {
 	public class ResourceMan : Singleton<ResourceMan>
 	{
-		public Unit[] _UnitArr;
-		public Bullet[] _BulletArr;
+		public Unit[]		_UnitArr;
+		public Bullet[]		_BulletArr;
+		public GameObject[] _EffectArr;
 
 		//Dictionary<UnitType, Unit> _MeshBakedUnitDic = new Dictionary<UnitType, Unit>();
 
@@ -40,6 +41,11 @@ namespace BC
 		public Bullet GetBullet(BulletType aType)
 		{
 			return _BulletArr[(int)aType];
+		}
+
+		public GameObject GetEffect(int aId)
+		{
+			return _EffectArr[aId];
 		}
 
 
