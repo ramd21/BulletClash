@@ -20,6 +20,9 @@ namespace BC
 		public Transform _TraRot;
 		public Transform _TraCannon;
 
+		public GameObject _GoUnitSpawnRange;
+
+
 		Chara _Tage;
 		int _TageDist;
 
@@ -113,8 +116,15 @@ namespace BC
 		{
 			base.UpdateView();
 
-			_CvsHp.gameObject.SetActive(true);
-			_ImgHp.fillAmount = (float)_Param.Hp / _ParamDef.Hp;
+			if (_Param.Hp == _ParamDef.Hp)
+			{
+				_CvsHp.gameObject.SetActive(false);
+			}
+			else
+			{
+				_CvsHp.gameObject.SetActive(true);
+				_ImgHp.fillAmount = (float)_Param.Hp / _ParamDef.Hp;
+			}
 
 			if (!_AngleSet)
 			{
@@ -126,7 +136,9 @@ namespace BC
 			if(_Tage)
 				_TraCannon.LookAt(_Tage.transform, Vector3.up);
 
-			_TraRot.AddEulerAnglesY(5);
+			_GoUnitSpawnRange.SetActive(UnitCard.gIsDrag);
+
+			_TraRot.AddEulerAnglesY(2);
 		}
 
 #if UNITY_EDITOR

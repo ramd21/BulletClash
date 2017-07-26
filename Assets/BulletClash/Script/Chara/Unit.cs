@@ -199,7 +199,15 @@ namespace BC
 		{
 			base.UpdateView();
 
-			_ImgHp.fillAmount = (float)_Param.Hp / _ParamDef.Hp;
+			if (_Param.Hp == _ParamDef.Hp)
+			{
+				_CvsHp.gameObject.SetActive(false);
+			}
+			else
+			{
+				_CvsHp.gameObject.SetActive(true);
+				_ImgHp.fillAmount = (float)_Param.Hp / _ParamDef.Hp;
+			}
 
 			if (!_AngleSet)
 			{

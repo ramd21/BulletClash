@@ -49,6 +49,15 @@ namespace RM
 			}
 		}
 
+		MeshFilter _MeshFilter;
+		public MeshFilter _meshFilter
+		{
+			get
+			{
+				return SetAndGetComponent(_MeshFilter);
+			}
+		}
+
 		T SetAndGetComponent<T>(T aT) where T : Component
 		{
 			if (!aT)

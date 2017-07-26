@@ -10,6 +10,8 @@ namespace BC
 {
 	public class UnitCard : UIDragObj, IEditorUpdate
 	{
+		public static bool gIsDrag;
+
 		public Text			_TxtCost;
 		public Transform	_TraDeckUnit;
 		UnitParam _Param;
@@ -42,11 +44,13 @@ namespace BC
 		public override void OnPointerDown(PointerEventData eventData)
 		{
 			CameraMan.i._DragCamera.enabled = false;
+			gIsDrag = true;
 		}
 
 		public override void OnPointerUp(PointerEventData eventData)
 		{
 			CameraMan.i._DragCamera.enabled = true;
+			gIsDrag = false;
 
 			if (PlayerMan.i._myPlayer.GetTP() >= _Param.Cost)
 			{
