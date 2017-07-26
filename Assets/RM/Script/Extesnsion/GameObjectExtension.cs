@@ -10,6 +10,27 @@ namespace RM
 {
 	static public class GameObjectExtension
 	{
+		public static void SetLayer(this GameObject aThis, int aLayer, bool aSetChild = true)
+		{
+			if (aThis == null)
+			{
+				return;
+			}
+			aThis.layer = aLayer;
+
+			//子に設定する必要がない場合はここで終了
+			if (!aSetChild)
+			{
+				return;
+			}
+
+			//子のレイヤーにも設定する
+			foreach (Transform childTransform in aThis.transform)
+			{
+				SetLayer(childTransform.gameObject, aLayer, aSetChild);
+			}
+		}
+
 		static public T GetOrAddComponent<T>(this GameObject aThis) where T : Component
 		{
 			T t = aThis.GetComponent<T>();
