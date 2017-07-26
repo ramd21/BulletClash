@@ -594,21 +594,21 @@ namespace RM
 			}
 		}
 
-		public static int GetApproxDist(Vector2Int aV2A, Vector2Int aV2B)
-		{
-			// 精度はあまり高めでないが、高速で近似値を計算できる.
-			int dx, dy;
-			if ((dx = (aV2A.x > aV2B.x) ? aV2A.x - aV2B.x : aV2B.x - aV2A.x) < (dy = (aV2A.y > aV2B.y) ? aV2A.y - aV2B.y : aV2B.y - aV2A.y))
-			{
-				return (((dy << 8) + (dy << 3) - (dy << 4) - (dy << 1) +
-						(dx << 7) - (dx << 5) + (dx << 3) - (dx << 1)) >> 8);
-			}
-			else
-			{
-				return (((dx << 8) + (dx << 3) - (dx << 4) - (dx << 1) +
-						(dy << 7) - (dy << 5) + (dy << 3) - (dy << 1)) >> 8);
-			}
-		}
+		//public static int GetApproxDist(Vector2Int aV2A, Vector2Int aV2B)
+		//{
+		//	// 精度はあまり高めでないが、高速で近似値を計算できる.
+		//	int dx, dy;
+		//	if ((dx = (aV2A.x > aV2B.x) ? aV2A.x - aV2B.x : aV2B.x - aV2A.x) < (dy = (aV2A.y > aV2B.y) ? aV2A.y - aV2B.y : aV2B.y - aV2A.y))
+		//	{
+		//		return (((dy << 8) + (dy << 3) - (dy << 4) - (dy << 1) +
+		//				(dx << 7) - (dx << 5) + (dx << 3) - (dx << 1)) >> 8);
+		//	}
+		//	else
+		//	{
+		//		return (((dx << 8) + (dx << 3) - (dx << 4) - (dx << 1) +
+		//				(dy << 7) - (dy << 5) + (dy << 3) - (dy << 1)) >> 8);
+		//	}
+		//}
 
 		static public int GetRandRange(int aMin, int aMax)
 		{

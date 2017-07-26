@@ -30,7 +30,7 @@ namespace BC
 				InstantiateInit(_PlayerId);
 				CharaMan.i._TowerList[_PlayerId].Add(this);
 				transform.parent = CharaMan.i._TraPlayerParent[_PlayerId];
-				ActivateReq(transform.position.ToVector2IntXZ() * GameMan.cDistDiv - FieldMan.i._Offset);
+				ActivateReq(transform.position.ToVector2XZ() * GameMan.cDistDiv - FieldMan.i._Offset);
 				_Coll.UpdatePos();
 			});
 		}
@@ -46,7 +46,7 @@ namespace BC
 			_Coll.InstantiateInit(_PlayerId, this);
 		}
 
-		public void ActivateReq(Vector2Int aPos)
+		public void ActivateReq(Vector2 aPos)
 		{
 			gameObject.SetActive(false);
 			_State = ActiveState.activate_req;
@@ -75,7 +75,7 @@ namespace BC
 				u = CharaMan.i._UnitList[_VSPlayerId][i];
 				if (u._State == ActiveState.active)
 				{
-					dist = RMMath.GetApproxDist(_Tra._Pos, u._Tra._Pos);
+					dist = RMMath.GetApproxDist((int)_Tra._Pos.x, (int)_Tra._Pos.y, (int)u._Tra._Pos.x, (int)u._Tra._Pos.y);
 					if (dist < _TageDist)
 					{
 						_Tage = u;

@@ -36,7 +36,7 @@ namespace BC
 				_CollArr[i].InstantiateInit(_PlayerId, this);
 		}
 
-		public void ActivateReq(Vector2Int aPos)
+		public void ActivateReq(Vector2 aPos)
 		{
 			gameObject.SetActive(false);
 			_State = ActiveState.activate_req;
@@ -131,7 +131,7 @@ namespace BC
 							continue;
 					}
 
-					dist = RMMath.GetApproxDist(_Tra._Pos, u._Tra._Pos);
+					dist = RMMath.GetApproxDist((int)_Tra._Pos.x, (int)_Tra._Pos.y, (int)u._Tra._Pos.x, (int)u._Tra._Pos.y);
 					if (dist < _TageDist)
 					{
 						_Tage = u;
@@ -158,7 +158,7 @@ namespace BC
 							continue;
 					}
 
-					dist = RMMath.GetApproxDist(_Tra._Pos, tw._Tra._Pos);
+					dist = RMMath.GetApproxDist((int)_Tra._Pos.x, (int)_Tra._Pos.y, (int)tw._Tra._Pos.x, (int)tw._Tra._Pos.y);
 					if (dist < _TageDist)
 					{
 						_Tage = tw;
@@ -180,9 +180,9 @@ namespace BC
 			{
 				Bullet b = CharaMan.i.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
 				if (_PlayerId == 0)
-					b.ActivateReq(_Tra._Pos, Vector2Int.up);
+					b.ActivateReq(_Tra._Pos, Vector2.up);
 				else
-					b.ActivateReq(_Tra._Pos, Vector2Int.down);
+					b.ActivateReq(_Tra._Pos, Vector2.down);
 				_Param.FireInter = _ParamDef.FireInter;
 			}
 

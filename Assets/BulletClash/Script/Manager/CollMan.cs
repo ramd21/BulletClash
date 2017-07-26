@@ -14,7 +14,7 @@ namespace BC
 		public int _DivDist;
 		public int _XCnt;
 		public int _YCnt;
-		public Vector2Int _ZeroPosOffset;
+		public Vector2 _ZeroPosOffset;
 
 		FastList<Coll>[] _BlockCollList;
 		public int _BlockCnt;
@@ -58,7 +58,7 @@ namespace BC
 #if UNITY_EDITOR
 		public Color _Color;
 		public bool _ShowNum;
-		public Vector2Int _GizmoOffset;
+		public Vector2 _GizmoOffset;
 		void OnDrawGizmos()
 		{
 			_BlockCnt = _XCnt * _YCnt;

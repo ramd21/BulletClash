@@ -7,15 +7,15 @@ namespace BC
 {
 	public class BCTra : RMBehaviour
 	{
-		public Vector2Int		_Pos;
-		public Vector2			_Dir;
-		public Vector2Int		_Move;
+		public Vector2		_Pos;
+		public Vector2		_Dir;
+		public Vector2		_Move;
 
-		public void SetDir(Vector2Int aDir, int aSpd)
+		public void SetDir(Vector2 aDir, int aSpd)
 		{
 			_Dir = aDir;
 			_Dir = _Dir.normalized;
-			_Move = Vector2Int.RoundToInt(_Dir * aSpd);
+			_Move = _Dir * aSpd;
 		}
 
 		//public Vector2 _dirNorm

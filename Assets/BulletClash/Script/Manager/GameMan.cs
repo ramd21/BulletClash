@@ -19,7 +19,7 @@ namespace BC
 
 			this.WaitForEndOfFrame(()=> 
 			{
-				ResourceMan.i.Init();
+				//ResourceMan.i.Init();
 				UIMan.i.Init();
 				PlayerMan.i.Init();
 				CharaMan.i.Init();

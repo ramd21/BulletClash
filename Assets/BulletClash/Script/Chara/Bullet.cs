@@ -28,7 +28,7 @@ namespace BC
 			_Coll.InstantiateInit(_PlayerId, this);
 		}
 
-		public void ActivateReq(Vector2Int aPos, Vector2Int aDir)
+		public void ActivateReq(Vector2 aPos, Vector2 aDir)
 		{
 			gameObject.SetActive(false);
 			_State = ActiveState.activate_req;
@@ -95,7 +95,7 @@ namespace BC
 						DeactivateReq();
 						(c._Chara as Bullet).DeactivateReq();
 						BulletHit bh = CharaMan.i.GetPoolOrNewBulletHit();
-						bh.SetPos(_Tra._Pos + new Vector2Int((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
+						bh.SetPos(_Tra._Pos + new Vector2((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
 
 						//bh.transform.position = 
 

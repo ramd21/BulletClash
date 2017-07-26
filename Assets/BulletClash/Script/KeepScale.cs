@@ -14,7 +14,7 @@ namespace BC
 
 		public float _Scale;
 
-		public Vector2Int _ScreenSize;
+		public Vector2 _ScreenSize;
 		float _TageRatio;
 		float _CurRatio;
 
@@ -25,7 +25,7 @@ namespace BC
 
 		void SetScale()
 		{
-			_ScreenSize = new Vector2Int(Screen.width, Screen.height);
+			_ScreenSize = new Vector2(Screen.width, Screen.height);
 			_TageRatio = (float)_TageX / _TageY;
 			_CurRatio = (float)Screen.width / (float)Screen.height;
 

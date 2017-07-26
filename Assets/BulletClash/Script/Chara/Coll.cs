@@ -12,8 +12,8 @@ namespace BC
 
 		public int _Id;
 		public BCTra _Tra;
-		public Vector2Int _Size;
-		public Vector2Int _Offset;
+		public Vector2 _Size;
+		public Vector2 _Offset;
 
 		public int _PlayerId;
 		public int[] _CollBlock;
@@ -43,8 +43,8 @@ namespace BC
 			_Id = gCnt;
 			gCnt++;
 
-			_OffsetX = _Offset.x + CollMan.i._ZeroPosOffset.x;
-			_OffsetY = _Offset.y + CollMan.i._ZeroPosOffset.y;
+			_OffsetX = (int)_Offset.x + (int)CollMan.i._ZeroPosOffset.x;
+			_OffsetY = (int)_Offset.y + (int)CollMan.i._ZeroPosOffset.y;
 		}
 
 		public void Deactivate()
@@ -56,11 +56,11 @@ namespace BC
 
 		public void UpdatePos()
 		{
-			Vector2Int pos = _Tra._Pos;
-			int x = pos.x + _Offset.x;
-			int y = pos.y + _Offset.y;
-			int sX = _Size.x >> 1;
-			int sY = _Size.y >> 1;
+			Vector2 pos = _Tra._Pos;
+			int x = (int)pos.x + (int)_Offset.x;
+			int y = (int)pos.y + (int)_Offset.y;
+			int sX = (int)_Size.x >> 1;
+			int sY = (int)_Size.y >> 1;
 
 			_L = x - sX;
 			_R = x + sX;
@@ -70,8 +70,8 @@ namespace BC
 
 			CollMan collMan = CollMan.i;
 
-			x = pos.x + _OffsetX;
-			y = pos.y + _OffsetY;
+			x = (int)pos.x + (int)_OffsetX;
+			y = (int)pos.y + (int)_OffsetY;
 
 			_CollBlockCur = (x / collMan._DivDist) % collMan._XCnt + (y / collMan._DivDist) * collMan._XCnt;
 			
