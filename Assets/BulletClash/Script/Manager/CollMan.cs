@@ -14,7 +14,8 @@ namespace BC
 		public int _DivDist;
 		public int _XCnt;
 		public int _YCnt;
-		public Vector2 _ZeroPosOffset;
+		[UnityEngine.Serialization.FormerlySerializedAs("_ZeroPosOffset")]
+		public Vector2Int _Offset;
 
 		FastList<Coll>[] _BlockCollList;
 		public int _BlockCnt;

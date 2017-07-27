@@ -11,6 +11,7 @@
 	public enum CharaType
 	{
 		unit,
+		tower,
 		bullet,
 		max,
 	}

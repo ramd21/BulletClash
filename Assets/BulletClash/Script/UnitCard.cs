@@ -65,7 +65,17 @@ namespace BC
 				RaycastHit rh;
 				if(Physics.Raycast(r, out rh))
 				{
-					PlayerMan.i._myPlayer.PlaceUnit(_Param, rh.point.ToVector2XZ() * GameMan.cDistDiv - FieldMan.i._Offset);
+					Vector2Int pos = rh.point.ToVector2IntXZ() * GameMan.cDistDiv - FieldMan.i._Offset;
+
+					for (int i = 0; i < CharaMan.i._TowerList[PlayerMan.i._MyPlayerId].Count; i++)
+					{
+						//Tower tw = CharaMan.i._TowerList[PlayerMan.i._MyPlayerId][i];
+						//if (RMMath.GetApproxDist((int)tw._Tra._Pos.x, (int)tw._Tra._Pos.y, (int)pos.x, (int)pos.y) <= 15 * GameMan.cDistDiv)
+						{
+							PlayerMan.i._myPlayer.PlaceUnit(_Param, pos);
+							break;
+						}
+					}
 				}
 			}
 		}

@@ -27,15 +27,15 @@ namespace RM
 				);
 		}
 
-		//static public Vector2Int ToVector2IntXY(this Vector3 aV3)
-		//{
-		//	return new Vector2Int((int)aV3.x, (int)aV3.y);
-		//}
+		static public Vector2Int ToVector2IntXY(this Vector3 aV3)
+		{
+			return new Vector2Int((int)aV3.x, (int)aV3.y);
+		}
 
-		//static public Vector2Int ToVector2IntXZ(this Vector3 aV3)
-		//{
-		//	return new Vector2Int((int)aV3.x, (int)aV3.z);
-		//}
+		static public Vector2Int ToVector2IntXZ(this Vector3 aV3)
+		{
+			return new Vector2Int((int)aV3.x, (int)aV3.z);
+		}
 
 		static public Vector2 ToVector2XY(this Vector3 aV3)
 		{

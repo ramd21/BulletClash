@@ -17,12 +17,20 @@ namespace BC
 			_Tra = GetComponent<BCTra>();
 		}
 
-		public virtual void ActivateReq()
+		public virtual void OnFrameBegin()
 		{
+		}
+
+		public virtual void ActivateReq(Vector2Int aPos)
+		{
+			_State = ActiveState.activate_req;
+			gameObject.SetActive(false);
+			_Tra._Pos = aPos;
 		}
 
 		public virtual void DeactivateReq()
 		{
+			_State = ActiveState.deactivate_req;
 		}
 
 		public virtual void OnActivate()
@@ -33,10 +41,17 @@ namespace BC
 		{
 		}
 
+		public virtual void OnFrameEnd()
+		{
+		}
+
 		public virtual void UpdateView()
 		{
 			transform.position = (_Tra._Pos + FieldMan.i._Offset).ToVector3XZ() / GameMan.cDistDiv;
 		}
+
+
+
 #if UNITY_EDITOR
 
 #endif

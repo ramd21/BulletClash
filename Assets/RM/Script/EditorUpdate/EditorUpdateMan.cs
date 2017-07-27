@@ -10,6 +10,9 @@ namespace RM
 	public class EditorUpdateMan : AutoSingleton<EditorUpdateMan>
 	{
 #if UNITY_EDITOR
+		public bool _Enabled;
+
+
 		[InitializeOnLoadMethod]
 		static void Init()
 		{
@@ -19,6 +22,9 @@ namespace RM
 
 		static void ForceUpdate()
 		{
+			if (!i._Enabled)
+				return;
+
 			i.transform.position += Vector3.one;
 			i.transform.position -= Vector3.one;
 		}

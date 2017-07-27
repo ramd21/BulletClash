@@ -22,7 +22,7 @@ namespace BC
 			return _TPTimerTotal / GameMan.i._TPTimer;
 		}
 
-		public void PlaceUnit(UnitParam aParam, Vector2 aPos)
+		public void PlaceUnit(UnitParam aParam, Vector2Int aPos)
 		{
 			_TPTimerTotal -= aParam.Cost * GameMan.i._TPTimer;
 			Unit unit = CharaMan.i.GetPoolOrNewUnit(_Id, aParam.Type);
@@ -33,7 +33,7 @@ namespace BC
 		{
 			if (GetTP() >= 3)
 			{
-				Vector2 pos = new Vector2(Random.Range(200, FieldMan.i._Size.x - 200), Random.Range((FieldMan.i._Size.y / 4) * 3 + 200, FieldMan.i._Size.y - 200));
+				Vector2Int pos = new Vector2Int(Random.Range(200, FieldMan.i._Size.x - 200), Random.Range((FieldMan.i._Size.y / 4) * 3 + 200, FieldMan.i._Size.y - 200));
 				PlaceUnit(MasterMan.i._UnitParam[0], pos);
 			}
 		}

@@ -33,8 +33,8 @@ namespace BC
 				InstantiateInit(_PlayerId);
 				CharaMan.i._TowerList[_PlayerId].Add(this);
 				transform.parent = CharaMan.i._TraPlayerParent[_PlayerId];
-				ActivateReq(transform.position.ToVector2XZ() * GameMan.cDistDiv - FieldMan.i._Offset);
-				_Coll.UpdatePos();
+				ActivateReq(transform.position.ToVector2IntXZ() * GameMan.cDistDiv - FieldMan.i._Offset);
+				_Coll.UpdateBlock();
 			});
 		}
 		public void InstantiateInit(int aPlayerId)
@@ -44,21 +44,24 @@ namespace BC
 
 			_PlayerId = aPlayerId;
 			_VSPlayerId = (_PlayerId + 1) % 2;
-			_Type = CharaType.unit;
+			_Type = CharaType.tower;
 
 			_Coll.InstantiateInit(_PlayerId, this);
 
 			_GoUnitSpawnRange.SetActive(false);
 		}
 
-		public void ActivateReq(Vector2 aPos)
+		public override void OnFrameBegin()
 		{
-			gameObject.SetActive(false);
-			_State = ActiveState.activate_req;
-			_Tra._Pos = aPos;
-			_Param = _ParamDef;
+			base.OnFrameBegin();
+			_Coll.AddToCollMan();
 		}
 
+		public override void ActivateReq(Vector2Int aPos)
+		{
+			base.ActivateReq(aPos);
+			_Param = _ParamDef;
+		}
 
 		public void Dmg(int aDmg)
 		{
@@ -80,7 +83,7 @@ namespace BC
 				u = CharaMan.i._UnitList[_VSPlayerId][i];
 				if (u._State == ActiveState.active)
 				{
-					dist = RMMath.GetApproxDist((int)_Tra._Pos.x, (int)_Tra._Pos.y, (int)u._Tra._Pos.x, (int)u._Tra._Pos.y);
+					dist = RMMath.GetApproxDist(_Tra._Pos.x, _Tra._Pos.y, u._Tra._Pos.x, u._Tra._Pos.y);
 					if (dist < _TageDist)
 					{
 						_Tage = u;
@@ -108,13 +111,11 @@ namespace BC
 			_Param.FireInter--;
 		}
 
-		public void OnFrameEnd()
+		public override void OnFrameEnd()
 		{
 			if (_Param.Hp <= 0)
 				DeactivateReq();
 		}
-
-		Coroutine _Coroutine;
 
 		public override void UpdateView()
 		{
@@ -140,16 +141,21 @@ namespace BC
 			if(_Tage)
 				_TraCannon.LookAt(_Tage.transform, Vector3.up);
 
-			if (UnitCard.gIsDrag)
+			if (_PlayerId == PlayerMan.i._MyPlayerId)
 			{
-				_GoUnitSpawnRange.transform.localScale = Vector3.MoveTowards(_GoUnitSpawnRange.transform.localScale, Vector3.one * 30, 3);
-			}
-			else
-			{
-				_GoUnitSpawnRange.transform.localScale = Vector3.MoveTowards(_GoUnitSpawnRange.transform.localScale, Vector3.zero, 3);
+				if (UnitCard.gIsDrag)
+				{
+					_GoUnitSpawnRange.transform.localScale = Vector3.MoveTowards(_GoUnitSpawnRange.transform.localScale, Vector3.one * 30, 3);
+				}
+				else
+				{
+					_GoUnitSpawnRange.transform.localScale = Vector3.MoveTowards(_GoUnitSpawnRange.transform.localScale, Vector3.zero, 3);
+				}
+
+				_GoUnitSpawnRange.SetActive(_GoUnitSpawnRange.transform.localScale.magnitude != 0);
 			}
 
-			_GoUnitSpawnRange.SetActive(_GoUnitSpawnRange.transform.localScale.magnitude != 0);
+			
 
 
 			_TraRot.AddEulerAnglesY(2);

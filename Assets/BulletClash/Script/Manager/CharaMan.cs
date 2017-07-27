@@ -199,22 +199,28 @@ namespace BC
 
 			CollMan.i.Clear();
 
-			Act(_UnitList, (a) => a.SetPos());
+			Act(_BulletList, (a) => a.OnFrameBegin());
+			Act(_UnitList, (a) => a.OnFrameBegin());
+			Act(_TowerList, (a) => a.OnFrameBegin());
+
+
 			Act(_BulletList, (a) => a.SetPos());
+			Act(_UnitList, (a) => a.SetPos());
 
 			Act(_UnitList, (a) => a.SearchTage());
 			Act(_TowerList, (a) => a.SearchTage());
 
-			Act(_BulletList, (a) => a.HitBulletCheck());
-			Act(_BulletList, (a) => a.HitUnitCheck());
+			Act(_BulletList, (a) => a.HitCheck());
 
 			Act(_TowerList, (a) => a.Fire());
 			Act(_UnitList, (a) => a.Fire());
+
 			Act(_BulletList, (a) => a.DecTimer());
 
 
+			Act(_BulletList, (a) => a.OnFrameEnd());
 			Act(_UnitList, (a) => a.OnFrameEnd());
-			Act(_BulletList, (a) => a.OMFrameEnd());
+			Act(_TowerList, (a) => a.OnFrameEnd());
 
 
 			int len;

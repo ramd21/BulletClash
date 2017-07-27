@@ -10,7 +10,7 @@ namespace BC
 	{
 		int _Timer;
 
-		public void SetPos(Vector2 aPos, int aTimer)
+		public void SetPos(Vector2Int aPos, int aTimer)
 		{
 			_Tra._Pos = aPos;
 			_Timer = aTimer;

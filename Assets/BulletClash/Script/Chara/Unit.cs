@@ -15,7 +15,7 @@ namespace BC
 		public Image _ImgHp;
 		bool _AngleSet;
 
-		public Coll[] _CollArr;
+		public Coll _Coll;
 
 		public bat.opt.Bake.BAT_DeepBaker _Bat;
 
@@ -32,28 +32,21 @@ namespace BC
 			_Type = CharaType.unit;
 			_ParamDef = MasterMan.i._UnitParam[(int)aType];
 
-			for (int i = 0; i < _CollArr.Length; i++)
-				_CollArr[i].InstantiateInit(_PlayerId, this);
+			_Coll.InstantiateInit(_PlayerId, this);
 		}
 
-		public void ActivateReq(Vector2 aPos)
+		public override void OnFrameBegin()
 		{
-			gameObject.SetActive(false);
-			_State = ActiveState.activate_req;
-			_Tra._Pos = aPos;
+			base.OnFrameBegin();
+
+			_Coll.UpdateBlock();
+			_Coll.AddToCollMan();
+		}
+
+		public override void ActivateReq(Vector2Int aPos)
+		{
+			base.ActivateReq(aPos);
 			_Param = _ParamDef;
-		}
-
-		public override void DeactivateReq()
-		{
-			_State = ActiveState.deactivate_req;
-		}
-
-		public override void OnActivate()
-		{
-			base.OnDeactivate();
-			for (int i = 0; i < _CollArr.Length; i++)
-				_CollArr[i].Deactivate();
 		}
 
 		public void SetPos()
@@ -82,8 +75,6 @@ namespace BC
 				}
 			}
 
-
-
 			if (_Tra._Pos.y > FieldMan.i._Size.y)
 			{
 				DeactivateReq();
@@ -97,8 +88,50 @@ namespace BC
 
 			}
 
-			for (int i = 0; i < _CollArr.Length; i++)
-				_CollArr[i].UpdatePos();
+			
+		}
+
+		public void HitCheck()
+		{ 
+		//{
+		//	FastList<Coll> collList;
+		//	Coll c;
+		//	int len;
+		//	for (int i = 0; i < 9; i++)
+		//	{
+		//		collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.unit, _Coll._CollBlock[i]);
+		//		len = collList.Count;
+		//		for (int j = 0; j < len; j++)
+		//		{
+		//			c = collList[j];
+		//			if (_Coll.IsHit(c))
+		//			{
+		//				DeactivateReq();
+		//				(c._Chara as Unit).Dmg(1);
+
+		//				BulletHit bh = CharaMan.i.GetPoolOrNewBulletHit();
+		//				bh.SetPos(_Tra._Pos + new Vector2((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
+		//			}
+		//		}
+		//	}
+
+		//	for (int i = 0; i < 9; i++)
+		//	{
+		//		collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.tower, _Coll._CollBlock[i]);
+		//		len = collList.Count;
+		//		for (int j = 0; j < len; j++)
+		//		{
+		//			c = collList[j];
+		//			if (_Coll.IsHit(c))
+		//			{
+		//				DeactivateReq();
+		//				(c._Chara as Tower).Dmg(1);
+
+		//				BulletHit bh = CharaMan.i.GetPoolOrNewBulletHit();
+		//				bh.SetPos(_Tra._Pos + new Vector2((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
+		//			}
+		//		}
+		//	}
 		}
 
 		public void Dmg(int aDmg)
@@ -131,7 +164,7 @@ namespace BC
 							continue;
 					}
 
-					dist = RMMath.GetApproxDist((int)_Tra._Pos.x, (int)_Tra._Pos.y, (int)u._Tra._Pos.x, (int)u._Tra._Pos.y);
+					dist = RMMath.GetApproxDist(_Tra._Pos.x, _Tra._Pos.y, u._Tra._Pos.x, u._Tra._Pos.y);
 					if (dist < _TageDist)
 					{
 						_Tage = u;
@@ -158,7 +191,7 @@ namespace BC
 							continue;
 					}
 
-					dist = RMMath.GetApproxDist((int)_Tra._Pos.x, (int)_Tra._Pos.y, (int)tw._Tra._Pos.x, (int)tw._Tra._Pos.y);
+					dist = RMMath.GetApproxDist(_Tra._Pos.x, _Tra._Pos.y, tw._Tra._Pos.x, tw._Tra._Pos.y);
 					if (dist < _TageDist)
 					{
 						_Tage = tw;
@@ -170,26 +203,26 @@ namespace BC
 
 		public void Fire()
 		{
-			if (!_Tage)
-				return;
+			//if (!_Tage)
+			//	return;
 
-			if (_TageDist > _Param.Range)
-				return;
+			//if (_TageDist > _Param.Range)
+			//	return;
 
 			if (_Param.FireInter == 0)
 			{
 				Bullet b = CharaMan.i.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
 				if (_PlayerId == 0)
-					b.ActivateReq(_Tra._Pos, Vector2.up);
+					b.ActivateReq(_Tra._Pos, Vector2Int.up);
 				else
-					b.ActivateReq(_Tra._Pos, Vector2.down);
+					b.ActivateReq(_Tra._Pos, Vector2Int.down);
 				_Param.FireInter = _ParamDef.FireInter;
 			}
 
 			_Param.FireInter--;
 		}
 
-		public void OnFrameEnd()
+		public override void OnFrameEnd()
 		{
 			if (_Param.Hp <= 0)
 				DeactivateReq();
@@ -224,7 +257,7 @@ namespace BC
 			_ImgHp = transform.FindRecurcive<Image>("hp", true);
 			_Bat = GetComponentInChildren<bat.opt.Bake.BAT_DeepBaker>();
 
-			_CollArr = GetComponents<Coll>();
+			_Coll = GetComponent<Coll>();
 			_Tra = GetComponent<BCTra>();
 		}
 

@@ -7,27 +7,18 @@ namespace BC
 {
 	public class BCTra : RMBehaviour
 	{
-		public Vector2		_Pos;
-		public Vector2		_Dir;
-		public Vector2		_Move;
+		public Vector2Int	_Pos;
+		public Vector2Int	_Dir;
+		public Vector2		_NormDir;
 
-		public void SetDir(Vector2 aDir, int aSpd)
+		public Vector2Int	_Move;
+
+		public void SetMove(Vector2Int aDir, int aSpd)
 		{
 			_Dir = aDir;
-			_Dir = _Dir.normalized;
-			_Move = _Dir * aSpd;
+			_NormDir = _Dir.normalized;
+			_Move = _NormDir * aSpd;
 		}
-
-		//public Vector2 _dirNorm
-		//{
-		//	get
-		//	{
-		//		if(_Update)
-
-		//	}
-		//}
-
-
 
 #if UNITY_EDITOR
 		private void OnDrawGizmos()

@@ -28,29 +28,29 @@ namespace BC
 			_Coll.InstantiateInit(_PlayerId, this);
 		}
 
-		public void ActivateReq(Vector2 aPos, Vector2 aDir)
+		public override void OnFrameBegin()
 		{
-			gameObject.SetActive(false);
-			_State = ActiveState.activate_req;
-			_Tra._Pos = aPos;
+			base.OnFrameBegin();
+			_Coll.UpdateBlock();
+			_Coll.AddToCollMan();
+		}
+
+		public void ActivateReq(Vector2Int aPos, Vector2Int aDir)
+		{
+			base.ActivateReq(aPos);
 			_Param = _ParamDef;
-			_Tra.SetDir(aDir, _Param.Spd);
-		}
-
-		public override void DeactivateReq()
-		{
-			_State = ActiveState.deactivate_req;
-		}
-
-		public override void OnDeactivate()
-		{
-			base.OnDeactivate();
-			_Coll.Deactivate();
+			_Tra.SetMove(aDir, _Param.Spd);
 		}
 
 		public void SetPos()
 		{
+			//if (_PlayerId == 0)
+			//	_Tra._Pos.y += _Param.Spd;
+			//else
+			//	_Tra._Pos.y -= _Param.Spd;
+
 			_Tra._Pos += _Tra._Move;
+
 
 			if (_Tra._Pos.y > FieldMan.i._Size.y)
 			{
@@ -75,10 +75,10 @@ namespace BC
 				DeactivateReq();
 				return;
 			}
-			_Coll.UpdatePos();
+			
 		}
 
-		public void HitBulletCheck()
+		public void HitCheck()
 		{
 			FastList<Coll> collList;
 			Coll c;
@@ -95,20 +95,11 @@ namespace BC
 						DeactivateReq();
 						(c._Chara as Bullet).DeactivateReq();
 						BulletHit bh = CharaMan.i.GetPoolOrNewBulletHit();
-						bh.SetPos(_Tra._Pos + new Vector2((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
-
-						//bh.transform.position = 
-
+						bh.SetPos(_Tra._Pos + new Vector2Int((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
 					}
 				}
 			}
-		}
 
-		public void HitUnitCheck()
-		{
-			FastList<Coll> collList;
-			Coll c;
-			int len;
 			for (int i = 0; i < 9; i++)
 			{
 				collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.unit, _Coll._CollBlock[i]);
@@ -122,7 +113,25 @@ namespace BC
 						(c._Chara as Unit).Dmg(1);
 
 						BulletHit bh = CharaMan.i.GetPoolOrNewBulletHit();
-						bh.SetPos(_Tra._Pos + new Vector2((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
+						bh.SetPos(_Tra._Pos + new Vector2Int((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
+					}
+				}
+			}
+
+			for (int i = 0; i < 9; i++)
+			{
+				collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.tower, _Coll._CollBlock[i]);
+				len = collList.Count;
+				for (int j = 0; j < len; j++)
+				{
+					c = collList[j];
+					if (_Coll.IsHit(c))
+					{
+						DeactivateReq();
+						(c._Chara as Tower).Dmg(1);
+
+						BulletHit bh = CharaMan.i.GetPoolOrNewBulletHit();
+						bh.SetPos(_Tra._Pos + new Vector2Int((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
 					}
 				}
 			}
@@ -133,7 +142,7 @@ namespace BC
 			_Param.Timer--;
 		}
 
-		public void OMFrameEnd()
+		public override void OnFrameEnd()
 		{
 			if (_Param.Timer <= 0)
 				DeactivateReq();

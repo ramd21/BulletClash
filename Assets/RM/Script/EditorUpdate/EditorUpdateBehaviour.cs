@@ -10,13 +10,13 @@ namespace RM
 #if UNITY_EDITOR
 		public abstract void EditorUpdate();
 
-		[Button("AddEditorUpdate")]
-		public int _AddEditorUpdate;
+		//[Button("AddEditorUpdate")]
+		//public int _AddEditorUpdate;
 
-		void AddEditorUpdate()
-		{
-			gameObject.AddComponent<EditorUpdate>();
-		}
+		//void AddEditorUpdate()
+		//{
+		//	gameObject.AddComponent<EditorUpdate>();
+		//}
 #endif
 	}
 }

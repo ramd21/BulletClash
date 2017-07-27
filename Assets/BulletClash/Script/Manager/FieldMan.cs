@@ -8,8 +8,8 @@ namespace BC
 {
 	public class FieldMan : Singleton<FieldMan>, IEditorUpdate
 	{
-		public Vector2 _Size;
-		public Vector2 _Offset;
+		public Vector2Int _Size;
+		public Vector2Int _Offset;
 
 		public Transform[] _TraBorder;
 
