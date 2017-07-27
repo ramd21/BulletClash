@@ -47,6 +47,8 @@ namespace BC
 			_Type = CharaType.unit;
 
 			_Coll.InstantiateInit(_PlayerId, this);
+
+			_GoUnitSpawnRange.SetActive(false);
 		}
 
 		public void ActivateReq(Vector2 aPos)
@@ -112,6 +114,8 @@ namespace BC
 				DeactivateReq();
 		}
 
+		Coroutine _Coroutine;
+
 		public override void UpdateView()
 		{
 			base.UpdateView();
@@ -136,7 +140,17 @@ namespace BC
 			if(_Tage)
 				_TraCannon.LookAt(_Tage.transform, Vector3.up);
 
-			_GoUnitSpawnRange.SetActive(UnitCard.gIsDrag);
+			if (UnitCard.gIsDrag)
+			{
+				_GoUnitSpawnRange.transform.localScale = Vector3.MoveTowards(_GoUnitSpawnRange.transform.localScale, Vector3.one * 30, 3);
+			}
+			else
+			{
+				_GoUnitSpawnRange.transform.localScale = Vector3.MoveTowards(_GoUnitSpawnRange.transform.localScale, Vector3.zero, 3);
+			}
+
+			_GoUnitSpawnRange.SetActive(_GoUnitSpawnRange.transform.localScale.magnitude != 0);
+
 
 			_TraRot.AddEulerAnglesY(2);
 		}

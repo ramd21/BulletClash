@@ -30,6 +30,9 @@ namespace BC
 			unit.transform.ResetLocalTransform();
 			unit._CvsHp.gameObject.SetActive(false);
 			unit.gameObject.SetLayer(LayerMask.NameToLayer("UI"), true);
+			unit.GetComponentInChildren<BackFire>()._CamTage = CameraMan.i._3DUICam;
+
+
 		}
 
 
