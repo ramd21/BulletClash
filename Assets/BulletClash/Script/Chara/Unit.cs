@@ -106,7 +106,7 @@ namespace BC
 				{
 					c = collList[j];
 					if (_Coll.IsHit(c))
-						AddForce(_Tra._Pos - c._Tra._Pos, 40);
+						AddForce(_Tra._Pos - c._Tra._Pos, 50);
 				}
 
 				collList = CollMan.i.GetCollList(_PlayerId, CharaType.unit, _Coll._CollBlock[i]);
@@ -115,7 +115,7 @@ namespace BC
 				{
 					c = collList[j];
 					if (_Coll.IsHit(c))
-						AddForce(_Tra._Pos - c._Tra._Pos, 40);
+						AddForce(_Tra._Pos - c._Tra._Pos, 50);
 				}
 
 				collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.tower, _Coll._CollBlock[i]);
@@ -124,7 +124,7 @@ namespace BC
 				{
 					c = collList[j];
 					if (_Coll.IsHit(c))
-						AddForce(_Tra._Pos - c._Tra._Pos, 80);
+						AddForce(_Tra._Pos - c._Tra._Pos, 50);
 				}
 
 				collList = CollMan.i.GetCollList(_PlayerId, CharaType.tower, _Coll._CollBlock[i]);
@@ -133,7 +133,7 @@ namespace BC
 				{
 					c = collList[j];
 					if (_Coll.IsHit(c))
-						AddForce(_Tra._Pos - c._Tra._Pos, 80);
+						AddForce(_Tra._Pos - c._Tra._Pos, 50);
 				}
 			}
 		}
@@ -236,8 +236,8 @@ namespace BC
 			if (_Param.Hp <= 0)
 				DeactivateReq();
 
-			_Force.x = (_Force.x * 985) / 1000;
-			_Force.y = (_Force.y * 985) / 1000;
+			_Force.x = (_Force.x * 975) / 1000;
+			_Force.y = (_Force.y * 975) / 1000;
 		}
 
 		public override void UpdateView()
