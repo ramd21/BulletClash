@@ -120,6 +120,9 @@ namespace BC
 					{
 						DeactivateReq();
 						(c._Chara as Unit).Dmg(1);
+
+						BulletHit bh = CharaMan.i.GetPoolOrNewBulletHit();
+						bh.SetPos(_Tra._Pos + new Vector2((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
 					}
 				}
 			}

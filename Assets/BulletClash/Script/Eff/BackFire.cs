@@ -23,14 +23,14 @@ namespace BC
 
 #if UNITY_EDITOR
 
-		private void OnDrawGizmos()
-		{
-			if (_CamTage)
-			{
-				Gizmos.DrawLine(transform.position, _CamTage.transform.position);
-				Gizmos.DrawLine(transform.position, transform.position - transform.parent.forward * 10);
-			}
-		}
+		//private void OnDrawGizmos()
+		//{
+		//	if (_CamTage)
+		//	{
+		//		Gizmos.DrawLine(transform.position, _CamTage.transform.position);
+		//		Gizmos.DrawLine(transform.position, transform.position - transform.parent.forward * 10);
+		//	}
+		//}
 
 #endif
 

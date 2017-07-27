@@ -30,8 +30,12 @@ namespace BC
 			unit.transform.ResetLocalTransform();
 			unit._CvsHp.gameObject.SetActive(false);
 			unit.gameObject.SetLayer(LayerMask.NameToLayer("UI"), true);
-			unit.GetComponentInChildren<BackFire>()._CamTage = CameraMan.i._3DUICam;
 
+			BackFire[] bfArr = unit.GetComponentsInChildren<BackFire>();
+			for (int i = 0; i < bfArr.Length; i++)
+			{
+				bfArr[i]._CamTage = CameraMan.i._3DUICam;
+			}
 
 		}
 
