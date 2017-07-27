@@ -20,6 +20,9 @@ namespace BC
 			this.WaitForEndOfFrame(()=> 
 			{
 				//ResourceMan.i.Init();
+				SinTable.Init();
+				CosTable.Init();
+
 				UIMan.i.Init();
 				PlayerMan.i.Init();
 				CharaMan.i.Init();

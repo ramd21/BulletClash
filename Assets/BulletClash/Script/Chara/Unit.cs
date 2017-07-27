@@ -24,6 +24,8 @@ namespace BC
 
 		Vector2Int _Force;
 
+		public Cannon _Cannon;
+
 		public void InstantiateInit(int aPlayerId, UnitType aType)
 		{
 			_Id = gCnt;
@@ -212,6 +214,12 @@ namespace BC
 
 		public void Fire()
 		{
+			if (_Cannon)
+			{
+				_Cannon.Fire();
+				return;
+			}
+
 			//if (!_Tage)
 			//	return;
 
