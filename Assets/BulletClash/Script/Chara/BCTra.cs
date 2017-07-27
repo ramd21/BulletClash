@@ -9,15 +9,12 @@ namespace BC
 	{
 		public Vector2Int	_Pos;
 		public Vector2Int	_Dir;
-		public Vector2		_NormDir;
-
 		public Vector2Int	_Move;
 
 		public void SetMove(Vector2Int aDir, int aSpd)
 		{
 			_Dir = aDir;
-			_NormDir = _Dir.normalized;
-			_Move = _NormDir * aSpd;
+			_Move = aDir.normalized * aSpd;
 		}
 
 #if UNITY_EDITOR

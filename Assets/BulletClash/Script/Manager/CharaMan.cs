@@ -211,6 +211,7 @@ namespace BC
 			Act(_TowerList, (a) => a.SearchTage());
 
 			Act(_BulletList, (a) => a.HitCheck());
+			Act(_UnitList, (a) => a.HitCheck());
 
 			Act(_TowerList, (a) => a.Fire());
 			Act(_UnitList, (a) => a.Fire());

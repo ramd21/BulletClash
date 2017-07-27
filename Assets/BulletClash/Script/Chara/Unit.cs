@@ -22,6 +22,8 @@ namespace BC
 		Chara _Tage;
 		int _TageDist;
 
+		Vector2Int _Force;
+
 		public void InstantiateInit(int aPlayerId, UnitType aType)
 		{
 			_Id = gCnt;
@@ -56,6 +58,8 @@ namespace BC
 			else
 				_Tra._Pos.y -= _Param.SpdY;
 
+			_Tra._Pos += _Force;
+
 			if (_Tage)
 			{
 				if (_Tage._Tra._Pos.x > _Tra._Pos.x)
@@ -87,51 +91,56 @@ namespace BC
 				return;
 
 			}
-
-			
 		}
 
 		public void HitCheck()
-		{ 
-		//{
-		//	FastList<Coll> collList;
-		//	Coll c;
-		//	int len;
-		//	for (int i = 0; i < 9; i++)
-		//	{
-		//		collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.unit, _Coll._CollBlock[i]);
-		//		len = collList.Count;
-		//		for (int j = 0; j < len; j++)
-		//		{
-		//			c = collList[j];
-		//			if (_Coll.IsHit(c))
-		//			{
-		//				DeactivateReq();
-		//				(c._Chara as Unit).Dmg(1);
+		{
+			FastList<Coll> collList;
+			Coll c;
+			int len;
+			for (int i = 0; i < 9; i++)
+			{
+				collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.unit, _Coll._CollBlock[i]);
+				len = collList.Count;
+				for (int j = 0; j < len; j++)
+				{
+					c = collList[j];
+					if (_Coll.IsHit(c))
+						AddForce(_Tra._Pos - c._Tra._Pos, 40);
+				}
 
-		//				BulletHit bh = CharaMan.i.GetPoolOrNewBulletHit();
-		//				bh.SetPos(_Tra._Pos + new Vector2((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
-		//			}
-		//		}
-		//	}
+				collList = CollMan.i.GetCollList(_PlayerId, CharaType.unit, _Coll._CollBlock[i]);
+				len = collList.Count;
+				for (int j = 0; j < len; j++)
+				{
+					c = collList[j];
+					if (_Coll.IsHit(c))
+						AddForce(_Tra._Pos - c._Tra._Pos, 40);
+				}
 
-		//	for (int i = 0; i < 9; i++)
-		//	{
-		//		collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.tower, _Coll._CollBlock[i]);
-		//		len = collList.Count;
-		//		for (int j = 0; j < len; j++)
-		//		{
-		//			c = collList[j];
-		//			if (_Coll.IsHit(c))
-		//			{
-		//				DeactivateReq();
-		//				(c._Chara as Tower).Dmg(1);
+				collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.tower, _Coll._CollBlock[i]);
+				len = collList.Count;
+				for (int j = 0; j < len; j++)
+				{
+					c = collList[j];
+					if (_Coll.IsHit(c))
+						AddForce(_Tra._Pos - c._Tra._Pos, 80);
+				}
 
-		//				BulletHit bh = CharaMan.i.GetPoolOrNewBulletHit();
-		//				bh.SetPos(_Tra._Pos + new Vector2((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
-		//			}
-		//		}
-		//	}
+				collList = CollMan.i.GetCollList(_PlayerId, CharaType.tower, _Coll._CollBlock[i]);
+				len = collList.Count;
+				for (int j = 0; j < len; j++)
+				{
+					c = collList[j];
+					if (_Coll.IsHit(c))
+						AddForce(_Tra._Pos - c._Tra._Pos, 80);
+				}
+			}
+		}
+
+		public void AddForce(Vector2Int aDir, int aPow)
+		{
+			_Force = aDir.normalized * aPow;
 		}
 
 		public void Dmg(int aDmg)
@@ -226,6 +235,9 @@ namespace BC
 		{
 			if (_Param.Hp <= 0)
 				DeactivateReq();
+
+			_Force.x = (_Force.x * 985) / 1000;
+			_Force.y = (_Force.y * 985) / 1000;
 		}
 
 		public override void UpdateView()

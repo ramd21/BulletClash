@@ -28,7 +28,7 @@ namespace BC
 		//	Screen.SetResolution(i._ScreenW, i._ScreenH, true);
 		//}
 
-		void Update()
+		void LateUpdate()
 		{
 			if (_MainCam.transform.position.z < _MainCamZMin)
 				_MainCam.transform.SetPositionZ(_MainCamZMin);
