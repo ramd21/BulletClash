@@ -2,50 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RM;
+using System;
 
 namespace BC
 {
 	public class GameMan : Singleton<GameMan>
 	{
-		public int _TPMax;
-		public int _TPTimer;
+		public bool _ForEditor;
 
-		public const int cDistDiv = 100;
+		public string[] _StrUI;
 
-		bool _Init;
+		public int _UIId;
+
 		protected override void Awake()
 		{
-			base.Awake();
-
-			this.WaitForEndOfFrame(()=> 
+			if (_ForEditor)
 			{
-				//ResourceMan.i.Init();
-				SinTable.Init();
-				CosTable.Init();
-
-				UIMan.i.Init();
-				PlayerMan.i.Init();
-				CharaMan.i.Init();
-				CollMan.i.Init();
-				_Init = true;
-			});
+#if !UNITY_EDITOR
+				DestroyImmediate(gameObject);
+#else
+				if (i)
+				{
+					DestroyImmediate(gameObject);
+				}
+				else
+				{
+					Init();
+				}
+#endif
+			}
+			else
+			{
+				Init();
+			}
 		}
 
-		void FixedUpdate()
+		void Init()
 		{
-			if (!_Init)
-				return;
+			base.Awake();
+			DontDestroyOnLoad(gameObject);
 
-			PlayerMan.i.Act();
-			CharaMan.i.Act();
-		}
-
-		void Update()
-		{
-			if (!_Init)
-				return;
-
-			CharaMan.i.UpdateView();
+			GameObject go = Resources.Load<GameObject>("UI/" + _StrUI[_UIId]);
+			go.Instantiate();
 		}
 	}
 }

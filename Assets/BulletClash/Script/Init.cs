@@ -17,7 +17,7 @@ namespace BC
 
 			this.WaitForFrames(1, ()=> 
 			{
-				SceneManager.LoadScene("battle");
+				SceneManager.LoadScene("title");
 			});
 		}
 	}

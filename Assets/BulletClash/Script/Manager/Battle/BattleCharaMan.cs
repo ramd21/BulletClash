@@ -6,7 +6,7 @@ using System;
 
 namespace BC
 {
-	public class CharaMan : Singleton<CharaMan>
+	public class BattleCharaMan : Singleton<BattleCharaMan>
 	{
 		public List<Unit>[]		_UnitList;
 		public List<Bullet>[]	_BulletList;
@@ -197,7 +197,7 @@ namespace BC
 
 			//act>>
 
-			CollMan.i.Clear();
+			BattleCollMan.i.Clear();
 
 			Act(_BulletList, (a) => a.OnFrameBegin());
 			Act(_UnitList, (a) => a.OnFrameBegin());

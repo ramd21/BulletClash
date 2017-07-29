@@ -47,7 +47,7 @@ namespace BC
 
 		public virtual void UpdateView()
 		{
-			transform.position = (_Tra._Pos + FieldMan.i._Offset).ToVector3XZ() / GameMan.cDistDiv;
+			transform.position = (_Tra._Pos + BattleFieldMan.i._Offset).ToVector3XZ() / BattleGameMan.cDistDiv;
 		}
 
 

@@ -39,14 +39,14 @@ namespace BC
 					if (_Chara._PlayerId == 0)
 						deg = 0;
 					else
-						deg = 180 * GameMan.cDistDiv;
+						deg = 180 * BattleGameMan.cDistDiv;
 
 					int offset = (_WayCnt - 1) * _WayDegInter / 2;
 					deg -= offset;
 
 					for (int i = 0; i < _WayCnt; i++)
 					{
-						Bullet b = CharaMan.i.GetPoolOrNewBullet(_Chara._PlayerId, BulletType.shot);
+						Bullet b = BattleCharaMan.i.GetPoolOrNewBullet(_Chara._PlayerId, BulletType.shot);
 						deg = AngleMath.RoundTo360(deg);
 						b.ActivateReq(_Chara._Tra._Pos, new Vector2Int(SinTable.GetX(deg), CosTable.GetY(deg)));
 						deg += _WayDegInter;

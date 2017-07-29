@@ -31,9 +31,9 @@ namespace BC
 			this.WaitForEndOfFrame(() =>
 			{
 				InstantiateInit(_PlayerId);
-				CharaMan.i._TowerList[_PlayerId].Add(this);
-				transform.parent = CharaMan.i._TraPlayerParent[_PlayerId];
-				ActivateReq(transform.position.ToVector2IntXZ() * GameMan.cDistDiv - FieldMan.i._Offset);
+				BattleCharaMan.i._TowerList[_PlayerId].Add(this);
+				transform.parent = BattleCharaMan.i._TraPlayerParent[_PlayerId];
+				ActivateReq(transform.position.ToVector2IntXZ() * BattleGameMan.cDistDiv - BattleFieldMan.i._Offset);
 				_Coll.UpdateBlock();
 			});
 		}
@@ -77,10 +77,10 @@ namespace BC
 			_Tage = null;
 
 			Unit u;
-			len = CharaMan.i._UnitList[_VSPlayerId].Count;
+			len = BattleCharaMan.i._UnitList[_VSPlayerId].Count;
 			for (int i = 0; i < len; i++)
 			{
-				u = CharaMan.i._UnitList[_VSPlayerId][i];
+				u = BattleCharaMan.i._UnitList[_VSPlayerId][i];
 				if (u._State == ActiveState.active)
 				{
 					dist = RMMath.GetApproxDist(_Tra._Pos.x, _Tra._Pos.y, u._Tra._Pos.x, u._Tra._Pos.y);
@@ -103,7 +103,7 @@ namespace BC
 
 			if (_Param.FireInter == 0)
 			{
-				Bullet b = CharaMan.i.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
+				Bullet b = BattleCharaMan.i.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
 				b.ActivateReq(_Tra._Pos, _Tage._Tra._Pos - _Tra._Pos);
 				_Param.FireInter = _ParamDef.FireInter;
 			}
@@ -141,7 +141,7 @@ namespace BC
 			if(_Tage)
 				_TraCannon.LookAt(_Tage.transform, Vector3.up);
 
-			if (_PlayerId == PlayerMan.i._MyPlayerId)
+			if (_PlayerId == BattlePlayerMan.i._MyPlayerId)
 			{
 				if (UnitCard.gIsDrag)
 				{

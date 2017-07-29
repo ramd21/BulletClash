@@ -52,7 +52,7 @@ namespace BC
 			_Tra._Pos += _Tra._Move;
 
 
-			if (_Tra._Pos.y > FieldMan.i._Size.y)
+			if (_Tra._Pos.y > BattleFieldMan.i._Size.y)
 			{
 				DeactivateReq();
 				return;
@@ -64,7 +64,7 @@ namespace BC
 				return;
 			}
 
-			if (_Tra._Pos.x > FieldMan.i._Size.x)
+			if (_Tra._Pos.x > BattleFieldMan.i._Size.x)
 			{
 				DeactivateReq();
 				return;
@@ -82,10 +82,11 @@ namespace BC
 		{
 			FastList<Coll> collList;
 			Coll c;
+			Unit u;
 			int len;
 			for (int i = 0; i < 9; i++)
 			{
-				collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.bullet, _Coll._CollBlock[i]);
+				collList = BattleCollMan.i.GetCollList(_VSPlayerId, CharaType.bullet, _Coll._CollBlock[i]);
 				len = collList.Count;
 				for (int j = 0; j < len; j++)
 				{
@@ -94,7 +95,7 @@ namespace BC
 					{
 						DeactivateReq();
 						(c._Chara as Bullet).DeactivateReq();
-						BulletHit bh = CharaMan.i.GetPoolOrNewBulletHit();
+						BulletHit bh = BattleCharaMan.i.GetPoolOrNewBulletHit();
 						bh.SetPos(_Tra._Pos + new Vector2Int((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
 					}
 				}
@@ -102,7 +103,7 @@ namespace BC
 
 			for (int i = 0; i < 9; i++)
 			{
-				collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.unit, _Coll._CollBlock[i]);
+				collList = BattleCollMan.i.GetCollList(_VSPlayerId, CharaType.unit, _Coll._CollBlock[i]);
 				len = collList.Count;
 				for (int j = 0; j < len; j++)
 				{
@@ -110,9 +111,14 @@ namespace BC
 					if (_Coll.IsHit(c))
 					{
 						DeactivateReq();
-						(c._Chara as Unit).Dmg(1);
 
-						BulletHit bh = CharaMan.i.GetPoolOrNewBulletHit();
+						u = c._Chara as Unit;
+
+						u.Dmg(1);
+
+						u.AddForce(_Tra._Move, 10);
+
+						BulletHit bh = BattleCharaMan.i.GetPoolOrNewBulletHit();
 						bh.SetPos(_Tra._Pos + new Vector2Int((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
 					}
 				}
@@ -120,7 +126,7 @@ namespace BC
 
 			for (int i = 0; i < 9; i++)
 			{
-				collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.tower, _Coll._CollBlock[i]);
+				collList = BattleCollMan.i.GetCollList(_VSPlayerId, CharaType.tower, _Coll._CollBlock[i]);
 				len = collList.Count;
 				for (int j = 0; j < len; j++)
 				{
@@ -130,7 +136,7 @@ namespace BC
 						DeactivateReq();
 						(c._Chara as Tower).Dmg(1);
 
-						BulletHit bh = CharaMan.i.GetPoolOrNewBulletHit();
+						BulletHit bh = BattleCharaMan.i.GetPoolOrNewBulletHit();
 						bh.SetPos(_Tra._Pos + new Vector2Int((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
 					}
 				}

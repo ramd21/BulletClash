@@ -9,7 +9,7 @@ using UnityEditor;
 
 namespace BC
 {
-	public class CollMan : Singleton<CollMan>
+	public class BattleCollMan : Singleton<BattleCollMan>
 	{
 		public int _DivDist;
 		public int _XCnt;
@@ -76,7 +76,7 @@ namespace BC
 				posA += _GizmoOffset.ToVector3XZ();
 				posB += _GizmoOffset.ToVector3XZ();
 
-				Gizmos.DrawLine(posA / GameMan.cDistDiv, posB / GameMan.cDistDiv);
+				Gizmos.DrawLine(posA / BattleGameMan.cDistDiv, posB / BattleGameMan.cDistDiv);
 			}
 
 			//縦線
@@ -87,7 +87,7 @@ namespace BC
 
 				posA += _GizmoOffset.ToVector3XZ();
 				posB += _GizmoOffset.ToVector3XZ();
-				Gizmos.DrawLine(posA / GameMan.cDistDiv, posB / GameMan.cDistDiv);
+				Gizmos.DrawLine(posA / BattleGameMan.cDistDiv, posB / BattleGameMan.cDistDiv);
 			}
 
 
@@ -105,7 +105,7 @@ namespace BC
 				labelPos = transform.position + Vector3.right * _DivDist * (i % _XCnt) + Vector3.forward * _DivDist * (i / _XCnt);
 				labelPos += Vector3.forward * _DivDist / 2;
 				labelPos += Vector3.right * _DivDist / 2;
-				Handles.Label((labelPos + _GizmoOffset.ToVector3XZ()) / GameMan.cDistDiv, i.ToString(), gs);
+				Handles.Label((labelPos + _GizmoOffset.ToVector3XZ()) / BattleGameMan.cDistDiv, i.ToString(), gs);
 			}
 		}
 #endif

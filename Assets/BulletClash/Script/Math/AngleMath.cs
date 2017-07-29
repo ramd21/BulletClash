@@ -13,28 +13,28 @@ namespace BC
 				if (0 <= aDeg)
 					break;
 
-				aDeg += 360 * GameMan.cDistDiv;
+				aDeg += 360 * BattleGameMan.cDistDiv;
 			}
 
-			return aDeg % (360 * GameMan.cDistDiv);
+			return aDeg % (360 * BattleGameMan.cDistDiv);
 		}
 
 		static public int RoundToPlusMinus180(int aDeg)
 		{
 			while (true)
 			{
-				if (aDeg < 180 * GameMan.cDistDiv)
+				if (aDeg < 180 * BattleGameMan.cDistDiv)
 					break;
 
-				aDeg -= 360 * GameMan.cDistDiv;
+				aDeg -= 360 * BattleGameMan.cDistDiv;
 			}
 
 			while (true)
 			{
-				if (-180 * GameMan.cDistDiv <= aDeg)
+				if (-180 * BattleGameMan.cDistDiv <= aDeg)
 					break;
 
-				aDeg += 360 * GameMan.cDistDiv;
+				aDeg += 360 * BattleGameMan.cDistDiv;
 			}
 
 			return aDeg;
@@ -44,14 +44,14 @@ namespace BC
 		{
 			int diff = aTageDeg - aCurDeg;
 
-			if (diff <= -180 * GameMan.cDistDiv)
+			if (diff <= -180 * BattleGameMan.cDistDiv)
 			{
-				diff += 360 * GameMan.cDistDiv;
+				diff += 360 * BattleGameMan.cDistDiv;
 			}
 
-			if (diff > 180 * GameMan.cDistDiv)
+			if (diff > 180 * BattleGameMan.cDistDiv)
 			{
-				diff -= 360 * GameMan.cDistDiv;
+				diff -= 360 * BattleGameMan.cDistDiv;
 			}
 
 			int change;

@@ -81,7 +81,7 @@ namespace BC
 				}
 			}
 
-			if (_Tra._Pos.y > FieldMan.i._Size.y)
+			if (_Tra._Pos.y > BattleFieldMan.i._Size.y)
 			{
 				DeactivateReq();
 				return;
@@ -102,47 +102,63 @@ namespace BC
 			int len;
 			for (int i = 0; i < 9; i++)
 			{
-				collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.unit, _Coll._CollBlock[i]);
+				collList = BattleCollMan.i.GetCollList(_VSPlayerId, CharaType.unit, _Coll._CollBlock[i]);
 				len = collList.Count;
 				for (int j = 0; j < len; j++)
 				{
 					c = collList[j];
 					if (_Coll.IsHit(c))
-						AddForce(_Tra._Pos - c._Tra._Pos, 50);
+					{
+						AddForce(_Tra._Pos - c._Tra._Pos, 5);
+					}
 				}
 
-				collList = CollMan.i.GetCollList(_PlayerId, CharaType.unit, _Coll._CollBlock[i]);
+				collList = BattleCollMan.i.GetCollList(_PlayerId, CharaType.unit, _Coll._CollBlock[i]);
 				len = collList.Count;
 				for (int j = 0; j < len; j++)
 				{
 					c = collList[j];
 					if (_Coll.IsHit(c))
-						AddForce(_Tra._Pos - c._Tra._Pos, 50);
+					{
+						AddForce(_Tra._Pos - c._Tra._Pos, 5);
+					}
 				}
 
-				collList = CollMan.i.GetCollList(_VSPlayerId, CharaType.tower, _Coll._CollBlock[i]);
+				collList = BattleCollMan.i.GetCollList(_VSPlayerId, CharaType.tower, _Coll._CollBlock[i]);
 				len = collList.Count;
 				for (int j = 0; j < len; j++)
 				{
 					c = collList[j];
 					if (_Coll.IsHit(c))
-						AddForce(_Tra._Pos - c._Tra._Pos, 50);
+						AddForce(_Tra._Pos - c._Tra._Pos, 5);
 				}
 
-				collList = CollMan.i.GetCollList(_PlayerId, CharaType.tower, _Coll._CollBlock[i]);
+				collList = BattleCollMan.i.GetCollList(_PlayerId, CharaType.tower, _Coll._CollBlock[i]);
 				len = collList.Count;
 				for (int j = 0; j < len; j++)
 				{
 					c = collList[j];
 					if (_Coll.IsHit(c))
-						AddForce(_Tra._Pos - c._Tra._Pos, 50);
+						AddForce(_Tra._Pos - c._Tra._Pos, 5);
 				}
+			}
+
+			if (_Tra._Pos.x > BattleFieldMan.i._Size.x)
+			{
+				_Tra._Pos.x = BattleFieldMan.i._Size.x;
+				AddForce(Vector2Int.left, 5);
+			}
+
+			if (_Tra._Pos.x < 0)
+			{
+				_Tra._Pos.x = 0;
+				AddForce(Vector2Int.right, 5);
 			}
 		}
 
 		public void AddForce(Vector2Int aDir, int aPow)
 		{
-			_Force = aDir.normalized * aPow;
+			_Force += (aDir.normalized * aPow);
 		}
 
 		public void Dmg(int aDmg)
@@ -158,10 +174,10 @@ namespace BC
 			_Tage = null;
 
 			Unit u;
-			len = CharaMan.i._UnitList[_VSPlayerId].Count;
+			len = BattleCharaMan.i._UnitList[_VSPlayerId].Count;
 			for (int i = 0; i < len; i++)
 			{
-				u = CharaMan.i._UnitList[_VSPlayerId][i];
+				u = BattleCharaMan.i._UnitList[_VSPlayerId][i];
 				if (u._State == ActiveState.active)
 				{
 					if (_PlayerId == 0)
@@ -185,10 +201,10 @@ namespace BC
 			}
 
 			Tower tw;
-			len = CharaMan.i._TowerList[_VSPlayerId].Count;
+			len = BattleCharaMan.i._TowerList[_VSPlayerId].Count;
 			for (int i = 0; i < len; i++)
 			{
-				tw = CharaMan.i._TowerList[_VSPlayerId][i];
+				tw = BattleCharaMan.i._TowerList[_VSPlayerId][i];
 				if (tw._State == ActiveState.active)
 				{
 					if (_PlayerId == 0)
@@ -214,21 +230,21 @@ namespace BC
 
 		public void Fire()
 		{
+			if (!_Tage)
+				return;
+
+			if (_TageDist > _Param.Range)
+				return;
+
 			if (_Cannon)
 			{
 				_Cannon.Fire();
 				return;
 			}
 
-			//if (!_Tage)
-			//	return;
-
-			//if (_TageDist > _Param.Range)
-			//	return;
-
 			if (_Param.FireInter == 0)
 			{
-				Bullet b = CharaMan.i.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
+				Bullet b = BattleCharaMan.i.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
 				if (_PlayerId == 0)
 					b.ActivateReq(_Tra._Pos, Vector2Int.up);
 				else

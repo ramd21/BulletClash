@@ -175,12 +175,12 @@ namespace BC
 
 
 			SetBounds(_Tra._Pos);
-			int x = _Tra._Pos.x + _Bounds2D.center.x + CollMan.i._Offset.x;
-			int y = _Tra._Pos.y + _Bounds2D.center.y + CollMan.i._Offset.y;
+			int x = _Tra._Pos.x + _Bounds2D.center.x + BattleCollMan.i._Offset.x;
+			int y = _Tra._Pos.y + _Bounds2D.center.y + BattleCollMan.i._Offset.y;
 			int sX = _Bounds2D.size.x / 2;
 			int sY = _Bounds2D.size.y / 2;
 
-			CollMan collMan = CollMan.i;
+			BattleCollMan collMan = BattleCollMan.i;
 
 
 			_CollBlockCur = (x / collMan._DivDist) % collMan._XCnt + (y / collMan._DivDist) * collMan._XCnt;
@@ -210,7 +210,7 @@ namespace BC
 
 		public void AddToCollMan()
 		{
-			CollMan.i.AddColl(this, _PlayerId, _Chara._Type, _CollBlockCur);
+			BattleCollMan.i.AddColl(this, _PlayerId, _Chara._Type, _CollBlockCur);
 		}
 
 
@@ -224,24 +224,24 @@ namespace BC
 			{
 				for (int i = 0; i < _CollInfoArr.Length; i++)
 				{
-					Vector3 pos = (_Tra._Pos + FieldMan.i._Offset + _CollInfoArr[i]._Offset).ToVector3XZ();
-					Gizmos.DrawWireCube(pos / GameMan.cDistDiv, _CollInfoArr[i]._Size.ToVector3XZ() / GameMan.cDistDiv);
+					Vector3 pos = (_Tra._Pos + BattleFieldMan.i._Offset + _CollInfoArr[i]._Offset).ToVector3XZ();
+					Gizmos.DrawWireCube(pos / BattleGameMan.cDistDiv, _CollInfoArr[i]._Size.ToVector3XZ() / BattleGameMan.cDistDiv);
 				}
 
 				Gizmos.color = Color.green;
-				Gizmos.DrawWireCube((_Tra._Pos + FieldMan.i._Offset + _Bounds2D.center).ToVector3XZ() / GameMan.cDistDiv, _Bounds2D.size.ToVector3XZ() / GameMan.cDistDiv);
+				Gizmos.DrawWireCube((_Tra._Pos + BattleFieldMan.i._Offset + _Bounds2D.center).ToVector3XZ() / BattleGameMan.cDistDiv, _Bounds2D.size.ToVector3XZ() / BattleGameMan.cDistDiv);
 			}
 			else
 			{
 				for (int i = 0; i < _CollInfoArr.Length; i++)
 				{
-					Gizmos.DrawWireCube(transform.position + _CollInfoArr[i]._Offset.ToVector3XZ() / GameMan.cDistDiv, _CollInfoArr[i]._Size.ToVector3XZ() / GameMan.cDistDiv);
+					Gizmos.DrawWireCube(transform.position + _CollInfoArr[i]._Offset.ToVector3XZ() / BattleGameMan.cDistDiv, _CollInfoArr[i]._Size.ToVector3XZ() / BattleGameMan.cDistDiv);
 				}
 
 				Gizmos.color = Color.green;
 
 				SetBounds(Vector2.zero);
-				Gizmos.DrawWireCube(transform.position + _Bounds2D.center.ToVector3XZ() / GameMan.cDistDiv, _Bounds2D.size.ToVector3XZ() / GameMan.cDistDiv);
+				Gizmos.DrawWireCube(transform.position + _Bounds2D.center.ToVector3XZ() / BattleGameMan.cDistDiv, _Bounds2D.size.ToVector3XZ() / BattleGameMan.cDistDiv);
 			}
 		}
 

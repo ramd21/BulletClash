@@ -34,7 +34,7 @@ namespace BC
 			BackFire[] bfArr = unit.GetComponentsInChildren<BackFire>();
 			for (int i = 0; i < bfArr.Length; i++)
 			{
-				bfArr[i]._CamTage = CameraMan.i._3DUICam;
+				bfArr[i]._CamTage = BattleCameraMan.i._3DUICam;
 			}
 
 		}
@@ -44,35 +44,35 @@ namespace BC
 		{
 			get
 			{
-				return CameraMan.i._3DUICam;
+				return BattleCameraMan.i._3DUICam;
 			}
 		}
 
 		public override void OnPointerDown(PointerEventData eventData)
 		{
-			CameraMan.i._DragCamera.enabled = false;
+			BattleCameraMan.i._DragCamera.enabled = false;
 			gIsDrag = true;
 		}
 
 		public override void OnPointerUp(PointerEventData eventData)
 		{
-			CameraMan.i._DragCamera.enabled = true;
+			BattleCameraMan.i._DragCamera.enabled = true;
 			gIsDrag = false;
 
-			if (PlayerMan.i._myPlayer.GetTP() >= _Param.Cost)
+			if (BattlePlayerMan.i._myPlayer.GetTP() >= _Param.Cost)
 			{
-				Ray r = CameraMan.i._MainCam.ScreenPointToRay(eventData.position);
+				Ray r = BattleCameraMan.i._MainCam.ScreenPointToRay(eventData.position);
 				RaycastHit rh;
 				if(Physics.Raycast(r, out rh))
 				{
-					Vector2Int pos = rh.point.ToVector2IntXZ() * GameMan.cDistDiv - FieldMan.i._Offset;
+					Vector2Int pos = rh.point.ToVector2IntXZ() * BattleGameMan.cDistDiv - BattleFieldMan.i._Offset;
 
-					for (int i = 0; i < CharaMan.i._TowerList[PlayerMan.i._MyPlayerId].Count; i++)
+					for (int i = 0; i < BattleCharaMan.i._TowerList[BattlePlayerMan.i._MyPlayerId].Count; i++)
 					{
-						Tower tw = CharaMan.i._TowerList[PlayerMan.i._MyPlayerId][i];
-						if (RMMath.GetApproxDist((int)tw._Tra._Pos.x, (int)tw._Tra._Pos.y, (int)pos.x, (int)pos.y) <= 15 * GameMan.cDistDiv)
+						Tower tw = BattleCharaMan.i._TowerList[BattlePlayerMan.i._MyPlayerId][i];
+						if (RMMath.GetApproxDist((int)tw._Tra._Pos.x, (int)tw._Tra._Pos.y, (int)pos.x, (int)pos.y) <= 15 * BattleGameMan.cDistDiv)
 						{
-							PlayerMan.i._myPlayer.PlaceUnit(_Param, pos);
+							BattlePlayerMan.i._myPlayer.PlaceUnit(_Param, pos);
 							break;
 						}
 					}

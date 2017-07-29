@@ -10,14 +10,14 @@ namespace BC
 		static int[] gYArr;
 		static public void Init()
 		{
-			gYArr = new int[360 * GameMan.cDistDiv];
+			gYArr = new int[360 * BattleGameMan.cDistDiv];
 
-			for (int i = 0; i < 360 * GameMan.cDistDiv; i++)
+			for (int i = 0; i < 360 * BattleGameMan.cDistDiv; i++)
 			{
-				double deg = i / GameMan.cDistDiv;
+				double deg = i / BattleGameMan.cDistDiv;
 				double rad = deg * Mathf.Deg2Rad;
 				double valD = Math.Cos(rad);
-				int valI = (int)(valD * GameMan.cDistDiv);
+				int valI = (int)(valD * BattleGameMan.cDistDiv);
 				gYArr[i] = valI;
 			}
 		}

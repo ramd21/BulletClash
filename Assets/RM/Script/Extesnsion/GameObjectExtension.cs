@@ -10,6 +10,12 @@ namespace RM
 {
 	static public class GameObjectExtension
 	{
+		public static GameObject Instantiate(this GameObject aThis)
+		{
+			return GameObject.Instantiate(aThis);
+		}
+
+
 		public static void SetLayer(this GameObject aThis, int aLayer, bool aSetChild = true)
 		{
 			if (aThis == null)

@@ -5,7 +5,7 @@ using RM;
 
 namespace BC
 {
-	public class CameraMan : Singleton<CameraMan>
+	public class BattleCameraMan : Singleton<BattleCameraMan>
 	{
 		public DragCamera _DragCamera;
 		public Camera _3DUICam;
