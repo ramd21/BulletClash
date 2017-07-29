@@ -14,16 +14,32 @@ namespace BC
 		public Canvas _2DCanvas;
 
 		public GameObject _GoCurUI;
+		public GameObject _GoHeader;
 
+
+		public void SetHeaderActive(bool aActive)
+		{
+			_GoHeader.SetActive(aActive);
+		}
+
+		public void CloseCurUI()
+		{
+			if (_GoCurUI)
+				DestroyImmediate(_GoCurUI);
+		}
 
 		public void OpenUI(string aUI, bool aClosePrevUI)
 		{
+			if (aUI.IsNullOrEmpty())
+				return;
+
 			if (_GoCurUI && aClosePrevUI)
 				DestroyImmediate(_GoCurUI);
 
 			GameObject goUI = Resources.Load<GameObject>("UI/" + aUI);
 			goUI = goUI.Instantiate();
 			goUI.transform.parent = _2DCanvas.transform;
+			goUI.transform.SetSiblingIndex(0);
 			goUI.transform.ResetLocalTransform();
 			goUI.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
 

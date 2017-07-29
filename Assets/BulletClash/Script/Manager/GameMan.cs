@@ -9,12 +9,6 @@ namespace BC
 	public class GameMan : Singleton<GameMan>
 	{
 		public bool _ForEditor;
-		public bool _LoadUI;
-
-
-		public string[] _StrUI;
-
-		public int _UIId;
 
 		protected override void Awake()
 		{
@@ -39,12 +33,6 @@ namespace BC
 				base.Awake();
 				DontDestroyOnLoad(gameObject);
 			}
-		}
-
-		void Start()
-		{
-			if (_LoadUI)
-				UIMan.i.OpenUI(_StrUI[_UIId], false);
 		}
 	}
 }

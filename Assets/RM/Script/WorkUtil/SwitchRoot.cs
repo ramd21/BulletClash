@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace RM
 {
-	public class ActivateOnlySelectedRoot : EditorUpdateBehaviour
+	public class SwitchRoot : EditorUpdateBehaviour
 	{
 #if UNITY_EDITOR
 		public override void EditorUpdate()

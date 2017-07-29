@@ -23,7 +23,10 @@ namespace BC
 		void OnClick()
 		{
 			if (_GoToScene.IsNotNullOrEmpty())
+			{
+				UIMan.i.CloseCurUI();
 				SceneManager.LoadScene(_GoToScene);
+			}
 
 			if (_OpenUI.IsNotNullOrEmpty())
 				UIMan.i.OpenUI(_OpenUI, _ClosePrevUI);
