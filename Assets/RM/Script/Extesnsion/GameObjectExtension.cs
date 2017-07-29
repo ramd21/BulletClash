@@ -12,7 +12,35 @@ namespace RM
 	{
 		public static GameObject Instantiate(this GameObject aThis)
 		{
-			return GameObject.Instantiate(aThis);
+			aThis = GameObject.Instantiate(aThis);
+			return aThis;
+		}
+
+		public static T Instantiate<T>(this T aThis) where T : MonoBehaviour
+		{
+			aThis = GameObject.Instantiate<T>(aThis);
+			return aThis;
+		}
+
+		public static void SetLayer(this GameObject aThis, string aLayer, bool aSetChild = true)
+		{
+			if (aThis == null)
+			{
+				return;
+			}
+			aThis.layer = LayerMask.NameToLayer(aLayer);
+
+			//子に設定する必要がない場合はここで終了
+			if (!aSetChild)
+			{
+				return;
+			}
+
+			//子のレイヤーにも設定する
+			foreach (Transform childTransform in aThis.transform)
+			{
+				SetLayer(childTransform.gameObject, aLayer, aSetChild);
+			}
 		}
 
 

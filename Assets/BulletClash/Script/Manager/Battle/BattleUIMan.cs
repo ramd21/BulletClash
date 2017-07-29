@@ -27,18 +27,6 @@ namespace BC
 			InitUnitCard();
 		}
 
-		public void OpenDialog(string aDialogBody)
-		{
-			GameObject goDilaog = Instantiate(_GoDialog);
-			goDilaog.transform.parent = _2DCanvas.transform;
-			goDilaog.transform.ResetLocalPosition();
-
-			//GameObject goBody = Resources.Load<GameObject>(aDialogBody);
-			//goBody = Instantiate(goBody);
-			//goBody.transform.parent = _GoDialog.transform.Find("body");
-		}
-
-
 		void InitUnitCard()
 		{
 			for (int i = 0; i < _UnitCardArr.Length; i++)

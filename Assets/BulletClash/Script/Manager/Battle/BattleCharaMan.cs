@@ -65,6 +65,8 @@ namespace BC
 			u = ResourceMan.i.GetUnit(aType);
 			u._PlayerId = aPlayerId;
 			u = Instantiate(u);
+			u.gameObject.SetLayer("battle");
+
 			u.transform.parent = _TraPlayerParent[aPlayerId];
 			_UnitList[aPlayerId].Add(u);
 			u.InstantiateInit(aPlayerId, aType);
@@ -86,6 +88,7 @@ namespace BC
 			b = ResourceMan.i.GetBullet(aType);
 			b._PlayerId = aPlayerId;
 			b = Instantiate(b);
+			b.gameObject.SetLayer("battle");
 			b.transform.parent = _TraPlayerParent[aPlayerId];
 			_BulletList[aPlayerId].Add(b);
 
@@ -106,6 +109,8 @@ namespace BC
 			}
 			GameObject go = ResourceMan.i.GetEffect(4);
 			go = Instantiate(go);
+			go.SetLayer("battle");
+
 			go.transform.parent = _TraEffParent;
 
 			bh = go.AddComponent<BulletHit>();

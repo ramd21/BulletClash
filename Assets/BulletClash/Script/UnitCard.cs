@@ -25,16 +25,17 @@ namespace BC
 			unit = ResourceMan.i.GetUnit(_Param.Type);
 			unit._PlayerId = 0;
 			unit = Instantiate(unit);
+			unit.gameObject.SetLayer("battle_ui");
 			unit.gameObject.SetActive(true);
+
 			unit.transform.parent = _TraDeckUnit;
 			unit.transform.ResetLocalTransform();
 			unit._CvsHp.gameObject.SetActive(false);
-			unit.gameObject.SetLayer(LayerMask.NameToLayer("UI"), true);
 
 			BackFire[] bfArr = unit.GetComponentsInChildren<BackFire>();
 			for (int i = 0; i < bfArr.Length; i++)
 			{
-				bfArr[i]._CamTage = BattleCameraMan.i._3DUICam;
+				bfArr[i]._CamTage = BattleCameraMan.i._BattleUICam;
 			}
 
 		}
@@ -44,7 +45,7 @@ namespace BC
 		{
 			get
 			{
-				return BattleCameraMan.i._3DUICam;
+				return BattleCameraMan.i._BattleUICam;
 			}
 		}
 
@@ -61,7 +62,7 @@ namespace BC
 
 			if (BattlePlayerMan.i._myPlayer.GetTP() >= _Param.Cost)
 			{
-				Ray r = BattleCameraMan.i._MainCam.ScreenPointToRay(eventData.position);
+				Ray r = BattleCameraMan.i._BattleCam.ScreenPointToRay(eventData.position);
 				RaycastHit rh;
 				if(Physics.Raycast(r, out rh))
 				{

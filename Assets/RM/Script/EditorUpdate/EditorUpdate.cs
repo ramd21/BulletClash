@@ -29,6 +29,11 @@ namespace RM
 			{
 				w[i].EditorUpdate();
 			}
+
+			Component[] comArr = GetComponents<Component>();
+
+			if (comArr[comArr.Length - 1] != this)
+				UnityEditorInternal.ComponentUtility.MoveComponentDown(this);
 		}
 #endif
 

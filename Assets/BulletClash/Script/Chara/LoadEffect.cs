@@ -25,6 +25,8 @@ namespace BC
 
 			_GoEff = ResourceMan.i.GetEffect(_Id + _Chara._PlayerId);
 			_GoEff = Instantiate(_GoEff);
+			_GoEff.SetLayer("battle");
+
 			_GoEff.transform.parent = transform;
 			_GoEff.transform.ResetLocalTransform();
 			_GoEff.transform.SetScale(Vector3.one);

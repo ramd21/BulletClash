@@ -8,8 +8,9 @@ namespace BC
 	public class BattleCameraMan : Singleton<BattleCameraMan>
 	{
 		public DragCamera _DragCamera;
-		public Camera _3DUICam;
-		public Camera _MainCam;
+
+		public Camera _BattleUICam;
+		public Camera _BattleCam;
 
 		public int _ScreenW = 540;
 		public int _ScreenH = 960;
@@ -30,11 +31,11 @@ namespace BC
 
 		void LateUpdate()
 		{
-			if (_MainCam.transform.position.z < _MainCamZMin)
-				_MainCam.transform.SetPositionZ(_MainCamZMin);
+			if (_BattleCam.transform.position.z < _MainCamZMin)
+				_BattleCam.transform.SetPositionZ(_MainCamZMin);
 
-			if (_MainCam.transform.position.z > _MainCamZMax)
-				_MainCam.transform.SetPositionZ(_MainCamZMax);
+			if (_BattleCam.transform.position.z > _MainCamZMax)
+				_BattleCam.transform.SetPositionZ(_MainCamZMax);
 		}
 	}
 }

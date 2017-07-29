@@ -9,6 +9,8 @@ namespace BC
 	public class GameMan : Singleton<GameMan>
 	{
 		public bool _ForEditor;
+		public bool _LoadUI;
+
 
 		public string[] _StrUI;
 
@@ -27,23 +29,22 @@ namespace BC
 				}
 				else
 				{
-					Init();
+					base.Awake();
+					DontDestroyOnLoad(gameObject);
 				}
 #endif
 			}
 			else
 			{
-				Init();
+				base.Awake();
+				DontDestroyOnLoad(gameObject);
 			}
 		}
 
-		void Init()
+		void Start()
 		{
-			base.Awake();
-			DontDestroyOnLoad(gameObject);
-
-			GameObject go = Resources.Load<GameObject>("UI/" + _StrUI[_UIId]);
-			go.Instantiate();
+			if (_LoadUI)
+				UIMan.i.OpenUI(_StrUI[_UIId], false);
 		}
 	}
 }
