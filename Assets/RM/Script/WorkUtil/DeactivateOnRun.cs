@@ -6,8 +6,12 @@ namespace RM
 {
 	public class DeactivateOnRun : RMBehaviour
 	{
+		public bool _Enabled;
 		void Awake()
 		{
+			if (!_Enabled)
+				return;
+
 			gameObject.SetActive(false);			
 		}
 	}

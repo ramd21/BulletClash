@@ -14,35 +14,6 @@ namespace BC
 		public Bullet[]		_BulletArr;
 		public GameObject[] _EffectArr;
 
-		//public void Init()
-		//{
-		//	for (int i = 0; i < _UnitArr.Length; i++)
-		//	{
-		//		_UnitArr[i] = Instantiate(_UnitArr[i]);
-		//		_UnitArr[i].GetComponentInChildren<bat.opt.Bake.BAT_DeepBaker>().StartBake();
-		//		_UnitArr[i].gameObject.SetActive(false);
-		//	}
-		//}
-
-		//Dictionary<UnitType, Unit> _MeshBakedUnitDic = new Dictionary<UnitType, Unit>();
-
-
-		//public Unit GetUnit(UnitType aType)
-		//{
-		//	if (!_MeshBakedUnitDic.ContainsKey(aType))
-		//	{
-		//		Unit unit = _UnitArr[(int)aType];
-		//		unit = Instantiate(unit);
-		//		//unit._Bat.StartBake();
-		//		unit.gameObject.SetActive(false);
-		//		//DestroyImmediate(unit._Bat);
-
-		//		_MeshBakedUnitDic.Add(aType, unit);
-		//	}
-
-		//	return _MeshBakedUnitDic[aType];
-		//}
-
 		public Unit GetUnit(UnitType aType)
 		{
 			return _UnitArr[(int)aType];

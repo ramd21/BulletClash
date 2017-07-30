@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace BC
 {
-	public class BCButton : RMBehaviour
+	public class UIButton : RMBehaviour
 	{
 		public string _GoToScene;
 		public string _OpenUI;
@@ -33,10 +33,6 @@ namespace BC
 
 			if (_OpenDialog.IsNotNullOrEmpty())
 				UIMan.i.OpenDialog("");
-
-			
-
-
 		}
 
 

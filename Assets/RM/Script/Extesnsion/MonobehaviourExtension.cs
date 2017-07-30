@@ -7,6 +7,8 @@ namespace RM
 {
 	static public class MonobehaviourExtension
 	{
+		static Dictionary<Action, MonoBehaviour> _CoroutineDic;
+
 		static public DiffObserve<T> StartObsserve<T>(this MonoBehaviour aThis, Func<T> aTarget, Action<T, T> aOnChanged, bool aRepeat)
 		{
 			DiffObserve<T> diff = new DiffObserve<T>();
@@ -34,6 +36,11 @@ namespace RM
 		}
 
 		static public Coroutine WaitForEndOfFrame(this MonoBehaviour aThis, Action aOnDone = null)
+		{
+			return aThis.StartCoroutine(WaitForEndOfFrameCoroutine(aOnDone));
+		}
+
+		static public Coroutine WaitForEndOfFrameCancelPrev(this MonoBehaviour aThis, Action aOnDone = null)
 		{
 			return aThis.StartCoroutine(WaitForEndOfFrameCoroutine(aOnDone));
 		}

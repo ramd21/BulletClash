@@ -19,12 +19,32 @@ namespace BC
 
 		public Canvas _2DCanvas;
 
+		public Button _BtnSetting;
+
 
 		public void Init()
 		{
 			InitTPGauge();
 			InitTPCnt();
 			InitUnitCard();
+
+			_BtnSetting.onClick.AddListener(()=> 
+			{
+				UIMan.i.OpenCommonDialog("リタイア", "リタイアしますか？", 
+				"はい", 
+				(d)=> 
+				{
+					//UIMan.i.
+					UIMan.i.GoToScene("home");
+					UIMan.i.OpenUI("home", true);
+					d.Close();
+				},
+				"いいえ",
+				(d) => 
+				{
+					d.Close();
+				});
+			});
 		}
 
 		void InitUnitCard()

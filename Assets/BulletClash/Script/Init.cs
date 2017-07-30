@@ -11,13 +11,16 @@ namespace BC
 		public int _ScreenW = 540;
 		public int _ScreenH = 960;
 
-		void Awake()
+		public string _Scene;
+
+		void Start()
 		{
 			Screen.SetResolution(_ScreenH, _ScreenW, true);
-
+			Deb.MethodLog();
 			this.WaitForFrames(1, ()=> 
 			{
-				SceneManager.LoadScene("game");
+				SceneManager.LoadScene(_Scene);
+				Deb.MethodLog();
 			});
 		}
 	}

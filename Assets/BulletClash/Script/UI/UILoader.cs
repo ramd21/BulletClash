@@ -14,6 +14,7 @@ namespace BC
 		void Start()
 		{
 			UIMan.i.OpenUI(_UIOpen, true);
+			Deb.MethodLog();
 		}
 
 

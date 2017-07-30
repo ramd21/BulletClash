@@ -8,31 +8,22 @@ namespace BC
 {
 	public class GameMan : Singleton<GameMan>
 	{
-		public bool _ForEditor;
-
 		protected override void Awake()
 		{
-			if (_ForEditor)
+			if (i)
 			{
-#if !UNITY_EDITOR
 				DestroyImmediate(gameObject);
-#else
-				if (i)
-				{
-					DestroyImmediate(gameObject);
-				}
-				else
-				{
-					base.Awake();
-					DontDestroyOnLoad(gameObject);
-				}
-#endif
+				return;
 			}
-			else
-			{
-				base.Awake();
-				DontDestroyOnLoad(gameObject);
-			}
+
+			base.Awake();
+			DontDestroyOnLoad(gameObject);
+			
+		}
+
+		void Start()
+		{
+			UIMan.i.Init();
 		}
 	}
 }

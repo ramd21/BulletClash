@@ -18,18 +18,21 @@ namespace BC
 
 		public GameObject _GoEff;
 
-		void Awake()
+		void Start()
 		{
 			if (_GoEff)
 				return;
 
-			_GoEff = ResourceMan.i.GetEffect(_Id + _Chara._PlayerId);
-			_GoEff = Instantiate(_GoEff);
-			_GoEff.SetLayer("battle");
+			//this.WaitForEndOfFrame(()=> 
+			//{
+				_GoEff = ResourceMan.i.GetEffect(_Id + _Chara._PlayerId);
+				_GoEff = Instantiate(_GoEff);
+				_GoEff.SetLayer(transform.gameObject.layer);
 
-			_GoEff.transform.parent = transform;
-			_GoEff.transform.ResetLocalTransform();
-			_GoEff.transform.SetScale(Vector3.one);
+				_GoEff.transform.parent = transform;
+				_GoEff.transform.ResetLocalTransform();
+				//_GoEff.transform.ResetLK(Vector3.one);
+			//});
 		}
 
 #if UNITY_EDITOR
