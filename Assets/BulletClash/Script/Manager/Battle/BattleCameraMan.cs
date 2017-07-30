@@ -42,7 +42,7 @@ namespace BC
 		{
 			int cnt = 0;
 			Vector3 pos = _BattleCam.transform.position;
-			float rand = 0.5f;
+			float rand = 0.25f;
 
 			this.DoUntil(() => cnt == 5, () =>
 			{

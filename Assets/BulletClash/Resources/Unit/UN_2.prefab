@@ -268,11 +268,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Chara: {fileID: 114806738629591234}
-  _FireCnt: 4
-  _FireInter: 5
+  _FireCnt: 3
+  _FireInter: 10
   _LoopInter: 60
   _WayCnt: 4
-  _WayDegInter: 2000
+  _WayDegInter: 2500
 --- !u!114 &114452382863358710
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Chara: {fileID: 114806738629591234}
-  _Id: 0
+  _Type: 0
   _GoEff: {fileID: 0}
   _GoPreview: {fileID: 0}
   _ResourceMan: {fileID: 0}
@@ -377,7 +377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Chara: {fileID: 114806738629591234}
-  _Id: 0
+  _Type: 0
   _GoEff: {fileID: 0}
   _GoPreview: {fileID: 0}
   _ResourceMan: {fileID: 0}

@@ -90,6 +90,9 @@ namespace BC
 				Gizmos.DrawLine(posA / BattleGameMan.cDistDiv, posB / BattleGameMan.cDistDiv);
 			}
 
+			Gizmos.color = Color.yellow;
+			Gizmos.DrawWireSphere(transform.position + (_GizmoOffset.ToVector3XZ() + _Offset.ToVector3XZ()) / BattleGameMan.cDistDiv, 5f);
+
 
 			if (!_ShowNum)
 				return;
@@ -107,6 +110,10 @@ namespace BC
 				labelPos += Vector3.right * _DivDist / 2;
 				Handles.Label((labelPos + _GizmoOffset.ToVector3XZ()) / BattleGameMan.cDistDiv, i.ToString(), gs);
 			}
+
+
+			
+
 		}
 #endif
 

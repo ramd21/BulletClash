@@ -61,14 +61,7 @@ namespace BC
 			_TraBorder[3].SetPosition(pos / BattleGameMan.cDistDiv);
 		}
 
-
-
-
 #if UNITY_EDITOR
-		void OnDrawGizmos()
-		{
-			Gizmos.DrawWireCube(transform.position, (_Size.ToVector3XZ() + _Offset.ToVector3XZ()) / BattleGameMan.cDistDiv);
-		}
 #endif
 	}
 }

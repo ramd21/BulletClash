@@ -60,6 +60,33 @@ namespace BC
 				return true;
 			}
 
+			//public Vector2Int GetOverlap(CollInfo aVS)
+			//{
+			//	int x = 0, y = 0;
+
+			//	if (aVS._T < _B)
+			//		return Vector2Int.zero;
+			//	else
+			//		y += aVS._T - _B;
+
+			//	if (_T < aVS._B)
+			//		return Vector2Int.zero;
+			//	else
+			//		y += _T - aVS._B;
+
+			//	if (aVS._R < _L)
+			//		return Vector2Int.zero;
+			//	else
+			//		x += aVS._R - _L;
+
+			//	if (_R < aVS._L)
+			//		return Vector2Int.zero;
+			//	else
+			//		x += _R - aVS._L;
+
+			//	return new Vector2Int(-x, -y);
+			//}
+
 			public void UpdateLRTB(Vector2Int aPos)
 			{
 				int x = aPos.x + _Offset.x;
@@ -154,9 +181,11 @@ namespace BC
 
 		public bool IsHit(Coll aVS)
 		{
+			if (_Id == aVS._Id)
+				return false;
+
 			UpdateLRTB();
 			aVS.UpdateLRTB();
-
 
 			for (int i = 0; i < _CollInfoArr.Length; i++)
 			{
@@ -168,6 +197,29 @@ namespace BC
 			}
 			return false;
 		}
+
+		//public Vector2Int GetOverLap(Coll aVS)
+		//{
+		//	if (_Id == aVS._Id)
+		//		return Vector2Int.zero;
+
+
+		//	UpdateLRTB();
+		//	aVS.UpdateLRTB();
+
+		//	Vector2Int hit;
+		//	for (int i = 0; i < _CollInfoArr.Length; i++)
+		//	{
+		//		for (int j = 0; j < aVS._CollInfoArr.Length; j++)
+		//		{
+		//			hit = _CollInfoArr[i].GetOverlap(aVS._CollInfoArr[j]);
+
+		//			if (hit != Vector2Int.zero)
+		//				return hit;
+		//		}
+		//	}
+		//	return Vector2Int.zero;
+		//}
 
 		public void UpdateBlock()
 		{

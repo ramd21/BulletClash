@@ -14,6 +14,8 @@ namespace BC
 		int _TageDist;
 
 		Vector2Int _Force;
+		Vector2Int _Correct;
+
 
 		public Cannon _Cannon;
 
@@ -43,6 +45,10 @@ namespace BC
 				_Tra._Pos.y += _Param.SpdY;
 			else
 				_Tra._Pos.y -= _Param.SpdY;
+
+
+			_Tra._Pos += _Correct;
+			_Correct = Vector2Int.zero;
 
 			_Tra._Pos += _Force;
 
@@ -83,6 +89,7 @@ namespace BC
 		{
 			FastList<Coll> collList;
 			Coll c;
+			Vector2Int hit;
 			int len;
 			for (int i = 0; i < 9; i++)
 			{
@@ -95,6 +102,21 @@ namespace BC
 					{
 						AddForce(_Tra._Pos - c._Tra._Pos, 5);
 					}
+					//hit = _Coll.GetOverLap(c);
+					//if (hit != Vector2Int.zero)
+					//{
+					//	if (hit.x > hit.y)
+					//	{
+					//		_Correct.y -= (hit.y / 2);
+					//	}
+					//	else
+					//	{
+					//		_Correct.x -= (hit.x / 2);
+					//	}
+
+
+					//	AddForce(_Tra._Pos - c._Tra._Pos, 3);
+					//}
 				}
 
 				collList = BattleCollMan.i.GetCollList(_PlayerId, CharaType.unit, _Coll._CollBlock[i]);
@@ -106,6 +128,19 @@ namespace BC
 					{
 						AddForce(_Tra._Pos - c._Tra._Pos, 5);
 					}
+					//hit = _Coll.GetOverLap(c);
+					//if (hit != Vector2Int.zero)
+					//{
+					//	if (hit.x > hit.y)
+					//	{
+					//		_Correct.y -= (hit.y / 2);
+					//	}
+					//	else
+					//	{
+					//		_Correct.x -= (hit.x / 2);
+					//	}
+					//	AddForce(_Tra._Pos - c._Tra._Pos, 3);
+					//}
 				}
 
 				collList = BattleCollMan.i.GetCollList(_VSPlayerId, CharaType.tower, _Coll._CollBlock[i]);
@@ -114,7 +149,23 @@ namespace BC
 				{
 					c = collList[j];
 					if (_Coll.IsHit(c))
+					{
 						AddForce(_Tra._Pos - c._Tra._Pos, 5);
+					}
+
+					//hit = _Coll.GetOverLap(c);
+					//if (hit != Vector2Int.zero)
+					//{
+					//	if (hit.x > hit.y)
+					//	{
+					//		_Correct.y -= (hit.y / 2);
+					//	}
+					//	else
+					//	{
+					//		_Correct.x -= (hit.x / 2);
+					//	}
+					//	AddForce(_Tra._Pos - c._Tra._Pos, 3);
+					//}
 				}
 
 				collList = BattleCollMan.i.GetCollList(_PlayerId, CharaType.tower, _Coll._CollBlock[i]);
@@ -123,7 +174,22 @@ namespace BC
 				{
 					c = collList[j];
 					if (_Coll.IsHit(c))
+					{
 						AddForce(_Tra._Pos - c._Tra._Pos, 5);
+					}
+					//hit = _Coll.GetOverLap(c);
+					//if (hit != Vector2Int.zero)
+					//{
+					//	if (hit.x > hit.y)
+					//	{
+					//		_Correct.y -= (hit.y / 2);
+					//	}
+					//	else
+					//	{
+					//		_Correct.x -= (hit.x / 2);
+					//	}
+					//	AddForce(_Tra._Pos - c._Tra._Pos, 3);
+					//}
 				}
 			}
 
@@ -142,7 +208,19 @@ namespace BC
 
 		public void AddForce(Vector2Int aDir, int aPow)
 		{
+			int max = 15;
 			_Force += (aDir.normalized * aPow);
+			if (_Force.x > max)
+				_Force.x = max;
+
+			if (_Force.x < -max)
+				_Force.x = -max;
+
+			if (_Force.y > max)
+				_Force.y = max;
+
+			if (_Force.y < -max)
+				_Force.y = -max;
 		}
 
 		public void SearchTage()

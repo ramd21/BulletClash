@@ -282,38 +282,38 @@ namespace RM
 #elif UNITY_IOS || UNITY_ANDROID
 		if (Input.touchCount < aTouchId + 1)
 		{
-			_TouchInfoArr[aTouchId]._InputStateSub = InputStateSub.none;
+			_InputInfoArr[aTouchId]._InputState = InputState.none;
 		}
 		else
 		{
 			if (Input.touches[aTouchId].phase == TouchPhase.Began)
 			{
-				_TouchInfoArr[aTouchId]._InputStateSub = InputStateSub.start;
+				_InputInfoArr[aTouchId]._InputState = InputState.start;
 			}
 			else
 			{
 				if (Input.touches[aTouchId].phase == TouchPhase.Ended)
-					_TouchInfoArr[aTouchId]._InputStateSub = InputStateSub.end;
+					_InputInfoArr[aTouchId]._InputState = InputState.end;
 				else
-					_TouchInfoArr[aTouchId]._InputStateSub = InputStateSub.input;
+					_InputInfoArr[aTouchId]._InputState = InputState.input;
 			}
 		}
 
-		switch (_TouchInfoArr[aTouchId]._InputStateSub)
+		switch (_InputInfoArr[aTouchId]._InputState)
 		{
-			case InputStateSub.none:
+			case InputState.none:
 				break;
-			case InputStateSub.start:
-				_TouchInfoArr[aTouchId]._V2ScreenInputStart = Input.touches[aTouchId].position;
-				_TouchInfoArr[aTouchId]._V2ScreenInputCur = Input.touches[aTouchId].position;
-				_TouchInfoArr[aTouchId]._V2ScreenInputLast = Input.touches[aTouchId].position;
+			case InputState.start:
+				_InputInfoArr[aTouchId]._V2ScreenInputStart = Input.touches[aTouchId].position;
+				_InputInfoArr[aTouchId]._V2ScreenInputCur = Input.touches[aTouchId].position;
+				_InputInfoArr[aTouchId]._V2ScreenInputLast = Input.touches[aTouchId].position;
 				break;
-			case InputStateSub.input:
-				_TouchInfoArr[aTouchId]._V2ScreenInputCur = Input.touches[aTouchId].position;
+			case InputState.input:
+				_InputInfoArr[aTouchId]._V2ScreenInputCur = Input.touches[aTouchId].position;
 				break;
-			case InputStateSub.end:
-				_TouchInfoArr[aTouchId]._V2ScreenInputEnd = Input.touches[aTouchId].position;
-				_TouchInfoArr[aTouchId]._V2ScreenInputCur = Input.touches[aTouchId].position;
+			case InputState.end:
+				_InputInfoArr[aTouchId]._V2ScreenInputEnd = Input.touches[aTouchId].position;
+				_InputInfoArr[aTouchId]._V2ScreenInputCur = Input.touches[aTouchId].position;
 				break;
 		}
 #endif

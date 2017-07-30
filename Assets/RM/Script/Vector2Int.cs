@@ -54,9 +54,19 @@ namespace RM
 		{
 			return new Vector2Int(a.x * d, a.y * d);
 		}
-		//public static Vector2Int operator /(Vector2Int a, float d);
-		//public static bool operator ==(Vector2Int lhs, Vector2Int rhs);
-		//public static bool operator !=(Vector2Int lhs, Vector2Int rhs);
+		public static Vector2Int operator /(Vector2Int a, int d)
+		{
+			return new Vector2Int(a.x / d, a.y / d);
+		}
+		public static bool operator ==(Vector2Int lhs, Vector2Int rhs)
+		{
+			return (lhs.x == rhs.x) && (lhs.y == rhs.y);
+		}
+
+		public static bool operator !=(Vector2Int lhs, Vector2Int rhs)
+		{
+			return (lhs.x != rhs.x) || (lhs.y != rhs.y);
+		}
 
 		public static implicit operator Vector2(Vector2Int v)
 		{

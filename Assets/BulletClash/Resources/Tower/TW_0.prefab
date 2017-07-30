@@ -519,7 +519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Chara: {fileID: 114558907043702176}
-  _Id: 0
+  _Type: 0
   _GoEff: {fileID: 0}
   _GoPreview: {fileID: 0}
   _ResourceMan: {fileID: 0}
@@ -548,7 +548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Chara: {fileID: 114558907043702176}
-  _Id: 0
+  _Type: 0
   _GoEff: {fileID: 0}
   _GoPreview: {fileID: 0}
   _ResourceMan: {fileID: 0}
@@ -651,7 +651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Chara: {fileID: 114558907043702176}
-  _Id: 0
+  _Type: 0
   _GoEff: {fileID: 0}
   _GoPreview: {fileID: 0}
   _ResourceMan: {fileID: 0}
