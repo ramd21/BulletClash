@@ -18,12 +18,12 @@ namespace BC
 
 		public GameObject _GoEff;
 
-		void Start()
+		void Awake()
 		{
 			if (_GoEff)
 				return;
 
-			//this.WaitForEndOfFrame(()=> 
+			//this.WaitForEndOfFrame(() =>
 			//{
 				_GoEff = ResourceMan.i.GetEffect(_Id + _Chara._PlayerId);
 				_GoEff = Instantiate(_GoEff);

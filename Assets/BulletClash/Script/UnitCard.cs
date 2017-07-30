@@ -18,6 +18,7 @@ namespace BC
 
 		public void Init(UnitType aType)
 		{
+			Deb.MethodLog();
 			_Param = MasterMan.i._UnitParam[(int)aType];
 			_TxtCost.text = _Param.Cost.ToString();
 
@@ -37,7 +38,6 @@ namespace BC
 			{
 				bfArr[i]._CamTage = BattleCameraMan.i._BattleUICam;
 			}
-
 		}
 
 

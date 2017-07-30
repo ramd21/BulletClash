@@ -10,17 +10,13 @@ namespace BC
 	{
 		public Camera _CamTage;
 
-
 		void Update()
 		{
 			if (!_CamTage)
 				_CamTage = Camera.main;
 
 			transform.LookAt(transform.position + transform.parent.forward, _CamTage.transform.forward);
-
 		}
-
-
 #if UNITY_EDITOR
 
 		//private void OnDrawGizmos()

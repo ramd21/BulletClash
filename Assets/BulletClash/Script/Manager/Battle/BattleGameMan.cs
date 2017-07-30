@@ -13,22 +13,17 @@ namespace BC
 		public const int cDistDiv = 100;
 
 		bool _Init;
-		protected override void Awake()
+
+		void Start()
 		{
-			base.Awake();
+			SinTable.Init();
+			CosTable.Init();
 
-			this.WaitForEndOfFrame(()=> 
-			{
-				//ResourceMan.i.Init();
-				SinTable.Init();
-				CosTable.Init();
-
-				BattleUIMan.i.Init();
-				BattlePlayerMan.i.Init();
-				BattleCharaMan.i.Init();
-				BattleCollMan.i.Init();
-				_Init = true;
-			});
+			BattleUIMan.i.Init();
+			BattlePlayerMan.i.Init();
+			BattleCharaMan.i.Init();
+			BattleCollMan.i.Init();
+			_Init = true;
 		}
 
 		void FixedUpdate()

@@ -31,6 +31,7 @@ namespace BC
 			this.WaitForEndOfFrame(() =>
 			{
 				InstantiateInit(_PlayerId);
+				gameObject.SetLayer("battle");
 				BattleCharaMan.i._TowerList[_PlayerId].Add(this);
 				transform.parent = BattleCharaMan.i._TraPlayerParent[_PlayerId];
 				ActivateReq(transform.position.ToVector2IntXZ() * BattleGameMan.cDistDiv - BattleFieldMan.i._Offset);

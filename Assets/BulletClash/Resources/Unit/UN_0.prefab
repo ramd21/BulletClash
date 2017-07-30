@@ -181,7 +181,7 @@ Transform:
   m_GameObject: {fileID: 1311724370050066}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.06000215, z: -2.6000032}
-  m_LocalScale: {x: 1, y: 1, z: 0.5000005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4467975459668754}
   m_RootOrder: 1
@@ -369,7 +369,7 @@ MonoBehaviour:
   _Id: 0
   _State: 0
   _Tra: {fileID: 114968986977430102}
-  _PlayerId: 1
+  _PlayerId: 0
   _VSPlayerId: 0
   _Type: 0
   _Param:
