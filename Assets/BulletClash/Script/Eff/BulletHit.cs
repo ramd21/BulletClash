@@ -8,7 +8,6 @@ namespace BC
 {
 	public class BulletHit : Eff
 	{
-		
 #if UNITY_EDITOR
 #endif
 

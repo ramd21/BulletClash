@@ -6,16 +6,9 @@ using UnityEngine.UI;
 
 namespace BC
 {
-	public class Tower : Chara, IEditorUpdate
+	public class Tower : BaseUnit, IEditorUpdate
 	{
 		static int gCnt;
-		public UnitParam _Param;
-		public UnitParam _ParamDef;
-		public Canvas _CvsHp;
-		public Image _ImgHp;
-		bool _AngleSet;
-
-		public Coll _Coll;
 
 		public Transform _TraRot;
 		public Transform _TraCannon;
@@ -31,44 +24,32 @@ namespace BC
 			this.WaitForEndOfFrame(() =>
 			{
 				InstantiateInit(_PlayerId);
-				gameObject.SetLayer("battle");
 				BattleCharaMan.i._TowerList[_PlayerId].Add(this);
 				transform.parent = BattleCharaMan.i._TraPlayerParent[_PlayerId];
 				ActivateReq(transform.position.ToVector2IntXZ() * BattleGameMan.cDistDiv - BattleFieldMan.i._Offset);
 				_Coll.UpdateBlock();
 			});
 		}
-		public void InstantiateInit(int aPlayerId)
+
+
+		public override void InstantiateInit(int aPlayerId)
 		{
+			base.InstantiateInit(aPlayerId);
 			_Id = gCnt;
 			gCnt++;
-
-			_PlayerId = aPlayerId;
-			_VSPlayerId = (_PlayerId + 1) % 2;
 			_Type = CharaType.tower;
-
-			_Coll.InstantiateInit(_PlayerId, this);
-
 			_GoUnitSpawnRange.SetActive(false);
 		}
 
 		public override void OnFrameBegin()
 		{
 			base.OnFrameBegin();
-			_Coll.AddToCollMan();
 		}
 
 		public override void ActivateReq(Vector2Int aPos)
 		{
 			base.ActivateReq(aPos);
-			_Param = _ParamDef;
 		}
-
-		public void Dmg(int aDmg)
-		{
-			_Param.Hp -= aDmg;
-		}
-
 
 		public void SearchTage()
 		{
@@ -114,30 +95,12 @@ namespace BC
 
 		public override void OnFrameEnd()
 		{
-			if (_Param.Hp <= 0)
-				DeactivateReq();
+			base.OnFrameEnd();
 		}
 
 		public override void UpdateView()
 		{
 			base.UpdateView();
-
-			if (_Param.Hp == _ParamDef.Hp)
-			{
-				_CvsHp.gameObject.SetActive(false);
-			}
-			else
-			{
-				_CvsHp.gameObject.SetActive(true);
-				_ImgHp.fillAmount = (float)_Param.Hp / _ParamDef.Hp;
-			}
-
-			if (!_AngleSet)
-			{
-				if (_PlayerId == 1)
-					transform.SetEulerAnglesY(180);
-				_AngleSet = true;
-			}
 
 			if(_Tage)
 				_TraCannon.LookAt(_Tage.transform, Vector3.up);
@@ -156,26 +119,14 @@ namespace BC
 				_GoUnitSpawnRange.SetActive(_GoUnitSpawnRange.transform.localScale.magnitude != 0);
 			}
 
-			
-
-
 			_TraRot.AddEulerAnglesY(2);
 		}
 
 #if UNITY_EDITOR
 		public void EditorUpdate()
 		{
-			_CvsHp = GetComponentInChildren<Canvas>();
-			_ImgHp = transform.FindRecurcive<Image>("hp", true);
-
 			_Coll = GetComponent<Coll>();
 			_Tra = GetComponent<BCTra>();
-		}
-
-		void OnDrawGizmos()
-		{
-			Gizmos.color = Color.green;
-			Gizmos.DrawWireSphere(transform.position, 1f);
 		}
 #endif
 

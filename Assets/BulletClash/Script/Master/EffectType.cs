@@ -1,0 +1,9 @@
+public enum EffectType
+{
+	back_fire_green,
+	back_fire_pink,
+	shot_blue,
+	shot_yellow,
+	bullet_hit,
+	explode,
+}

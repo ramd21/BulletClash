@@ -14,7 +14,7 @@ namespace BC
 	public class LoadEffect : EditorUpdateBehaviour
 	{
 		public Chara _Chara;
-		public int _Id;
+		public EffectType _Type;
 
 		public GameObject _GoEff;
 
@@ -23,16 +23,12 @@ namespace BC
 			if (_GoEff)
 				return;
 
-			//this.WaitForEndOfFrame(() =>
-			//{
-				_GoEff = ResourceMan.i.GetEffect(_Id + _Chara._PlayerId);
-				_GoEff = Instantiate(_GoEff);
-				_GoEff.SetLayer(transform.gameObject.layer);
+			_GoEff = ResourceMan.i.GetEffect(_Type + _Chara._PlayerId);
+			_GoEff = Instantiate(_GoEff);
+			_GoEff.SetLayer(transform.gameObject.layer);
 
-				_GoEff.transform.parent = transform;
-				_GoEff.transform.ResetLocalTransform();
-				//_GoEff.transform.ResetLK(Vector3.one);
-			//});
+			_GoEff.transform.parent = transform;
+			_GoEff.transform.ResetLocalTransform();
 		}
 
 #if UNITY_EDITOR
@@ -43,7 +39,7 @@ namespace BC
 		public int _Preview;
 		void Preview()
 		{
-			GameObject go = _ResourceMan.GetEffect(_Id);
+			GameObject go = _ResourceMan.GetEffect(_Type);
 			go = Instantiate(go);
 			go.transform.parent = transform;
 			go.transform.ResetLocalTransform();

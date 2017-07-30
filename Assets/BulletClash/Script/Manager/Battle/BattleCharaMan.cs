@@ -12,6 +12,7 @@ namespace BC
 		public List<Bullet>[]	_BulletList;
 		public List<Tower>[]	_TowerList;
 		public List<BulletHit> _BulletHitList;
+		public List<Explode> _ExplodeList;
 
 		public Transform[] _TraPlayerParent;
 		public Transform _TraEffParent;
@@ -65,10 +66,10 @@ namespace BC
 			u = ResourceMan.i.GetUnit(aType);
 			u._PlayerId = aPlayerId;
 			u = Instantiate(u);
-			u.gameObject.SetLayer("battle");
 
 			u.transform.parent = _TraPlayerParent[aPlayerId];
 			_UnitList[aPlayerId].Add(u);
+
 			u.InstantiateInit(aPlayerId, aType);
 			return u;
 		}
@@ -88,7 +89,7 @@ namespace BC
 			b = ResourceMan.i.GetBullet(aType);
 			b._PlayerId = aPlayerId;
 			b = Instantiate(b);
-			b.gameObject.SetLayer("battle");
+			
 			b.transform.parent = _TraPlayerParent[aPlayerId];
 			_BulletList[aPlayerId].Add(b);
 
@@ -107,18 +108,42 @@ namespace BC
 				if (bh._State == ActiveState.inactive)
 					return bh;
 			}
-			GameObject go = ResourceMan.i.GetEffect(4);
+			GameObject go = ResourceMan.i.GetEffect(EffectType.bullet_hit);
 			go = Instantiate(go);
-			go.SetLayer("battle");
 
 			go.transform.parent = _TraEffParent;
-
 			bh = go.AddComponent<BulletHit>();
+
 			_BulletHitList.Add(bh);
+			go.SetLayer("battle");
+
 			return bh;
 		}
+		public Explode GetPoolOrNewExplode()
+		{
+			int len;
+			len = _ExplodeList.Count;
+			Explode ex;
+			for (int i = 0; i < len; i++)
+			{
+				ex = _ExplodeList[i];
+				if (ex._State == ActiveState.inactive)
+					return ex;
+			}
+			GameObject go = ResourceMan.i.GetEffect(EffectType.explode);
+			go = Instantiate(go);
 
-		void Activate<T>(List<T>[] aCharaList) where T : BHObj
+			go.transform.parent = _TraEffParent;
+			ex = go.AddComponent<Explode>();
+
+			_ExplodeList.Add(ex);
+			go.SetLayer("battle");
+
+			return ex;
+		}
+
+
+		void CharaActivate<T>(List<T>[] aCharaList) where T : BHObj
 		{
 			int len;
 			T t;
@@ -138,7 +163,7 @@ namespace BC
 			}
 		}
 
-		void Deactivate<T>(List<T>[] aCharaList) where T : BHObj
+		void CharaDeactivate<T>(List<T>[] aCharaList) where T : BHObj
 		{
 			int len;
 			T t;
@@ -158,7 +183,7 @@ namespace BC
 			}
 		} 
 
-		void Act<T>(List<T>[] aCharaList, Action<T> aOnAct) where T : BHObj
+		void CharaAct<T>(List<T>[] aCharaList, Action<T> aOnAct) where T : BHObj
 		{
 			int len;
 			T t;
@@ -176,7 +201,20 @@ namespace BC
 			}
 		}
 
-		void UpdateView<T>(List<T>[] aCharaList) where T : BHObj
+		void EffAct<T>(List<T> aEffList) where T : Eff
+		{
+			int len;
+			len = aEffList.Count;
+			for (int i = 0; i < len; i++)
+			{
+				if (aEffList[i]._State == ActiveState.active)
+					aEffList[i].Act();
+			}
+		}
+
+
+
+		void CharaUpdateView<T>(List<T>[] aCharaList) where T : BHObj
 		{
 			int len;
 			T t;
@@ -192,74 +230,74 @@ namespace BC
 			}
 		}
 
+		void EffUpdateView<T>(List<T> aEffList) where T : Eff
+		{
+			int len;
+			len = aEffList.Count;
+			for (int i = 0; i < len; i++)
+			{
+				if (aEffList[i]._State == ActiveState.active)
+					aEffList[i].UpdateView();
+			}
+		}
+
 		public void Act()
 		{
 			//activate_req>>
-			Activate(_UnitList);
-			Activate(_BulletList);
-			Activate(_TowerList);
+			CharaActivate(_UnitList);
+			CharaActivate(_BulletList);
+			CharaActivate(_TowerList);
 			//activate_req<<
 
 			//act>>
 
 			BattleCollMan.i.Clear();
 
-			Act(_BulletList, (a) => a.OnFrameBegin());
-			Act(_UnitList, (a) => a.OnFrameBegin());
-			Act(_TowerList, (a) => a.OnFrameBegin());
+			CharaAct(_BulletList, (a) => a.OnFrameBegin());
+			CharaAct(_UnitList, (a) => a.OnFrameBegin());
+			CharaAct(_TowerList, (a) => a.OnFrameBegin());
 
 
-			Act(_BulletList, (a) => a.SetPos());
-			Act(_UnitList, (a) => a.SetPos());
+			CharaAct(_BulletList, (a) => a.SetPos());
+			CharaAct(_UnitList, (a) => a.SetPos());
 
-			Act(_UnitList, (a) => a.SearchTage());
-			Act(_TowerList, (a) => a.SearchTage());
+			CharaAct(_UnitList, (a) => a.SearchTage());
+			CharaAct(_TowerList, (a) => a.SearchTage());
 
-			Act(_BulletList, (a) => a.HitCheck());
-			Act(_UnitList, (a) => a.HitCheck());
+			CharaAct(_BulletList, (a) => a.HitCheck());
+			CharaAct(_UnitList, (a) => a.HitCheck());
 
-			Act(_TowerList, (a) => a.Fire());
-			Act(_UnitList, (a) => a.Fire());
+			CharaAct(_TowerList, (a) => a.Fire());
+			CharaAct(_UnitList, (a) => a.Fire());
 
-			Act(_BulletList, (a) => a.DecTimer());
-
-
-			Act(_BulletList, (a) => a.OnFrameEnd());
-			Act(_UnitList, (a) => a.OnFrameEnd());
-			Act(_TowerList, (a) => a.OnFrameEnd());
+			CharaAct(_BulletList, (a) => a.DecTimer());
 
 
-			int len;
-			len = _BulletHitList.Count;
-			for (int i = 0; i < len; i++)
-			{
-				if (_BulletHitList[i]._State == ActiveState.active)
-					_BulletHitList[i].Act();
-			}
+			CharaAct(_BulletList, (a) => a.OnFrameEnd());
+			CharaAct(_UnitList, (a) => a.OnFrameEnd());
+			CharaAct(_TowerList, (a) => a.OnFrameEnd());
 
+
+			EffAct(_BulletHitList);
+			EffAct(_ExplodeList);
 			//act<<
 
 
 			//deactivate_req>>
-			Deactivate(_UnitList);
-			Deactivate(_BulletList);
-			Deactivate(_TowerList);
+			CharaDeactivate(_UnitList);
+			CharaDeactivate(_BulletList);
+			CharaDeactivate(_TowerList);
 			//deactivate_req<<
 		}
 
 		public void UpdateView()
 		{
-			UpdateView(_UnitList);
-			UpdateView(_BulletList);
-			UpdateView(_TowerList);
+			CharaUpdateView(_UnitList);
+			CharaUpdateView(_BulletList);
+			CharaUpdateView(_TowerList);
 
-			int len;
-			len = _BulletHitList.Count;
-			for (int i = 0; i < len; i++)
-			{
-				if (_BulletHitList[i]._State == ActiveState.active)
-					_BulletHitList[i].UpdateView();
-			}
+			EffUpdateView(_BulletHitList);
+			EffUpdateView(_ExplodeList);
 		}
 	}
 }

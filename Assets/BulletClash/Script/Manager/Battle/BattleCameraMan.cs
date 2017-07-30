@@ -37,6 +37,23 @@ namespace BC
 			if (_BattleCam.transform.position.z > _MainCamZMax)
 				_BattleCam.transform.SetPositionZ(_MainCamZMax);
 		}
+
+		public void ShakeCam()
+		{
+			int cnt = 0;
+			Vector3 pos = _BattleCam.transform.position;
+			float rand = 0.5f;
+
+			this.DoUntil(() => cnt == 5, () =>
+			{
+				_BattleCam.transform.position += new Vector2(Random.Range(-rand, rand), Random.Range(-rand, rand)).ToVector3XZ();
+				cnt++;
+			},
+			() => 
+			{
+				_BattleCam.transform.position = pos;
+			});
+		}
 	}
 }
 

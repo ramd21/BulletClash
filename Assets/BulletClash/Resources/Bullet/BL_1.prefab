@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Chara: {fileID: 114666519285662814}
-  _Id: 2
+  _Type: 2
   _GoEff: {fileID: 0}
   _GoPreview: {fileID: 0}
   _ResourceMan: {fileID: 0}

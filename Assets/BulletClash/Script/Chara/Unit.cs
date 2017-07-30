@@ -6,19 +6,10 @@ using UnityEngine.UI;
 
 namespace BC
 {
-	public class Unit : Chara, IEditorUpdate
+	public class Unit : BaseUnit, IEditorUpdate
 	{
 		static int gCnt;
-		public UnitParam _Param;
-		public UnitParam _ParamDef;
-		public Canvas _CvsHp;
-		public Image _ImgHp;
-		bool _AngleSet;
-
-		public Coll _Coll;
-
-		public bat.opt.Bake.BAT_DeepBaker _Bat;
-
+		
 		Chara _Tage;
 		int _TageDist;
 
@@ -28,29 +19,22 @@ namespace BC
 
 		public void InstantiateInit(int aPlayerId, UnitType aType)
 		{
+			base.InstantiateInit(aPlayerId);
 			_Id = gCnt;
 			gCnt++;
-
-			_PlayerId = aPlayerId;
-			_VSPlayerId = (_PlayerId + 1) % 2;
 			_Type = CharaType.unit;
 			_ParamDef = MasterMan.i._UnitParam[(int)aType];
-
-			_Coll.InstantiateInit(_PlayerId, this);
 		}
 
 		public override void OnFrameBegin()
 		{
 			base.OnFrameBegin();
-
 			_Coll.UpdateBlock();
-			_Coll.AddToCollMan();
 		}
 
 		public override void ActivateReq(Vector2Int aPos)
 		{
 			base.ActivateReq(aPos);
-			_Param = _ParamDef;
 		}
 
 		public void SetPos()
@@ -161,11 +145,6 @@ namespace BC
 			_Force += (aDir.normalized * aPow);
 		}
 
-		public void Dmg(int aDmg)
-		{
-			_Param.Hp -= aDmg;
-		}
-
 		public void SearchTage()
 		{
 			_TageDist = int.MaxValue;
@@ -236,30 +215,12 @@ namespace BC
 			if (_TageDist > _Param.Range)
 				return;
 
-			if (_Cannon)
-			{
-				_Cannon.Fire();
-				return;
-			}
-
-			if (_Param.FireInter == 0)
-			{
-				Bullet b = BattleCharaMan.i.GetPoolOrNewBullet(_PlayerId, _Param.Bullet);
-				if (_PlayerId == 0)
-					b.ActivateReq(_Tra._Pos, Vector2Int.up);
-				else
-					b.ActivateReq(_Tra._Pos, Vector2Int.down);
-				_Param.FireInter = _ParamDef.FireInter;
-			}
-
-			_Param.FireInter--;
+			_Cannon.Fire();
 		}
 
 		public override void OnFrameEnd()
 		{
-			if (_Param.Hp <= 0)
-				DeactivateReq();
-
+			base.OnFrameEnd();
 			_Force.x = (_Force.x * 975) / 1000;
 			_Force.y = (_Force.y * 975) / 1000;
 		}
@@ -267,40 +228,13 @@ namespace BC
 		public override void UpdateView()
 		{
 			base.UpdateView();
-
-			if (_Param.Hp == _ParamDef.Hp)
-			{
-				_CvsHp.gameObject.SetActive(false);
-			}
-			else
-			{
-				_CvsHp.gameObject.SetActive(true);
-				_ImgHp.fillAmount = (float)_Param.Hp / _ParamDef.Hp;
-			}
-
-			if (!_AngleSet)
-			{
-				if (_PlayerId == 1)
-					transform.SetEulerAnglesY(180);
-				_AngleSet = true;
-			}
 		}
 
 #if UNITY_EDITOR
 		public void EditorUpdate()
 		{
-			_CvsHp = GetComponentInChildren<Canvas>();
-			_ImgHp = transform.FindRecurcive<Image>("hp", true);
-			_Bat = GetComponentInChildren<bat.opt.Bake.BAT_DeepBaker>();
-
 			_Coll = GetComponent<Coll>();
 			_Tra = GetComponent<BCTra>();
-		}
-
-		void OnDrawGizmos()
-		{
-			Gizmos.color = Color.green;
-			Gizmos.DrawWireSphere(transform.position, 1.5f);
 		}
 #endif
 

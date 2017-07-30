@@ -177,7 +177,6 @@ namespace BC
 			SetBounds(_Tra._Pos);
 			int x = _Tra._Pos.x + _Bounds2D.center.x + BattleCollMan.i._Offset.x;
 			int y = _Tra._Pos.y + _Bounds2D.center.y + BattleCollMan.i._Offset.y;
-			int sX = _Bounds2D.size.x / 2;
 			int sY = _Bounds2D.size.y / 2;
 
 			BattleCollMan collMan = BattleCollMan.i;

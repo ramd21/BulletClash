@@ -12,6 +12,7 @@ namespace BC
 	{
 		public static bool gIsDrag;
 
+		int _Cost;
 		public Text			_TxtCost;
 		public Transform	_TraDeckUnit;
 		UnitParam _Param;
@@ -20,24 +21,34 @@ namespace BC
 		{
 			Deb.MethodLog();
 			_Param = MasterMan.i._UnitParam[(int)aType];
-			_TxtCost.text = _Param.Cost.ToString();
+
+			_Cost = _Param.Cost;
+			_TxtCost.text = _Cost.ToString();
 
 			Unit unit;
 			unit = ResourceMan.i.GetUnit(_Param.Type);
 			unit._PlayerId = 0;
 			unit = Instantiate(unit);
-			unit.gameObject.SetLayer("battle_ui");
-			unit.gameObject.SetActive(true);
 
+			unit._CvsHp = unit.GetComponentInChildren<Canvas>();
+			unit._CvsHp.gameObject.SetActive(false);
+			unit.gameObject.SetLayer("battle_ui");
 			unit.transform.parent = _TraDeckUnit;
 			unit.transform.ResetLocalTransform();
-			unit._CvsHp.gameObject.SetActive(false);
 
 			BackFire[] bfArr = unit.GetComponentsInChildren<BackFire>();
 			for (int i = 0; i < bfArr.Length; i++)
 			{
 				bfArr[i]._CamTage = BattleCameraMan.i._BattleUICam;
 			}
+		}
+
+		void Update()
+		{
+			if (_Cost <= BattlePlayerMan.i._myPlayer.GetTP())
+				_image.color = Color.white;
+			else
+				_image.color = Color.gray;
 		}
 
 
@@ -85,7 +96,6 @@ namespace BC
 		{
 			_TxtCost = GetComponentInChildren<Text>();
 			_TraDeckUnit = transform.FindRecurcive("deck_unit", true);
-
 		}
 #endif
 

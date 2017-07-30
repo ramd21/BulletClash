@@ -26,6 +26,8 @@ namespace BC
 			_Type = CharaType.bullet;
 			_ParamDef = MasterMan.i._BulletParam[(int)aType];
 			_Coll.InstantiateInit(_PlayerId, this);
+
+			gameObject.SetLayer("battle");
 		}
 
 		public override void OnFrameBegin()
@@ -116,7 +118,7 @@ namespace BC
 
 						u.Dmg(1);
 
-						u.AddForce(_Tra._Move, 10);
+						u.AddForce(_Tra._Move, 5);
 
 						BulletHit bh = BattleCharaMan.i.GetPoolOrNewBulletHit();
 						bh.SetPos(_Tra._Pos + new Vector2Int((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);

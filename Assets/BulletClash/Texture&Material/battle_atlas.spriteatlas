@@ -26,12 +26,12 @@ SpriteAtlas:
       enableTightPacking: 1
     packedHash:
       serializedVersion: 2
-      Hash: d25864973334ebbfd95f63ce686eaf5a
+      Hash: fa86ac29d469dc19792b0c2f5dd7594d
     variantMultiplier: 1
     bindAsDefault: 1
     finalFormat: 4
-    hashString: d25864973334ebbfd95f63ce686eaf5a
-    totalSpriteSurfaceArea: 157322
+    hashString: fa86ac29d469dc19792b0c2f5dd7594d
+    totalSpriteSurfaceArea: 213474
     packables:
     - {fileID: 21300000, guid: a162090671cc2544a95be175663ade45, type: 3}
     - {fileID: 21300000, guid: 617edb9db5ff8f744824d66ca3763fe4, type: 3}
@@ -42,7 +42,10 @@ SpriteAtlas:
     - {fileID: 21300000, guid: 2ccca26abb652a840bd84dd57c372068, type: 3}
     - {fileID: 21300000, guid: c96a737cf8bbd654fbbd8c331a7daf10, type: 3}
     - {fileID: 21300008, guid: 0cf9ad425bac04349a2c2dbeb480b487, type: 3}
+    - {fileID: 21300000, guid: 49e2ca0bbc5de3f4e92e4c44efb1a662, type: 3}
+    - {fileID: 21300000, guid: ee4e78bc5e29d0a41b449d8899601b08, type: 3}
     packedSpriteRenderDataKeys:
+    - ee4e78bc5e29d0a41b449d8899601b08: 21300000
     - c96a737cf8bbd654fbbd8c331a7daf10: 21300000
     - 2ccca26abb652a840bd84dd57c372068: 21300000
     - 40457fba77a5905438acebd5c1f40432: 21300000
@@ -52,8 +55,10 @@ SpriteAtlas:
     - 0cf9ad425bac04349a2c2dbeb480b487: 21300008
     - 8860ac3c57d08404aa896cae37511b57: 21300000
     - 4bc7ef8657a574b4f8af79349bc03380: 21300000
+    - 49e2ca0bbc5de3f4e92e4c44efb1a662: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: ee4e78bc5e29d0a41b449d8899601b08, type: 3}
   - {fileID: 21300000, guid: c96a737cf8bbd654fbbd8c331a7daf10, type: 3}
   - {fileID: 21300000, guid: 2ccca26abb652a840bd84dd57c372068, type: 3}
   - {fileID: 21300000, guid: 40457fba77a5905438acebd5c1f40432, type: 3}
@@ -63,7 +68,9 @@ SpriteAtlas:
   - {fileID: 21300008, guid: 0cf9ad425bac04349a2c2dbeb480b487, type: 3}
   - {fileID: 21300000, guid: 8860ac3c57d08404aa896cae37511b57, type: 3}
   - {fileID: 21300000, guid: 4bc7ef8657a574b4f8af79349bc03380, type: 3}
+  - {fileID: 21300000, guid: 49e2ca0bbc5de3f4e92e4c44efb1a662, type: 3}
   m_PackedSpriteNamesToIndex:
+  - explode_green
   - Window_0
   - uie_quest_icon_bg
   - shot_blue
@@ -73,5 +80,6 @@ SpriteAtlas:
   - icon_chrome_settings
   - Button_active
   - Button_disabled
+  - Button_pointed
   m_Tag: battle_atlas
   m_IsVariant: 0

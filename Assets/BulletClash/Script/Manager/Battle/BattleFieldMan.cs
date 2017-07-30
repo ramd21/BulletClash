@@ -67,7 +67,7 @@ namespace BC
 #if UNITY_EDITOR
 		void OnDrawGizmos()
 		{
-			Gizmos.DrawWireCube(transform.position, _Size.ToVector3XZ() / BattleGameMan.cDistDiv);
+			Gizmos.DrawWireCube(transform.position, (_Size.ToVector3XZ() + _Offset.ToVector3XZ()) / BattleGameMan.cDistDiv);
 		}
 #endif
 	}

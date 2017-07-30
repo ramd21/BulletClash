@@ -24,9 +24,9 @@ namespace BC
 			return _BulletArr[(int)aType];
 		}
 
-		public GameObject GetEffect(int aId)
+		public GameObject GetEffect(EffectType aType)
 		{
-			return _EffectArr[aId];
+			return _EffectArr[(int)aType];
 		}
 
 

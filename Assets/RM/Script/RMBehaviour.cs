@@ -8,6 +8,26 @@ namespace RM
 {
 	public abstract class RMBehaviour : MonoBehaviour
 	{
+		string _Name;
+		public string _name
+		{
+			get
+			{
+				if (_Name == null)
+					_Name = name;
+				return _Name;
+			}
+
+			set
+			{
+				if (_Name != value)
+				{
+					_Name = value;
+					name = _Name;
+				}
+			}
+		}
+
 		public void AutoName()
 		{
 			name = this.GetType().ToString();

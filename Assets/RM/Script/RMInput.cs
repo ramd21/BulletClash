@@ -443,7 +443,6 @@ namespace RM
 				}
 				else
 				{
-					float dist = Vector3.Distance(_InputInfoArr[aTouchId]._V3WorldInputStart, _InputInfoArr[aTouchId]._V3WorldInputCur);
 					_InputInfoArr[aTouchId]._InputSeq = InputSeq.drag_end;
                 }
 				break;
