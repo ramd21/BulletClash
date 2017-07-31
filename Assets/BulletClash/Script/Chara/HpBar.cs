@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace BC
 {
-	public class BackFire : RMBehaviour
+	public class HpBar : RMBehaviour
 	{
 		public Camera _CamTage;
 
@@ -15,7 +15,10 @@ namespace BC
 			if (!_CamTage)
 				_CamTage = Camera.main;
 
-			transform.LookAt(transform.position + transform.parent.forward, _CamTage.transform.forward);
+			transform.LookAt(_CamTage.transform, Vector3.right);
+			//transform.LookAt(_CamTage.transform, Vector3.forward);
+
+			//transform.LookAt(transform.position + transform.parent.forward, _CamTage.transform.forward);
 		}
 #if UNITY_EDITOR
 

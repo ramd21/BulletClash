@@ -26,6 +26,8 @@ namespace BC
 			_CvsHp = GetComponentInChildren<Canvas>();
 			_ImgHp = transform.FindRecurcive("hp").GetComponent<Image>();
 
+			GetComponentInChildren<HpBar>()._CamTage = BattleCameraMan.i._BattleCam;
+
 			_CvsHp.gameObject.SetActive(false);
 
 			BackFire[] bfArr = GetComponentsInChildren<BackFire>();
@@ -81,6 +83,7 @@ namespace BC
 				_ImgHp.fillAmount = (float)_Param.Hp / _ParamDef.Hp;
 			}
 
+			//_CvsHp.gameObject.SetActive(true);
 			if (!_AngleSet)
 			{
 				if (_PlayerId == 1)
