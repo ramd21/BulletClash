@@ -27,7 +27,7 @@ namespace BC
 			_ParamDef = MasterMan.i._BulletParam[(int)aType];
 			_Coll.InstantiateInit(_PlayerId, this);
 
-			LayerSet[] lsArr = GetComponentsInChildren<LayerSet>();
+			LayerSet[] lsArr = GetComponentsInChildren<LayerSet>(true);
 			for (int i = 0; i < lsArr.Length; i++)
 			{
 				lsArr[i].Set(false);

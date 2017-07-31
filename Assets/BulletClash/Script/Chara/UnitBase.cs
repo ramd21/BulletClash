@@ -37,7 +37,7 @@ namespace BC
 			}
 
 
-			LayerSet[] lsArr = GetComponentsInChildren<LayerSet>();
+			LayerSet[] lsArr = GetComponentsInChildren<LayerSet>(true);
 			for (int i = 0; i < lsArr.Length; i++)
 			{
 				lsArr[i].Set(false);
