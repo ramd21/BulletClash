@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4205130170950660}
   - component: {fileID: 33993663831005016}
   - component: {fileID: 23173487392750942}
+  - component: {fileID: 114006027416923682}
   m_Layer: 0
   m_Name: LowPoly_UN_0
   m_TagString: Untagged
@@ -205,6 +206,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1173421499641908}
   m_Mesh: {fileID: 4300000, guid: 332f181c05ea252418ec86fa3496bff1, type: 2}
+--- !u!114 &114006027416923682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1173421499641908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e53b1a7e6ab72e44abfc8ed62a54902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Lit: 1
 --- !u!114 &114105243147660058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -228,7 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Chara: {fileID: 114943300456467014}
-  _Id: 0
+  _Type: 0
   _GoEff: {fileID: 0}
   _GoPreview: {fileID: 0}
   _ResourceMan: {fileID: 0}
@@ -321,7 +334,7 @@ MonoBehaviour:
   _Id: 0
   _State: 0
   _Tra: {fileID: 114968986977430102}
-  _PlayerId: 1
+  _PlayerId: 0
   _VSPlayerId: 0
   _Type: 0
   _Param:

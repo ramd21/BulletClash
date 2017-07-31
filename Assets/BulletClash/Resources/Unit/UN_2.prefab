@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4085014783825926}
   - component: {fileID: 33372265807013628}
   - component: {fileID: 23804348551500826}
+  - component: {fileID: 114159584081854112}
   m_Layer: 0
   m_Name: LowPoly_UN_2
   m_TagString: Untagged
@@ -273,6 +274,18 @@ MonoBehaviour:
   _LoopInter: 60
   _WayCnt: 4
   _WayDegInter: 2500
+--- !u!114 &114159584081854112
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1167557929370604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e53b1a7e6ab72e44abfc8ed62a54902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Lit: 1
 --- !u!114 &114452382863358710
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -397,7 +410,7 @@ MonoBehaviour:
   _Id: 0
   _State: 0
   _Tra: {fileID: 114004739015173044}
-  _PlayerId: 1
+  _PlayerId: 0
   _VSPlayerId: 0
   _Type: 0
   _Param:

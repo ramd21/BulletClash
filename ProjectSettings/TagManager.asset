@@ -13,10 +13,10 @@ TagManager:
   - UI
   - 
   - 
-  - battle
-  - battle_ui
-  - 
-  - 
+  - battle_lit
+  - battle_unlit
+  - battle_ui_lit
+  - battle_ui_unlit
   - 
   - 
   - 

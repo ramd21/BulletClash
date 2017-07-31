@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4584737177539936}
   - component: {fileID: 198425837080444944}
   - component: {fileID: 199593810476167814}
+  - component: {fileID: 114386250862934562}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -157,7 +158,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 256
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -179,6 +180,18 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114386250862934562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1141733329252748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e53b1a7e6ab72e44abfc8ed62a54902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Lit: 0
 --- !u!198 &198425837080444944
 ParticleSystem:
   m_ObjectHideFlags: 1

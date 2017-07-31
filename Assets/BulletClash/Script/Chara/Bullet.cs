@@ -27,7 +27,11 @@ namespace BC
 			_ParamDef = MasterMan.i._BulletParam[(int)aType];
 			_Coll.InstantiateInit(_PlayerId, this);
 
-			gameObject.SetLayer("battle");
+			LayerSet[] lsArr = GetComponentsInChildren<LayerSet>();
+			for (int i = 0; i < lsArr.Length; i++)
+			{
+				lsArr[i].Set(false);
+			}
 		}
 
 		public override void OnFrameBegin()

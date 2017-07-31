@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace BC
 {
-	public class Tower : BaseUnit, IEditorUpdate
+	public class Tower : UnitBase, IEditorUpdate
 	{
 		static int gCnt;
 

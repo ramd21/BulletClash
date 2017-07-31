@@ -32,7 +32,6 @@ namespace BC
 
 			unit._CvsHp = unit.GetComponentInChildren<Canvas>();
 			unit._CvsHp.gameObject.SetActive(false);
-			unit.gameObject.SetLayer("battle_ui");
 			unit.transform.parent = _TraDeckUnit;
 			unit.transform.ResetLocalTransform();
 
@@ -40,6 +39,12 @@ namespace BC
 			for (int i = 0; i < bfArr.Length; i++)
 			{
 				bfArr[i]._CamTage = BattleCameraMan.i._BattleUICam;
+			}
+
+			LayerSet[] lsArr = GetComponentsInChildren<LayerSet>();
+			for (int i = 0; i < lsArr.Length; i++)
+			{
+				lsArr[i].Set(true);
 			}
 		}
 

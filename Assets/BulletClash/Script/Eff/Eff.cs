@@ -10,6 +10,16 @@ namespace BC
 	{
 		int _Timer;
 
+		protected override void Awake()
+		{
+			base.Awake();
+			LayerSet[] lsArr = GetComponentsInChildren<LayerSet>();
+			for (int i = 0; i < lsArr.Length; i++)
+			{
+				lsArr[i].Set(false);
+			}
+		}
+
 		public void SetPos(Vector2Int aPos, int aTimer)
 		{
 			_Tra._Pos = aPos;

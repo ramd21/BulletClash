@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace BC
 {
-	public abstract class BaseUnit : Chara
+	public abstract class UnitBase : Chara
 	{
 		public UnitParam _Param;
 		public UnitParam _ParamDef;
@@ -35,7 +35,15 @@ namespace BC
 			{
 				bfArr[i]._CamTage = BattleCameraMan.i._BattleCam;
 			}
-			gameObject.SetLayer("battle");
+
+
+			LayerSet[] lsArr = GetComponentsInChildren<LayerSet>();
+			for (int i = 0; i < lsArr.Length; i++)
+			{
+				lsArr[i].Set(false);
+			}
+
+
 
 			_Coll.InstantiateInit(_PlayerId, this);
 		}

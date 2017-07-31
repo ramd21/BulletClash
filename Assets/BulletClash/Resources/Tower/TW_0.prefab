@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 4640325861725280}
   - component: {fileID: 33706054265389764}
   - component: {fileID: 23543385641532822}
+  - component: {fileID: 114163205534488850}
   m_Layer: 0
   m_Name: LowPoly_weapon02
   m_TagString: Untagged
@@ -119,6 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4151277527736832}
   - component: {fileID: 114595474037173558}
+  - component: {fileID: 114750314438252074}
   - component: {fileID: 114932474855788412}
   m_Layer: 0
   m_Name: hp_gauge
@@ -137,6 +139,7 @@ GameObject:
   - component: {fileID: 4433542466176364}
   - component: {fileID: 33742561395563874}
   - component: {fileID: 23940202597491588}
+  - component: {fileID: 114568946547825286}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -171,6 +174,7 @@ GameObject:
   - component: {fileID: 4713146391540694}
   - component: {fileID: 33887468961046068}
   - component: {fileID: 23514445645488462}
+  - component: {fileID: 114872078986090416}
   m_Layer: 0
   m_Name: LowPoly_rot
   m_TagString: Untagged
@@ -487,6 +491,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac0b4b5ec6a98f4fac62cce456ee12a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114163205534488850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1349386917253074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e53b1a7e6ab72e44abfc8ed62a54902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Lit: 1
 --- !u!114 &114199444642149170
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -624,6 +640,18 @@ MonoBehaviour:
   _TraRot: {fileID: 4692299813121600}
   _TraCannon: {fileID: 4640325861725280}
   _GoUnitSpawnRange: {fileID: 1645348283706030}
+--- !u!114 &114568946547825286
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1645348283706030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e53b1a7e6ab72e44abfc8ed62a54902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Lit: 0
 --- !u!114 &114595474037173558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -639,6 +667,18 @@ MonoBehaviour:
   _GoPreview: {fileID: 0}
   _Preview: 0
   _RemovePreview: 0
+--- !u!114 &114750314438252074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1636913736811402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e53b1a7e6ab72e44abfc8ed62a54902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Lit: 0
 --- !u!114 &114783024196567790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -657,6 +697,18 @@ MonoBehaviour:
   _ResourceMan: {fileID: 0}
   _Preview: 0
   _RemovePreview: 0
+--- !u!114 &114872078986090416
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1973540597829710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e53b1a7e6ab72e44abfc8ed62a54902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Lit: 1
 --- !u!114 &114902437726551340
 MonoBehaviour:
   m_ObjectHideFlags: 1

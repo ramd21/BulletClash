@@ -67,6 +67,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4413064332358426}
   - component: {fileID: 212382094940701798}
+  - component: {fileID: 114274222781378564}
   m_Layer: 0
   m_Name: back_fire
   m_TagString: Untagged
@@ -157,7 +158,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1280
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -179,6 +180,18 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114274222781378564
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1905545637207900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e53b1a7e6ab72e44abfc8ed62a54902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Lit: 0
 --- !u!114 &114488439867801266
 MonoBehaviour:
   m_ObjectHideFlags: 1

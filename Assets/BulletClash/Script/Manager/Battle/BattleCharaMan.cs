@@ -113,9 +113,7 @@ namespace BC
 
 			go.transform.parent = _TraEffParent;
 			bh = go.AddComponent<BulletHit>();
-
 			_BulletHitList.Add(bh);
-			go.SetLayer("battle");
 
 			return bh;
 		}
@@ -135,9 +133,7 @@ namespace BC
 
 			go.transform.parent = _TraEffParent;
 			ex = go.AddComponent<Explode>();
-
 			_ExplodeList.Add(ex);
-			go.SetLayer("battle");
 
 			return ex;
 		}

@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 4096184477484612}
   - component: {fileID: 33298140275065454}
   - component: {fileID: 23206706136898438}
+  - component: {fileID: 114042566391455524}
   m_Layer: 0
   m_Name: LowPoly_UN_1
   m_TagString: Untagged
@@ -222,6 +223,18 @@ MonoBehaviour:
   _LoopInter: 60
   _WayCnt: 2
   _WayDegInter: 3000
+--- !u!114 &114042566391455524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1778258553090252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e53b1a7e6ab72e44abfc8ed62a54902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Lit: 1
 --- !u!114 &114154945017904404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -269,7 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Chara: {fileID: 114959025279065040}
-  _Id: 0
+  _Type: 0
   _GoEff: {fileID: 0}
   _GoPreview: {fileID: 0}
   _ResourceMan: {fileID: 0}
