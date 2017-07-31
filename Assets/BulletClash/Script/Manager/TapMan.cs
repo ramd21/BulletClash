@@ -6,7 +6,7 @@ using RM;
 
 namespace BC
 {
-	public class TapMan : RMBehaviour
+	public class TapMan : ManagedBehaviour
 	{
 		public GameObject _TapParticle;
 
@@ -16,7 +16,7 @@ namespace BC
 
 		Coroutine _Co;
 
-		void Update()
+		public override void ManagedUpdate()
 		{
 			if (RMInput.i.GetInptState(0) == RMInput.InputState.start)
 			{

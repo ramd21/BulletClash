@@ -25,9 +25,9 @@ namespace BC
 
 		public void Init()
 		{
-			_TxtUserName.text	= UserDataMan.i._UserData._Name;
-			_TxtUserLv.text		= "Lv " + UserDataMan.i._UserData._Lv.ToString();
-			_TxtGold.text		= UserDataMan.i._UserData._Gold.ToString();
+			_TxtUserName.text = UserDataMan.i._UserData._Name;
+			_TxtUserLv.text = "Lv " + UserDataMan.i._UserData._Lv.ToString();
+			_TxtGold.text = UserDataMan.i._UserData._Gold.ToString();
 		}
 
 		public void SetHeaderActive(bool aActive)
@@ -51,7 +51,7 @@ namespace BC
 
 			GameObject goUI = Resources.Load<GameObject>("UI/" + aUI);
 			goUI = goUI.Instantiate();
-			goUI.transform.parent = _2DCanvas.transform;
+			goUI.transform.SetParent(_2DCanvas.transform);
 			goUI.transform.SetSiblingIndex(0);
 			goUI.transform.ResetLocalTransform();
 			goUI.GetComponent<RectTransform>().sizeDelta = Vector2.zero;

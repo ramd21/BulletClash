@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using RM;
 
-[ExecuteInEditMode]
-public class UnitRotate : RMBehaviour
+public class UnitRotate : ManagedBehaviour
 {
 	public float _Spd;
 
 	public Vector3 _LossyScale;
 
-	void Update()
+	public override void ManagedUpdate()
 	{
 		transform.AddLocalEulerAnglesY(_Spd);
 

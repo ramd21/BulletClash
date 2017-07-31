@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 namespace BC
 {
-	public class BackFire : RMBehaviour
+	public class BackFire : ManagedBehaviour
 	{
 		public Camera _CamTage;
 
-		void LateUpdate()
+		public override void ManagedLateUpdate()
 		{
 			if (!_CamTage)
 				_CamTage = Camera.main;

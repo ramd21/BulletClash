@@ -248,7 +248,7 @@ Transform:
   m_GameObject: {fileID: 56771673}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7.296296, y: 7.296296, z: 7.296296}
+  m_LocalScale: {x: 5.552083, y: 5.552083, z: 5.552083}
   m_Children:
   - {fileID: 554227576}
   m_Father: {fileID: 1654845775}
@@ -269,7 +269,7 @@ MonoBehaviour:
   _TageX: 540
   _TageY: 960
   _Scale: 10
-  _ScreenSize: {x: 394, y: 701}
+  _ScreenSize: {x: 300, y: 533}
 --- !u!114 &56771676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,7 +485,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 109239625}
-  m_LocalRotation: {x: -0.3063042, y: -0.6930389, z: -0.44307363, w: 0.47912484}
+  m_LocalRotation: {x: -0.08903344, y: -0.83093417, z: -0.53124785, w: 0.13927384}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -505,7 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Spd: 1.28
-  _LossyScale: {x: 1.0955777, y: 1.0955777, z: 1.0955776}
+  _LossyScale: {x: 1.077139, y: 1.077139, z: 1.0771389}
 --- !u!1001 &126903449
 Prefab:
   m_ObjectHideFlags: 0
@@ -775,7 +775,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 394, y: 700.44446}
+  m_SizeDelta: {x: 299.8125, y: 533}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &222282219
 MonoBehaviour:
@@ -879,10 +879,10 @@ Camera:
   m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0.00039625168
-    width: 1
-    height: 0.9992075
+    x: 0.00031250715
+    y: 0
+    width: 0.999375
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -1449,7 +1449,7 @@ Transform:
   m_GameObject: {fileID: 382028308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7.296296, y: 7.296296, z: 7.296296}
+  m_LocalScale: {x: 5.552083, y: 5.552083, z: 5.552083}
   m_Children:
   - {fileID: 606240077}
   m_Father: {fileID: 2129499956}
@@ -1470,7 +1470,7 @@ MonoBehaviour:
   _TageX: 540
   _TageY: 960
   _Scale: 10
-  _ScreenSize: {x: 394, y: 701}
+  _ScreenSize: {x: 300, y: 533}
 --- !u!114 &382028311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2091,11 +2091,6 @@ Prefab:
     - target: {fileID: 4271179071205840, guid: 29a0c6e25e670604c862770a8ace2cc2, type: 2}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 224806188066886458, guid: 29a0c6e25e670604c862770a8ace2cc2,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -29
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 29a0c6e25e670604c862770a8ace2cc2, type: 2}
@@ -2725,7 +2720,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1535108732
+  randomSeed: 1323074329
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6410,7 +6405,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 809176944}
-  m_LocalRotation: {x: -0.3063042, y: -0.6930389, z: -0.44307363, w: 0.47912484}
+  m_LocalRotation: {x: -0.08903344, y: -0.83093417, z: -0.53124785, w: 0.13927384}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6430,7 +6425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Spd: 1.28
-  _LossyScale: {x: 1.0955777, y: 1.0955777, z: 1.0955776}
+  _LossyScale: {x: 1.077139, y: 1.077139, z: 1.0771389}
 --- !u!1 &814252061
 GameObject:
   m_ObjectHideFlags: 0
@@ -7639,7 +7634,7 @@ Transform:
   m_GameObject: {fileID: 1172745731}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7.296296, y: 7.296296, z: 7.296296}
+  m_LocalScale: {x: 5.552083, y: 5.552083, z: 5.552083}
   m_Children:
   - {fileID: 1882413607}
   m_Father: {fileID: 809176945}
@@ -7660,7 +7655,7 @@ MonoBehaviour:
   _TageX: 540
   _TageY: 960
   _Scale: 10
-  _ScreenSize: {x: 394, y: 701}
+  _ScreenSize: {x: 300, y: 533}
 --- !u!114 &1172745734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8986,7 +8981,7 @@ Transform:
   m_GameObject: {fileID: 1591359371}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7.296296, y: 7.296296, z: 7.296296}
+  m_LocalScale: {x: 5.552083, y: 5.552083, z: 5.552083}
   m_Children:
   - {fileID: 2081784414}
   m_Father: {fileID: 109239626}
@@ -9007,7 +9002,7 @@ MonoBehaviour:
   _TageX: 540
   _TageY: 960
   _Scale: 10
-  _ScreenSize: {x: 394, y: 701}
+  _ScreenSize: {x: 300, y: 533}
 --- !u!114 &1591359374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9201,7 +9196,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1654845774}
-  m_LocalRotation: {x: -0.3063042, y: -0.6930389, z: -0.44307363, w: 0.47912484}
+  m_LocalRotation: {x: -0.08903344, y: -0.83093417, z: -0.53124785, w: 0.13927384}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -9221,7 +9216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Spd: 1.28
-  _LossyScale: {x: 1.0955777, y: 1.0955777, z: 1.0955776}
+  _LossyScale: {x: 1.077139, y: 1.077139, z: 1.0771389}
 --- !u!1 &1655133586
 GameObject:
   m_ObjectHideFlags: 0
@@ -10722,7 +10717,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2129499955}
-  m_LocalRotation: {x: -0.3063042, y: -0.6930389, z: -0.44307363, w: 0.47912484}
+  m_LocalRotation: {x: -0.08903344, y: -0.83093417, z: -0.53124785, w: 0.13927384}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -10742,4 +10737,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Spd: 1.28
-  _LossyScale: {x: 1.0955777, y: 1.0955777, z: 1.0955776}
+  _LossyScale: {x: 1.077139, y: 1.077139, z: 1.0771389}

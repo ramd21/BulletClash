@@ -34,6 +34,15 @@ namespace RM
 		public static Vector2Int up { get { return new Vector2Int(0, 1); } }
 		public static Vector2Int down { get { return new Vector2Int(0, -1); } }
 
+		public override bool Equals(object obj)
+		{
+			return base.Equals(obj);
+		}
+
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
 
 		public static Vector2Int operator +(Vector2Int a, Vector2Int b)
 		{

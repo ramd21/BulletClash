@@ -5,7 +5,7 @@ using RM;
 
 namespace BC
 {
-	public class DragCamera : RMBehaviour
+	public class DragCamera : ManagedBehaviour
 {
 	public float _SlowDown;
 
@@ -18,7 +18,8 @@ namespace BC
 	Vector3 _Delta;
 	Vector3 _Hit;
 
-	void Update()
+
+	public override void ManagedUpdate()
 	{
 		Ray r = _camera.ScreenPointToRay(Input.mousePosition);
 

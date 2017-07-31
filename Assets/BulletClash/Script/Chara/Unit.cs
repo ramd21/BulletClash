@@ -89,7 +89,6 @@ namespace BC
 		{
 			FastList<Coll> collList;
 			Coll c;
-			Vector2Int hit;
 			int len;
 			for (int i = 0; i < 9; i++)
 			{

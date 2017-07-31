@@ -20,6 +20,8 @@ namespace BC
 		//static int len;
 
 
+
+
 		public void Init()
 		{
 			_UnitList = new List<Unit>[2];

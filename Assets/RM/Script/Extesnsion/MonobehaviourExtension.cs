@@ -7,8 +7,6 @@ namespace RM
 {
 	static public class MonobehaviourExtension
 	{
-		static Dictionary<Action, MonoBehaviour> _CoroutineDic;
-
 		static public DiffObserve<T> StartObsserve<T>(this MonoBehaviour aThis, Func<T> aTarget, Action<T, T> aOnChanged, bool aRepeat)
 		{
 			DiffObserve<T> diff = new DiffObserve<T>();
