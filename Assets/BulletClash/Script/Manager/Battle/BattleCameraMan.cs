@@ -17,17 +17,7 @@ namespace BC
 
 		public float _MainCamZMax;
 		public float _MainCamZMin;
-
-
-		//public int _ScreenW = 540;
-		//public int _ScreenH = 960;
-
-		//[RuntimeInitializeOnLoadMethod]
-		//static void Init()
-		//{
-		//	Deb.MethodLog();
-		//	Screen.SetResolution(i._ScreenW, i._ScreenH, true);
-		//}
+		public Transform _TraShake;
 
 		void LateUpdate()
 		{
@@ -41,17 +31,17 @@ namespace BC
 		public void ShakeCam()
 		{
 			int cnt = 0;
-			Vector3 pos = _BattleCam.transform.position;
+			Vector3 pos = _TraShake.position;
 			float rand = 0.3f;
 
 			this.DoUntil(() => cnt == 5, () =>
 			{
-				_BattleCam.transform.position += new Vector2(Random.Range(-rand, rand), Random.Range(-rand, rand)).ToVector3XZ();
+				_TraShake.position += new Vector2(Random.Range(-rand, rand), Random.Range(-rand, rand)).ToVector3XZ();
 				cnt++;
 			},
 			() => 
 			{
-				_BattleCam.transform.position = pos;
+				_TraShake.position = pos;
 			});
 		}
 	}

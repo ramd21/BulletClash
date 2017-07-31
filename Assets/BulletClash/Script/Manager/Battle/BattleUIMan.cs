@@ -24,12 +24,15 @@ namespace BC
 
 		public void Init()
 		{
+			//UIMan.i._MainUICam.enabled = false;
+
 			InitTPGauge();
 			InitTPCnt();
 			InitUnitCard();
 
 			_BtnSetting.onClick.AddListener(()=> 
 			{
+				//UIMan.i._MainUICam.enabled = true;
 				UIMan.i.OpenCommonDialog("リタイア", "リタイアしますか？", 
 				"はい", 
 				(d)=> 
@@ -38,14 +41,21 @@ namespace BC
 					UIMan.i.GoToScene("home");
 					UIMan.i.OpenUI("home", true);
 					d.Close();
+					//UIMan.i._MainUICam.enabled = false;
 				},
 				"いいえ",
 				(d) => 
 				{
 					d.Close();
+					//UIMan.i._MainUICam.enabled = false;
 				});
 			});
 		}
+
+		//void OnDestroy()
+		//{
+		//	UIMan.i._MainUICam.enabled = true;
+		//}
 
 		void InitUnitCard()
 		{

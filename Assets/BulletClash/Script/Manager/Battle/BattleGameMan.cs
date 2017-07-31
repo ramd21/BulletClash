@@ -16,6 +16,8 @@ namespace BC
 
 		void Start()
 		{
+			
+
 			SinTable.Init();
 			CosTable.Init();
 
@@ -25,6 +27,8 @@ namespace BC
 			BattleCollMan.i.Init();
 			_Init = true;
 		}
+
+		
 
 		void FixedUpdate()
 		{

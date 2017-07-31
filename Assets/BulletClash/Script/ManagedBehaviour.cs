@@ -29,6 +29,11 @@ namespace RM
 		{
 			ManagedUpdateMan.i._RemoveList.Add(this);
 		}
+
+		protected virtual void OnDestroy()
+		{
+			ManagedUpdateMan.i._ManagedList.Remove(this);
+		}
 	}
 
 #if UNITY_EDITOR

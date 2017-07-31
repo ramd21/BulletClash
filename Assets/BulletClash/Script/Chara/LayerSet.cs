@@ -12,19 +12,17 @@ namespace RM
 	{
 		public bool _Lit;
 
-
-
 		public void Set(bool aUI)
 		{
 			if (_Lit)
 			{
 				if (aUI)
 				{
-					gameObject.layer = LayerMask.NameToLayer("battle_ui_lit");
+					gameObject.SetLayer("battle_ui_lit");
 				}
 				else
 				{
-					gameObject.layer = LayerMask.NameToLayer("battle_lit");
+					gameObject.SetLayer("battle_lit");
 				}
 
 			}
@@ -32,11 +30,11 @@ namespace RM
 			{
 				if (aUI)
 				{
-					gameObject.layer = LayerMask.NameToLayer("battle_ui_unlit");
+					gameObject.SetLayer("battle_ui_unlit");
 				}
 				else
 				{
-					gameObject.layer = LayerMask.NameToLayer("battle_unlit");
+					gameObject.SetLayer("battle_unlit");
 				}
 			}
 		}

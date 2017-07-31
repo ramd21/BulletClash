@@ -12,6 +12,7 @@ namespace BC
 {
 	public class UIMan : Singleton<UIMan>
 	{
+		public Camera _MainUICam;
 		public UIDialog _Dialog;
 		public Canvas _2DCanvas;
 

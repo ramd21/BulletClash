@@ -46,14 +46,18 @@ namespace BC
 			{
 				lsArr[i].Set(true);
 			}
-		}
 
-		void Update()
-		{
-			if (_Cost <= BattlePlayerMan.i._myPlayer.GetTP())
-				_image.color = Color.white;
-			else
-				_image.color = Color.gray;
+			_image.color = Color.gray;
+
+			this.StartObsserve(() => _Cost <= BattlePlayerMan.i._myPlayer.GetTP(), 
+			(cur, last) =>
+			{
+				if (_Cost <= BattlePlayerMan.i._myPlayer.GetTP())
+					_image.color = Color.white;
+				else
+					_image.color = Color.gray;
+			}, true);
+
 		}
 
 

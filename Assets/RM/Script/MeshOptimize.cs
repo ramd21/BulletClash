@@ -19,6 +19,9 @@ namespace RM
 		void Optimize()
 		{
 			MeshUtility.Optimize(_Mesh);
+			EditorUtility.SetDirty(_Mesh);
+			AssetDatabase.SaveAssets();
+
 		}
 	}
 }

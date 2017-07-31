@@ -18,7 +18,8 @@ namespace RM
 		{
 			for (int i = 0; i < _ManagedList.Count; i++)
 			{
-				_ManagedList[i].ManagedUpdate();
+				if (_ManagedList[i])
+					_ManagedList[i].ManagedUpdate();
 			}
 		}
 
@@ -29,13 +30,15 @@ namespace RM
 			len = _ManagedList.Count;
 			for (int i = 0; i < len; i++)
 			{
-				_ManagedList[i].ManagedLateUpdate();
+				if (_ManagedList[i])
+					_ManagedList[i].ManagedLateUpdate();
 			}
 
 			len = _RemoveList.Count;
 			for (int i = 0; i < len; i++)
 			{
-				_ManagedList.Remove(_RemoveList[i]);
+				if (_RemoveList[i])
+					_ManagedList.Remove(_RemoveList[i]);
 			}
 
 			_RemoveList.Clear();
