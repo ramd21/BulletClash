@@ -59,7 +59,10 @@ namespace BC
 
 			if (_PosId == 4)
 			{
-				_image.color = Color.green;
+				if (_Cost <= BattlePlayerMan.i._myPlayer.GetTP())
+					_image.color = Color.green;
+				else
+					_image.color = Color.green / 2;
 			}
 			else
 			{
@@ -77,7 +80,10 @@ namespace BC
 			if (_PosId == 4)
 			{
 				_TxtNext.gameObject.SetActive(true);
-				_image.color = Color.green;
+				if (_Cost <= BattlePlayerMan.i._myPlayer.GetTP())
+					_image.color = Color.green;
+				else
+					_image.color = Color.green / 2;
 			}
 			else
 			{ 
@@ -107,7 +113,7 @@ namespace BC
 
 		public override void OnPointerDown(PointerEventData eventData)
 		{
-			if (_Id == -1)
+			if (_PosId >= 4)
 				return;
 
 			BattleCameraMan.i._DragCamera.enabled = false;
@@ -116,7 +122,7 @@ namespace BC
 
 		public override void OnDrag(PointerEventData eventData)
 		{
-			if (_Id == -1)
+			if (_PosId >= 4)
 				return;
 
 			base.OnDrag(eventData);
@@ -124,7 +130,7 @@ namespace BC
 
 		public override void OnPointerUp(PointerEventData eventData)
 		{
-			if (_Id == -1)
+			if (_PosId >= 4)
 				return;
 
 			BattleCameraMan.i._DragCamera.enabled = true;
