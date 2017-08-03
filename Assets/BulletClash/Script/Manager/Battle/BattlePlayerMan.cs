@@ -58,7 +58,7 @@ namespace BC
 
 		public void AI()
 		{
-			if (GetTP() >= 4)
+			if (GetTP() >= 5)
 			{
 				if (_Id == 1)
 				{

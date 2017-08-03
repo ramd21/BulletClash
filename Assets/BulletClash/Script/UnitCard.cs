@@ -97,7 +97,7 @@ namespace BC
 			this.DoUntil(()=> 
 			{
 				transform.position = Vector3.MoveTowards(transform.position, BattleUIMan.i._TraPosArr[_PosId].position, 20);
-				return BattleUIMan.i._TraPosArr[_PosId].position == transform.position;
+				return Vector3.Distance(BattleUIMan.i._TraPosArr[_PosId].position, transform.position) < 0.001f;
 			});
 		}
 
