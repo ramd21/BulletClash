@@ -248,7 +248,7 @@ Transform:
   m_GameObject: {fileID: 56771673}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.71875, y: 5.71875, z: 5.71875}
+  m_LocalScale: {x: 6.0729165, y: 6.0729165, z: 6.0729165}
   m_Children:
   - {fileID: 554227576}
   m_Father: {fileID: 1654845775}
@@ -269,7 +269,7 @@ MonoBehaviour:
   _TageX: 540
   _TageY: 960
   _Scale: 10
-  _ScreenSize: {x: 309, y: 549}
+  _ScreenSize: {x: 328, y: 583}
 --- !u!114 &56771676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,17 +394,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114309451372239092, guid: 43b06806f8b50cf46a857692028677b6,
+        type: 2}
+      propertyPath: _ResourceMan
+      value: 
+      objectReference: {fileID: 308863259}
     - target: {fileID: 114783024196567790, guid: 43b06806f8b50cf46a857692028677b6,
         type: 2}
       propertyPath: _ResourceMan
       value: 
       objectReference: {fileID: 308863259}
     - target: {fileID: 114248055833126090, guid: 43b06806f8b50cf46a857692028677b6,
-        type: 2}
-      propertyPath: _ResourceMan
-      value: 
-      objectReference: {fileID: 308863259}
-    - target: {fileID: 114309451372239092, guid: 43b06806f8b50cf46a857692028677b6,
         type: 2}
       propertyPath: _ResourceMan
       value: 
@@ -817,7 +817,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 308.8125, y: 549}
+  m_SizeDelta: {x: 327.93747, y: 583}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &222282219
 MonoBehaviour:
@@ -921,9 +921,9 @@ Camera:
   m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.00030338764
+    x: 0.00009530783
     y: 0
-    width: 0.9993932
+    width: 0.9998094
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -1463,10 +1463,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1824990053220064, guid: 985586fe27918034eb17ad31acb38211, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 985586fe27918034eb17ad31acb38211, type: 2}
   m_IsPrefabParent: 0
@@ -1495,7 +1491,7 @@ Transform:
   m_GameObject: {fileID: 382028308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.71875, y: 5.71875, z: 5.71875}
+  m_LocalScale: {x: 6.0729165, y: 6.0729165, z: 6.0729165}
   m_Children:
   - {fileID: 606240077}
   m_Father: {fileID: 2129499956}
@@ -1516,7 +1512,7 @@ MonoBehaviour:
   _TageX: 540
   _TageY: 960
   _Scale: 10
-  _ScreenSize: {x: 309, y: 549}
+  _ScreenSize: {x: 328, y: 583}
 --- !u!114 &382028311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7358,7 +7354,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1961278342110060, guid: ee7ec09378141b741bd30bef44d17364, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ee7ec09378141b741bd30bef44d17364, type: 2}
@@ -7642,7 +7638,7 @@ Transform:
   m_GameObject: {fileID: 1172745731}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.71875, y: 5.71875, z: 5.71875}
+  m_LocalScale: {x: 6.0729165, y: 6.0729165, z: 6.0729165}
   m_Children:
   - {fileID: 1882413607}
   m_Father: {fileID: 809176945}
@@ -7663,7 +7659,7 @@ MonoBehaviour:
   _TageX: 540
   _TageY: 960
   _Scale: 10
-  _ScreenSize: {x: 309, y: 549}
+  _ScreenSize: {x: 328, y: 583}
 --- !u!114 &1172745734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9029,7 +9025,7 @@ Transform:
   m_GameObject: {fileID: 1591359371}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.71875, y: 5.71875, z: 5.71875}
+  m_LocalScale: {x: 6.0729165, y: 6.0729165, z: 6.0729165}
   m_Children:
   - {fileID: 2081784414}
   m_Father: {fileID: 109239626}
@@ -9050,7 +9046,7 @@ MonoBehaviour:
   _TageX: 540
   _TageY: 960
   _Scale: 10
-  _ScreenSize: {x: 309, y: 549}
+  _ScreenSize: {x: 328, y: 583}
 --- !u!114 &1591359374
 MonoBehaviour:
   m_ObjectHideFlags: 0
