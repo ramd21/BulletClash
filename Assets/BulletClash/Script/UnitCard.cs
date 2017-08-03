@@ -10,10 +10,15 @@ namespace BC
 {
 	public class UnitCard : UIDragObj, IEditorUpdate
 	{
+		public int _Id;
+		public int _PosId;
+
 		public static bool gIsDrag;
 
 		int _Cost;
 		public Text			_TxtCost;
+		public Text			_TxtNext;
+
 		public Transform	_TraDeckUnit;
 		UnitParam _Param;
 
@@ -46,19 +51,50 @@ namespace BC
 			{
 				lsArr[i].Set(true);
 			}
+		}
 
-			_image.color = Color.gray;
+		public override void ManagedUpdate()
+		{
+			base.ManagedUpdate();
 
-			this.StartObsserve(() => _Cost <= BattlePlayerMan.i._myPlayer.GetTP(), 
-			(cur, last) =>
+			if (_PosId == 4)
+			{
+				_image.color = Color.green;
+			}
+			else
 			{
 				if (_Cost <= BattlePlayerMan.i._myPlayer.GetTP())
 					_image.color = Color.white;
 				else
 					_image.color = Color.gray;
-			}, true);
-
+			}
 		}
+
+		public void SetPosId(int aPosId)
+		{
+			_PosId = aPosId;
+
+			if (_PosId == 4)
+			{
+				_TxtNext.gameObject.SetActive(true);
+				_image.color = Color.green;
+			}
+			else
+			{ 
+				_TxtNext.gameObject.SetActive(false);
+				if (_Cost <= BattlePlayerMan.i._myPlayer.GetTP())
+					_image.color = Color.white;
+				else
+					_image.color = Color.gray;
+			}
+
+			this.DoUntil(()=> 
+			{
+				transform.position = Vector3.MoveTowards(transform.position, BattleUIMan.i._TraPosArr[_PosId].position, 20);
+				return BattleUIMan.i._TraPosArr[_PosId].position == transform.position;
+			});
+		}
+
 
 
 		protected override Camera _cam
@@ -71,12 +107,26 @@ namespace BC
 
 		public override void OnPointerDown(PointerEventData eventData)
 		{
+			if (_Id == -1)
+				return;
+
 			BattleCameraMan.i._DragCamera.enabled = false;
 			gIsDrag = true;
 		}
 
+		public override void OnDrag(PointerEventData eventData)
+		{
+			if (_Id == -1)
+				return;
+
+			base.OnDrag(eventData);
+		}
+
 		public override void OnPointerUp(PointerEventData eventData)
 		{
+			if (_Id == -1)
+				return;
+
 			BattleCameraMan.i._DragCamera.enabled = true;
 			gIsDrag = false;
 
@@ -94,6 +144,14 @@ namespace BC
 						if (RMMath.GetApproxDist((int)tw._Tra._Pos.x, (int)tw._Tra._Pos.y, (int)pos.x, (int)pos.y) <= 15 * BattleGameMan.cDistDiv)
 						{
 							BattlePlayerMan.i._myPlayer.PlaceUnit(_Param, pos);
+							
+							BattleUIMan.i._ShuffledList[4].SetPosId(_PosId);
+							BattleUIMan.i._ShuffledList[5].SetPosId(4);
+							SetPosId(5);
+
+
+							BattleUIMan.i._ShuffledList.Remove(this);
+							BattleUIMan.i._ShuffledList.Add(this);
 							break;
 						}
 					}
@@ -104,6 +162,7 @@ namespace BC
 		public void EditorUpdate()
 		{
 			_TxtCost = GetComponentInChildren<Text>();
+			_TxtNext = transform.Find("next").GetComponent<Text>();
 			_TraDeckUnit = transform.FindRecurcive("deck_unit", true);
 		}
 #endif

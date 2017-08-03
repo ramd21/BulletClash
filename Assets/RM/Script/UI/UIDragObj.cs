@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace RM
 {
-	public abstract class UIDragObj : RMBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler
+	public abstract class UIDragObj : ManagedBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler
 	{
 		protected abstract Camera _cam { get; }
 
