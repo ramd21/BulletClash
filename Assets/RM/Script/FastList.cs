@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace RM
 {
-	public class FastList<T>
+	public class FastList<T> /*where T : IEquatable<T>*/
 	{
 		int _Grow;
 		int _Capacity;
@@ -38,6 +39,17 @@ namespace RM
 
 			_Arr[Count] = aT;
 			Count++;
+		}
+
+		public bool Contains(T aT)
+		{
+			for (int i = 0; i < Count; i++)
+			{
+				if (_Arr[i].Equals(aT))
+					return true;
+			}
+
+			return false;
 		}
 
 		public void Clear()

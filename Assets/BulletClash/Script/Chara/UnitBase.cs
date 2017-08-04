@@ -70,7 +70,7 @@ namespace BC
 			if (_Param.Hp <= 0)
 			{
 				Explode ex = BattleCharaMan.i.GetPoolOrNewExplode();
-				ex.SetPos(_Tra._Pos, 60);
+				ex.SetPos(_Tra._Pos, 60, 0, 1f);
 				BattleCameraMan.i.ShakeCam();
 
 				DeactivateReq();

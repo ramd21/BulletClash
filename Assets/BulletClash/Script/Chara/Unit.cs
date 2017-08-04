@@ -289,8 +289,8 @@ namespace BC
 			if (!_Tage)
 				return;
 
-			if (_TageDist > _Param.Range)
-				return;
+			//if (_TageDist > _Param.Range)
+			//	return;
 
 			_Cannon.Fire();
 		}

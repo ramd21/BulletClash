@@ -25,6 +25,11 @@ namespace BC
 		{
 			UIMan.i.Init();
 		}
+
+		void LateUpdate()
+		{
+			SoundMan.i.Act();
+		}
 	}
 }
 
