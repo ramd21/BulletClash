@@ -12,9 +12,52 @@ namespace BC
 	public class Bullet : Chara, IEditorUpdate
 	{
 		static int gCnt;
-		public BulletParam _Param;
 		public BulletParam _ParamDef;
+		public BulletParam _Param;
 		public Coll _Coll;
+
+		public struct FrameData
+		{
+			public ActiveState _State;
+			public int _Id;
+			public int _Timer;
+			public Vector2Int	_Pos;
+			public Vector2Int	_Dir;
+			public Vector2Int	_Move;
+		}
+
+		public FrameData GetFrameData()
+		{
+			FrameData fd = new FrameData();
+			fd._State = _State;
+			fd._Id		= _Id;
+			fd._Timer	= _Param.Timer;
+			fd._Pos		= _Tra._Pos;
+			fd._Dir		= _Tra._Dir;
+			fd._Move	= _Tra._Move;
+			return fd;
+		}
+
+		public void Restore(FrameData aFrameData)
+		{
+			_State				= aFrameData._State;
+			_Id					= aFrameData._Id;
+			_Param.Timer		= aFrameData._Timer;
+			_Tra._Pos			= aFrameData._Pos;	
+			_Tra._Dir			= aFrameData._Dir;
+			_Tra._Move			= aFrameData._Move;
+
+			switch (_State)
+			{
+				case ActiveState.active:
+					gameObject.SetActive(true);
+					break;
+				case ActiveState.deactivate_req:
+					gameObject.SetActive(true);
+					break;
+			}
+		}
+
 
 		public void InstantiateInit(int aPlayerId, BulletType aType)
 		{

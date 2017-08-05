@@ -14,12 +14,63 @@ namespace BC
 		int _TageDist;
 
 		Vector2Int _Force;
-		Vector2Int _Correct;
 
 
 		public Cannon _Cannon;
 
-		
+		public struct FrameData
+		{
+			public ActiveState _State;
+			public int _Id;
+			public int _Hp;
+			public int _Frame;
+
+			public Vector2Int	_Pos;
+			public Vector2Int	_Dir;
+			public Vector2Int	_Move;
+			public Vector2Int	_Force;
+		}
+
+		public FrameData GetFrameData()
+		{
+			FrameData fd = new FrameData();
+			fd._State = _State;
+			fd._Id		= _Id;
+			fd._Hp		= _Param.Hp;
+			fd._Frame	= _Frame;
+
+			fd._Pos		= _Tra._Pos;
+			fd._Dir		= _Tra._Dir;
+			fd._Move	= _Tra._Move;
+			fd._Force	= _Force;
+
+			return fd;
+		}
+
+		public void Restore(FrameData aFrameData)
+		{
+			_State				=		aFrameData._State;
+			_Id					=		aFrameData._Id;				
+			_Param.Hp			=		aFrameData._Hp;		
+			_Frame				=		aFrameData._Frame;		
+
+			_Tra._Pos			=		aFrameData._Pos;		
+			_Tra._Dir			=		aFrameData._Dir;		
+			_Tra._Move			=		aFrameData._Move;		
+			_Force				=		aFrameData._Force;
+
+			GetComponent<Animator>().enabled = false;
+
+			switch (_State)
+			{
+				case ActiveState.active:
+					gameObject.SetActive(true);
+					break;
+				case ActiveState.deactivate_req:
+					gameObject.SetActive(true);
+					break;
+			}
+		}
 
 
 		public void InstantiateInit(int aPlayerId, UnitType aType)
@@ -48,6 +99,7 @@ namespace BC
 		public override void ActivateReq(Vector2Int aPos)
 		{
 			base.ActivateReq(aPos);
+			GetComponent<Animator>().enabled = true;
 		}
 
 		public void SetPos()
@@ -61,9 +113,6 @@ namespace BC
 			else
 				_Tra._Pos.y -= _Param.SpdY;
 
-
-			_Tra._Pos += _Correct;
-			_Correct = Vector2Int.zero;
 
 			_Tra._Pos += _Force;
 

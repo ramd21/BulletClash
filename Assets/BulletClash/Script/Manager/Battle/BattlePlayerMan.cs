@@ -37,7 +37,26 @@ namespace BC
 	{
 		public int _Id;
 		public UnitType[] _DeckUnitTypeArr;
+
 		public int _TPTimerTotal;
+
+		[System.Serializable]
+		public struct FrameData
+		{
+			public int _TPTimerTotal;
+		}
+
+		public FrameData GetFrameData()
+		{
+			FrameData fd = new FrameData();
+			fd._TPTimerTotal = _TPTimerTotal;
+			return fd;
+		}
+
+		public void Restore(FrameData aFrameData)
+		{
+			_TPTimerTotal = aFrameData._TPTimerTotal;
+		}
 
 		public Player(int aId)
 		{

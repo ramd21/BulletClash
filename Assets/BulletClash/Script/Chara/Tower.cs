@@ -19,6 +19,36 @@ namespace BC
 		Chara _Tage;
 		int _TageDist;
 
+		public struct FrameData
+		{
+			public ActiveState _State;
+			public int _Hp;
+		}
+
+		public FrameData GetFrameData()
+		{
+			FrameData fd = new FrameData();
+			fd._State = _State;
+			fd._Hp = _Param.Hp;
+			return fd;
+		}
+
+		public void Restore(FrameData aFrameData)
+		{
+			_State = aFrameData._State;
+			_Param.Hp = aFrameData._Hp;
+
+			switch (_State)
+			{
+				case ActiveState.active:
+					gameObject.SetActive(true);
+					break;
+				case ActiveState.deactivate_req:
+					gameObject.SetActive(true);
+					break;
+			}
+		}
+
 		void Start()
 		{
 			this.WaitForEndOfFrame(() =>

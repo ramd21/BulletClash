@@ -8,29 +8,25 @@ namespace BC
 {
 	public class BattleCharaMan : Singleton<BattleCharaMan>
 	{
-		public List<Unit>[]		_UnitList;
 		public List<Bullet>[]	_BulletList;
+		public List<Unit>[]		_UnitList;
 		public List<Tower>[]	_TowerList;
-		public List<BulletHit> _BulletHitList;
-		public List<Explode> _ExplodeList;
+		public List<BulletHit>	_BulletHitList;
+		public List<Explode>	_ExplodeList;
 
-		public Transform[] _TraPlayerParent;
-		public Transform _TraEffParent;
-
-		//static int len;
-
-
+		public Transform[]		_TraPlayerParent;
+		public Transform		_TraEffParent;
 
 
 		public void Init()
 		{
-			_UnitList = new List<Unit>[2];
-			_UnitList[0] = new List<Unit>();
-			_UnitList[1] = new List<Unit>();
-
 			_BulletList = new List<Bullet>[2];
 			_BulletList[0] = new List<Bullet>();
 			_BulletList[1] = new List<Bullet>();
+
+			_UnitList = new List<Unit>[2];
+			_UnitList[0] = new List<Unit>();
+			_UnitList[1] = new List<Unit>();
 
 			_TowerList = new List<Tower>[2];
 			_TowerList[0] = new List<Tower>();
@@ -210,8 +206,6 @@ namespace BC
 			}
 		}
 
-
-
 		void CharaUpdateView<T>(List<T>[] aCharaList) where T : BHObj
 		{
 			int len;
@@ -242,8 +236,8 @@ namespace BC
 		public void Act()
 		{
 			//activate_req>>
-			CharaActivate(_UnitList);
 			CharaActivate(_BulletList);
+			CharaActivate(_UnitList);
 			CharaActivate(_TowerList);
 			//activate_req<<
 
