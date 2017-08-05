@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 23206706136898438}
   - component: {fileID: 114042566391455524}
   m_Layer: 0
-  m_Name: LowPoly_UN
+  m_Name: LowPoly_UN_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,8 +124,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4453457374293268}
+  m_Children: []
   m_Father: {fileID: 4600523924118286}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -136,11 +135,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1240391838868868}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5500002, z: -2.2}
+  m_LocalPosition: {x: 0, y: -0.5500002, z: -2.1999998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4096184477484612}
-  m_RootOrder: 0
+  m_Father: {fileID: 4600523924118286}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4600523924118286
 Transform:
@@ -153,6 +152,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4096184477484612}
+  - {fileID: 4453457374293268}
   m_Father: {fileID: 4003146678773798}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -424,6 +424,7 @@ MonoBehaviour:
     center:
       x: 0
       y: 0
+  _Flip: 0
   _PlayerId: 0
   _CollBlock: 
   _Chara: {fileID: 0}

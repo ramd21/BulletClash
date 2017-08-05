@@ -29,10 +29,18 @@ namespace BC
 			gCnt++;
 			_Type = CharaType.unit;
 			_ParamDef = MasterMan.i._UnitParam[(int)aType];
+
+			if (aPlayerId == 1)
+				_Coll._Flip = -1;
+			else
+				_Coll._Flip = 1;
 		}
 
 		public override void OnFrameBegin()
 		{
+			if (_Frame < 60)
+				return;
+
 			base.OnFrameBegin();
 			_Coll.UpdateBlock();
 		}

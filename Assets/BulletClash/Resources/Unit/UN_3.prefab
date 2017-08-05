@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 23236103914508150}
   - component: {fileID: 114866592771365542}
   m_Layer: 0
-  m_Name: LowPoly_UN
+  m_Name: LowPoly_UN_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,11 +107,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1285897066275336}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.62000036, z: -2.2}
-  m_LocalScale: {x: 0.3831418, y: 1, z: 0.8695652}
+  m_LocalPosition: {x: 0, y: 0.62000036, z: -2.5300016}
+  m_LocalScale: {x: 2.61, y: 1, z: 1.15}
   m_Children: []
-  m_Father: {fileID: 4678445339278488}
-  m_RootOrder: 0
+  m_Father: {fileID: 4835691049671270}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4369166862333122
 Transform:
@@ -135,8 +135,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.61, y: 1, z: 1.15}
-  m_Children:
-  - {fileID: 4128828556423154}
+  m_Children: []
   m_Father: {fileID: 4835691049671270}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -151,6 +150,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4678445339278488}
+  - {fileID: 4128828556423154}
   m_Father: {fileID: 4954935352311822}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -274,6 +274,7 @@ MonoBehaviour:
     center:
       x: 0
       y: 0
+  _Flip: 0
   _PlayerId: 0
   _CollBlock: 
   _Chara: {fileID: 0}
@@ -328,7 +329,7 @@ MonoBehaviour:
   _Id: 0
   _State: 0
   _Tra: {fileID: 114477703673465336}
-  _PlayerId: 0
+  _PlayerId: 1
   _VSPlayerId: 0
   _Type: 0
   _Param:

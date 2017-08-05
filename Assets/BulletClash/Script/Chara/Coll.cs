@@ -17,16 +17,13 @@ namespace BC
 
 		public Bounds2DInt _Bounds2D;
 
+		public int _Flip;
+
 		[Serializable]
 		public struct CollInfo
 		{
 			public Vector2Int _Size;
 			public Vector2Int _Offset;
-
-			//[System.NonSerialized]
-			//public int _OffsetX;
-			//[System.NonSerialized]
-			//public int _OffsetY;
 
 			[System.NonSerialized]
 			public int _L;
@@ -36,12 +33,6 @@ namespace BC
 			public int _T;
 			[System.NonSerialized]
 			public int _B;
-
-			//public void Init()
-			//{
-			//	_OffsetX = _Offset.x + CollMan.i._Offset.x;
-			//	_OffsetY = _Offset.y + CollMan.i._Offset.y;
-			//}
 
 			public bool IsHit(CollInfo aVS)
 			{
@@ -60,32 +51,6 @@ namespace BC
 				return true;
 			}
 
-			//public Vector2Int GetOverlap(CollInfo aVS)
-			//{
-			//	int x = 0, y = 0;
-
-			//	if (aVS._T < _B)
-			//		return Vector2Int.zero;
-			//	else
-			//		y += aVS._T - _B;
-
-			//	if (_T < aVS._B)
-			//		return Vector2Int.zero;
-			//	else
-			//		y += _T - aVS._B;
-
-			//	if (aVS._R < _L)
-			//		return Vector2Int.zero;
-			//	else
-			//		x += aVS._R - _L;
-
-			//	if (_R < aVS._L)
-			//		return Vector2Int.zero;
-			//	else
-			//		x += _R - aVS._L;
-
-			//	return new Vector2Int(-x, -y);
-			//}
 
 			public void UpdateLRTB(Vector2Int aPos)
 			{
@@ -122,11 +87,6 @@ namespace BC
 			_Chara = aChara;
 			_Id = gCnt;
 			gCnt++;
-
-			//for (int i = 0; i < _CollInfoArr.Length; i++)
-			//{
-			//	_CollInfoArr[i].Init();
-			//}
 		}
 
 		public void SetBounds(Vector2 aPos)
@@ -145,10 +105,10 @@ namespace BC
 
 				for (int i = 0; i < _CollInfoArr.Length; i++)
 				{
-					int l = -_CollInfoArr[i]._Size.x / 2 + _CollInfoArr[i]._Offset.x;
-					int r = _CollInfoArr[i]._Size.x / 2 + _CollInfoArr[i]._Offset.x;
-					int t = _CollInfoArr[i]._Size.y / 2 + _CollInfoArr[i]._Offset.y;
-					int b = -_CollInfoArr[i]._Size.y / 2 + _CollInfoArr[i]._Offset.y;
+					int l = -_CollInfoArr[i]._Size.x / 2 + _CollInfoArr[i]._Offset.x * _Flip;
+					int r = _CollInfoArr[i]._Size.x / 2 + _CollInfoArr[i]._Offset.x * _Flip;
+					int t = _CollInfoArr[i]._Size.y / 2 + _CollInfoArr[i]._Offset.y * _Flip;
+					int b = -_CollInfoArr[i]._Size.y / 2 + _CollInfoArr[i]._Offset.y * _Flip;
 
 					if (minX > l)
 						minX = l;
@@ -197,29 +157,6 @@ namespace BC
 			}
 			return false;
 		}
-
-		//public Vector2Int GetOverLap(Coll aVS)
-		//{
-		//	if (_Id == aVS._Id)
-		//		return Vector2Int.zero;
-
-
-		//	UpdateLRTB();
-		//	aVS.UpdateLRTB();
-
-		//	Vector2Int hit;
-		//	for (int i = 0; i < _CollInfoArr.Length; i++)
-		//	{
-		//		for (int j = 0; j < aVS._CollInfoArr.Length; j++)
-		//		{
-		//			hit = _CollInfoArr[i].GetOverlap(aVS._CollInfoArr[j]);
-
-		//			if (hit != Vector2Int.zero)
-		//				return hit;
-		//		}
-		//	}
-		//	return Vector2Int.zero;
-		//}
 
 		public void UpdateBlock()
 		{
@@ -274,7 +211,8 @@ namespace BC
 			{
 				for (int i = 0; i < _CollInfoArr.Length; i++)
 				{
-					Vector3 pos = (_Tra._Pos + BattleFieldMan.i._Offset + _CollInfoArr[i]._Offset).ToVector3XZ();
+					Vector3 pos;
+					pos = (_Tra._Pos + BattleFieldMan.i._Offset + _CollInfoArr[i]._Offset * _Flip).ToVector3XZ();
 					Gizmos.DrawWireCube(pos / BattleGameMan.cDistDiv, _CollInfoArr[i]._Size.ToVector3XZ() / BattleGameMan.cDistDiv);
 				}
 
@@ -285,7 +223,7 @@ namespace BC
 			{
 				for (int i = 0; i < _CollInfoArr.Length; i++)
 				{
-					Gizmos.DrawWireCube(transform.position + _CollInfoArr[i]._Offset.ToVector3XZ() / BattleGameMan.cDistDiv, _CollInfoArr[i]._Size.ToVector3XZ() / BattleGameMan.cDistDiv);
+					Gizmos.DrawWireCube(transform.position - _CollInfoArr[i]._Offset.ToVector3XZ() * _Flip / BattleGameMan.cDistDiv, _CollInfoArr[i]._Size.ToVector3XZ() / BattleGameMan.cDistDiv);
 				}
 
 				Gizmos.color = Color.green;
