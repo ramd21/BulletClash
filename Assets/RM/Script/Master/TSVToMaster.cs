@@ -83,6 +83,7 @@ public struct <type_name>
 #endif
 }";
 		const string cIntParce = "				dat.<field_name> = strMultiArr[i, <index>].ToInt();";
+		const string cFloatParce = "			dat.<field_name> = strMultiArr[i, <index>].ToFloat();";
 		const string cStrParce = "				dat.<field_name> = strMultiArr[i, <index>];";
 		const string cEnumParce = "				dat.<field_name> = strMultiArr[i, <index>].ToEnum<<field_type>>();";
 
@@ -152,6 +153,10 @@ public class <type_name>Master : ScriptableObject
 						if (strMultiArr[0, j] == "int")
 						{
 							body2 += cIntParce.Replace("<field_name>", strMultiArr[1, j]).Replace("<index>", j.ToString());
+						}
+						else if (strMultiArr[0, j] == "float")
+						{
+							body2 += cFloatParce.Replace("<field_name>", strMultiArr[1, j]).Replace("<index>", j.ToString());
 						}
 						else if (strMultiArr[0, j] == "string")
 						{

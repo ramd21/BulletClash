@@ -17,6 +17,7 @@ namespace BC
 		protected Image _ImgHp;
 
 		bool _AngleSet;
+		protected int _Frame;
 
 		public virtual void InstantiateInit(int aPlayerId)
 		{
@@ -58,6 +59,7 @@ namespace BC
 		{
 			base.ActivateReq(aPos);
 			_Param = _ParamDef;
+			_Frame = 0;
 		}
 
 		public void Dmg(int aDmg)
@@ -70,11 +72,13 @@ namespace BC
 			if (_Param.Hp <= 0)
 			{
 				Explode ex = BattleCharaMan.i.GetPoolOrNewExplode();
-				ex.SetPos(_Tra._Pos, 60, 0, 1f);
+				ex.SetPos(_Tra._Pos, 60);
 				BattleCameraMan.i.ShakeCam();
 
 				DeactivateReq();
 			}
+
+			_Frame++;
 		}
 
 		public override void UpdateView()

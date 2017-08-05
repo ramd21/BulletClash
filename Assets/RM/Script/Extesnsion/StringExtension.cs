@@ -69,6 +69,11 @@ namespace RM
 		{
 			return int.Parse(aThis);
 		}
+		static public float ToFloat(this string aThis)
+		{
+			return float.Parse(aThis);
+		}
+
 
 		static public T ToEnum<T>(this string aThis)
 		{

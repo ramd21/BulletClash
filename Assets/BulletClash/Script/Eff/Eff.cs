@@ -20,15 +20,13 @@ namespace BC
 			}
 		}
 
-		public void SetPos(Vector2Int aPos, int aTimer, int aSeId, float aVol)
+		public void SetPos(Vector2Int aPos, int aTimer)
 		{
 			_Tra._Pos = aPos;
 			_Timer = aTimer;
 			_State = ActiveState.active;
 
 			gameObject.SetActive(true);
-
-			SoundMan.i.PlaySeReq(aSeId, aVol);
 		}
 
 		public void Act()

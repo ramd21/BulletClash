@@ -19,6 +19,9 @@ namespace BC
 
 		public Cannon _Cannon;
 
+		
+
+
 		public void InstantiateInit(int aPlayerId, UnitType aType)
 		{
 			base.InstantiateInit(aPlayerId);
@@ -41,6 +44,10 @@ namespace BC
 
 		public void SetPos()
 		{
+			if (_Frame < 60)
+				return;
+
+
 			if (_PlayerId == 0)
 				_Tra._Pos.y += _Param.SpdY;
 			else
@@ -87,6 +94,9 @@ namespace BC
 
 		public void HitCheck()
 		{
+			if (_Frame < 60)
+				return;
+
 			FastList<Coll> collList;
 			Coll c;
 			int len;
@@ -224,6 +234,9 @@ namespace BC
 
 		public void SearchTage()
 		{
+			if (_Frame < 60)
+				return;
+
 			_TageDist = int.MaxValue;
 			int dist;
 			int len;
@@ -234,7 +247,7 @@ namespace BC
 			for (int i = 0; i < len; i++)
 			{
 				u = BattleCharaMan.i._UnitList[_VSPlayerId][i];
-				if (u._State == ActiveState.active)
+				if (u._State == ActiveState.active && u._Frame >= 60)
 				{
 					if (_PlayerId == 0)
 					{
@@ -286,6 +299,9 @@ namespace BC
 
 		public void Fire()
 		{
+			if (_Frame < 60)
+				return;
+
 			if (!_Tage)
 				return;
 

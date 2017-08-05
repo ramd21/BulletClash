@@ -1,0 +1,6 @@
+SeType	float
+type	vol
+shot	0.25
+shot_hit	0.25
+explode	1
+unit_start	1

@@ -46,7 +46,6 @@ namespace BC
 			base.ActivateReq(aPos);
 			_Param = _ParamDef;
 			_Tra.SetMove(aDir, _Param.Spd);
-			SoundMan.i.PlaySeReq(1, 0.5f);
 		}
 
 		public void SetPos()
@@ -103,7 +102,7 @@ namespace BC
 						DeactivateReq();
 						(c._Chara as Bullet).DeactivateReq();
 						BulletHit bh = BattleCharaMan.i.GetPoolOrNewBulletHit();
-						bh.SetPos(_Tra._Pos + new Vector2Int((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10, 2, 0.25f);
+						bh.SetPos(_Tra._Pos + new Vector2Int((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
 					}
 				}
 			}
@@ -126,7 +125,7 @@ namespace BC
 						u.AddForce(_Tra._Move, 5);
 
 						BulletHit bh = BattleCharaMan.i.GetPoolOrNewBulletHit();
-						bh.SetPos(_Tra._Pos + new Vector2Int((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10, 2, 0.25f);
+						bh.SetPos(_Tra._Pos + new Vector2Int((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
 					}
 				}
 			}
@@ -144,7 +143,7 @@ namespace BC
 						(c._Chara as Tower).Dmg(1);
 
 						BulletHit bh = BattleCharaMan.i.GetPoolOrNewBulletHit();
-						bh.SetPos(_Tra._Pos + new Vector2Int((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10, 2, 0.25f);
+						bh.SetPos(_Tra._Pos + new Vector2Int((c._Tra._Pos.x - _Tra._Pos.x) / 2, (c._Tra._Pos.y - _Tra._Pos.y) / 2), 10);
 					}
 				}
 			}

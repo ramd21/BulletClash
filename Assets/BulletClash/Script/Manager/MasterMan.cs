@@ -10,6 +10,7 @@ namespace BC
 	{
 		public UnitParamMaster _UnitParam;
 		public BulletParamMaster _BulletParam;
+		public SeParamMaster _SeParam;
 	}
 }
 

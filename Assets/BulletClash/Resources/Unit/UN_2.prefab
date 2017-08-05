@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23804348551500826}
   - component: {fileID: 114159584081854112}
   m_Layer: 0
-  m_Name: LowPoly_UN_2
+  m_Name: LowPoly_UN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 114780065526589752}
   - component: {fileID: 114452382863358710}
   m_Layer: 0
-  m_Name: LoadEffect
+  m_Name: LoadEffect2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,6 +107,8 @@ GameObject:
   - component: {fileID: 114806738629591234}
   - component: {fileID: 114495226131324080}
   - component: {fileID: 114156578742436428}
+  - component: {fileID: 95496701132064632}
+  - component: {fileID: 114577661802588078}
   - component: {fileID: 114562027960114618}
   m_Layer: 0
   m_Name: UN_2
@@ -124,7 +126,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4261029795216700}
+  - {fileID: 4599499066416220}
   m_Father: {fileID: 4558465845985270}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -135,11 +139,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1222577079504150}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.8000002, y: -0.8200003, z: -2.3600016}
+  m_LocalPosition: {x: 1.7999992, y: -0.8200003, z: -2.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4558465845985270}
-  m_RootOrder: 1
+  m_Father: {fileID: 4085014783825926}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4388293939113472
 Transform:
@@ -165,8 +169,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4085014783825926}
-  - {fileID: 4261029795216700}
-  - {fileID: 4599499066416220}
   m_Father: {fileID: 4720905114268692}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -177,11 +179,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1667853129416092}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8000002, y: -0.82000077, z: -2.3600025}
+  m_LocalPosition: {x: -1.7999992, y: -0.82000077, z: -2.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4558465845985270}
-  m_RootOrder: 2
+  m_Father: {fileID: 4085014783825926}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4720905114268692
 Transform:
@@ -237,6 +239,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1167557929370604}
   m_Mesh: {fileID: 4300000, guid: ff5761e87a9e26649ac003cae413944c, type: 2}
+--- !u!95 &95496701132064632
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1985083218789954}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5a3e8f6688beefd4298375d9be7aee17, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114004739015173044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -338,6 +357,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac0b4b5ec6a98f4fac62cce456ee12a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114577661802588078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1985083218789954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ea1777ee5fe7c4aaf65f237cd4c71f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Type: 3
+  _Channel: 1
 --- !u!114 &114655419465830596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -410,7 +442,7 @@ MonoBehaviour:
   _Id: 0
   _State: 0
   _Tra: {fileID: 114004739015173044}
-  _PlayerId: 1
+  _PlayerId: 0
   _VSPlayerId: 0
   _Type: 0
   _Param:

@@ -24,11 +24,11 @@ namespace BC
 		void Start()
 		{
 			UIMan.i.Init();
+			SoundMan.i.Init();
 		}
 
 		void LateUpdate()
 		{
-			SoundMan.i.Act();
 		}
 	}
 }

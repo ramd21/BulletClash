@@ -52,6 +52,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4407602337968862}
+  - component: {fileID: 114790460990990648}
   m_Layer: 0
   m_Name: EF_4
   m_TagString: Untagged
@@ -192,6 +193,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Lit: 0
+--- !u!114 &114790460990990648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1956580346337854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ea1777ee5fe7c4aaf65f237cd4c71f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Type: 1
 --- !u!198 &198936532496016250
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -251,7 +264,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -402486364
+  randomSeed: 1691603204
   InitialModule:
     serializedVersion: 3
     enabled: 1
