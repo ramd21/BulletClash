@@ -36,7 +36,7 @@ namespace BC
 
 			this.DoUntil(() => cnt == 5, () =>
 			{
-				_TraShake.position += new Vector2(Random.Range(-rand, rand), Random.Range(-rand, rand)).ToVector3XZ();
+				_TraShake.position += new Vector2(RMMath.RandomRangeRestoreSeed(-rand, rand), RMMath.RandomRangeRestoreSeed(-rand, rand)).ToVector3XZ();
 				cnt++;
 			},
 			() => 

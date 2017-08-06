@@ -12,6 +12,7 @@ namespace BC
 	{
 		public Image[] _ImgTPGaugeArr;
 		public Text _TxtPoint;
+		public Text _TxtTimer;
 
 		public UnitCard[] _UnitCardArr;
 		public List<UnitCard> _ShuffledList;
@@ -27,6 +28,7 @@ namespace BC
 		{
 			InitTPGauge();
 			InitTPCnt();
+			InitTimer();
 			InitUnitCard();
 
 			_BtnSetting.onClick.AddListener(()=> 
@@ -76,6 +78,21 @@ namespace BC
 			_ShuffledList[5].SetPosId(5);
 			_ShuffledList[6].SetPosId(5);
 			_ShuffledList[7].SetPosId(5);
+		}
+
+		void InitTimer()
+		{
+			_TxtTimer.text = "3:00";
+			this.StartObsserve(() => BattleGameMan.i._frameRemain / 60,
+			(cur, last) =>
+			{
+				_TxtTimer.text = (cur / 60).ToString() + ":" + (cur % 60).ToString("D2");
+				_TxtTimer.transform.DOScale(1.5f, 0.25f).OnComplete(() =>
+				{
+					_TxtTimer.transform.DOScale(1f, 0.25f);
+				});
+
+			}, true);
 		}
 
 		void InitTPCnt()

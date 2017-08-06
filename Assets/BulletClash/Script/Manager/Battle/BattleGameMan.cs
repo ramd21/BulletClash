@@ -18,12 +18,13 @@ namespace BC
 
 		public int _FrameHead;
 
+		public int _FrameMax;
+
+		public int _frameRemain { get { return _FrameMax - _Frame; } }
+
+
 		public struct FrameData
 		{
-			public int _Frame;
-
-			public Random.State _RandSeed;
-
 			public Player.FrameData[]	_PlayerDataArr;
 			public Unit.FrameData[][]	_UnitDataList;
 			public Bullet.FrameData[][]	_BulletDataList;
@@ -31,16 +32,12 @@ namespace BC
 
 			public FrameData
 			(
-				int aFrame,
-				Random.State aRandSeed,
 				Player[] aPlayerArr, 
 				List<Unit>[] aUnitList, 
 				List<Bullet>[] aBulletList, 
 				List<Tower>[] aTowerList
 			)
 			{
-				_Frame = aFrame;
-				_RandSeed = aRandSeed;
 				_PlayerDataArr = new Player.FrameData[2];
 				for (int i = 0; i < 2; i++)
 				{
@@ -85,7 +82,6 @@ namespace BC
 
 			public void Restore()
 			{
-				Random.state = _RandSeed;
 				int len;
 				for (int i = 0; i < 2; i++)
 				{
@@ -145,15 +141,21 @@ namespace BC
 			SinTable.Init();
 			CosTable.Init();
 
+
+			Random.InitState(0);
 			BattleUIMan.i.Init();
 			BattlePlayerMan.i.Init();
 			BattleCharaMan.i.Init();
 			BattleCollMan.i.Init();
 
-			_FrameData = new FrameData[60 * 60 * 3];
+			_FrameData = new FrameData[_FrameMax];
 
 
-			_Init = true;
+			this.WaitForFrames(10, () =>
+			{
+				_Init = true;
+			});
+
 		}
 
 		void FixedUpdate()
@@ -173,10 +175,10 @@ namespace BC
 			}
 			else
 			{
+				Random.InitState(_Frame);
+
 				_FrameData[_Frame] = new FrameData
 				(
-					_Frame,
-					Random.state,
 					BattlePlayerMan.i._PlayerArr,
 					BattleCharaMan.i._UnitList,
 					BattleCharaMan.i._BulletList,
