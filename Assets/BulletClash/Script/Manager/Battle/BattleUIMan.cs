@@ -15,6 +15,8 @@ namespace BC
 		public Text _TxtTimer;
 		public Text _TxtCountDown;
 
+		public Animator _Animator;
+
 
 		public UnitCard[] _UnitCardArr;
 		public List<UnitCard> _ShuffledList;
@@ -24,6 +26,8 @@ namespace BC
 		public Button _BtnSetting;
 
 		public Transform[] _TraPosArr;
+
+		public bool _CountDownEnd;
 
 
 		public void Init()
@@ -101,20 +105,6 @@ namespace BC
 		void InitCountDown()
 		{
 			CountDOwn(3);
-
-
-
-
-			//this.StartObsserve(() => BattleGameMan.i._frameRemain / 60,
-			//(cur, last) =>
-			//{
-			//	_TxtTimer.text = (cur / 60).ToString() + ":" + (cur % 60).ToString("D2");
-			//	_TxtTimer.transform.DOScale(1.5f, 0.25f).OnComplete(() =>
-			//	{
-			//		_TxtTimer.transform.DOScale(1f, 0.25f);
-			//	});
-
-			//}, true);
 		}
 
 		void CountDOwn(int aCnt)
@@ -126,10 +116,15 @@ namespace BC
 				int next = --aCnt;
 
 				if (next == 0)
-					CountDOwn(--aCnt);
+					_Animator.enabled = true;
 				else
-					CountDOwn(--aCnt);
+					CountDOwn(next);
 			});
+		}
+
+		void CountDownEnd()
+		{
+			_CountDownEnd = true;
 		}
 
 		void InitTPCnt()

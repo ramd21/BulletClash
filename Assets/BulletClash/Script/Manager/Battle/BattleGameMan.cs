@@ -151,7 +151,8 @@ namespace BC
 			_FrameData = new FrameData[_FrameMax];
 
 
-			this.WaitForFrames(10, () =>
+			this.WaitUntil(() => BattleUIMan.i._CountDownEnd, 
+			() =>
 			{
 				_Init = true;
 			});
