@@ -116,7 +116,7 @@ namespace BC
 			if (_PosId >= 4)
 				return;
 
-			BattleCameraMan.i._DragCamera.enabled = false;
+			//BattleCameraMan.i._DragCamera.enabled = false;
 			gIsDrag = true;
 		}
 
@@ -133,7 +133,7 @@ namespace BC
 			if (_PosId >= 4)
 				return;
 
-			BattleCameraMan.i._DragCamera.enabled = true;
+			//BattleCameraMan.i._DragCamera.enabled = true;
 			gIsDrag = false;
 
 			if (BattlePlayerMan.i._myPlayer.GetTP() >= _Param.Cost)

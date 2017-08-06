@@ -11,8 +11,10 @@ namespace BC
 	public class BattleUIMan : Singleton<BattleUIMan>, IEditorUpdate
 	{
 		public Image[] _ImgTPGaugeArr;
-		public Text _TxtPoint;
+		public Text _TxtTp;
 		public Text _TxtTimer;
+		public Text _TxtCountDown;
+
 
 		public UnitCard[] _UnitCardArr;
 		public List<UnitCard> _ShuffledList;
@@ -29,6 +31,7 @@ namespace BC
 			InitTPGauge();
 			InitTPCnt();
 			InitTimer();
+			InitCountDown();
 			InitUnitCard();
 
 			_BtnSetting.onClick.AddListener(()=> 
@@ -95,16 +98,50 @@ namespace BC
 			}, true);
 		}
 
+		void InitCountDown()
+		{
+			CountDOwn(3);
+
+
+
+
+			//this.StartObsserve(() => BattleGameMan.i._frameRemain / 60,
+			//(cur, last) =>
+			//{
+			//	_TxtTimer.text = (cur / 60).ToString() + ":" + (cur % 60).ToString("D2");
+			//	_TxtTimer.transform.DOScale(1.5f, 0.25f).OnComplete(() =>
+			//	{
+			//		_TxtTimer.transform.DOScale(1f, 0.25f);
+			//	});
+
+			//}, true);
+		}
+
+		void CountDOwn(int aCnt)
+		{
+			_TxtCountDown.text = aCnt.ToString();
+			_TxtCountDown.transform.localScale = Vector3.one * 3;
+			_TxtCountDown.transform.DOScale(1f, 1f).OnComplete(() =>
+			{
+				int next = --aCnt;
+
+				if (next == 0)
+					CountDOwn(--aCnt);
+				else
+					CountDOwn(--aCnt);
+			});
+		}
+
 		void InitTPCnt()
 		{
-			_TxtPoint.text = "0";
+			_TxtTp.text = "0";
 			this.StartObsserve(() => BattlePlayerMan.i._myPlayer._TPTimerTotal / BattleGameMan.i._TPTimer,
 			(cur, last) =>
 			{
-				_TxtPoint.text = cur.ToString();
-				_TxtPoint.transform.DOScale(1.5f, 0.25f).OnComplete(() =>
+				_TxtTp.text = cur.ToString();
+				_TxtTp.transform.DOScale(1.5f, 0.25f).OnComplete(() =>
 				{
-					_TxtPoint.transform.DOScale(1f, 0.25f);
+					_TxtTp.transform.DOScale(1f, 0.25f);
 				});
 
 			}, true);
@@ -145,7 +182,7 @@ namespace BC
 		public void EditorUpdate()
 		{
 			_ImgTPGaugeArr = transform.FindAllRecurcive<Image>("fill", true);
-			_TxtPoint = transform.FindRecurcive<Text>("point", true);
+			//_TxtTp = transform.FindRecurcive<Text>("point", true);
 			_UnitCardArr = GetComponentsInChildren<UnitCard>();
 		}
 #endif

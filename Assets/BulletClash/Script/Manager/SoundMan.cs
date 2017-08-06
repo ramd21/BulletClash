@@ -12,9 +12,6 @@ namespace BC
 	{
 		public SeChannel[] _SeChannel;
 
-		public AudioSource _BgmChannel;
-		
-		public AudioClip[] _BGMArr;
 		public AudioClip[] _SEArr;
 
 
@@ -40,10 +37,6 @@ namespace BC
 		public void Init()
 		{
 			GameObject go;
-			go = new GameObject("bgm_channel");
-			go.transform.parent = transform;
-			_BgmChannel = go.AddComponent<AudioSource>();
-
 			go = new GameObject("se_channel");
 			go.transform.parent = transform;
 
