@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _DatArr:
   - type: 0
-    vol: 0.25
+    vol: 0.1
   - type: 1
     vol: 0.25
   - type: 2
