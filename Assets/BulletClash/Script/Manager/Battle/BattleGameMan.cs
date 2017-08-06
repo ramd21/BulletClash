@@ -196,8 +196,8 @@ namespace BC
 
 		void Update()
 		{
-			if (!_Init)
-				return;
+			//if (!_Init)
+			//	return;
 
 			BattleCharaMan.i.UpdateView();
 		}

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using RM;
 using UnityEngine.UI;
+using System;
 
 namespace BC
 {
-	public class Tower : UnitBase, IEditorUpdate
+	public class Tower : UnitBase, IEditorUpdate, IManagedUpdate
 	{
 		static int gCnt;
 
@@ -57,10 +58,20 @@ namespace BC
 				BattleCharaMan.i._TowerList[_PlayerId].Add(this);
 				transform.parent = BattleCharaMan.i._TraPlayerParent[_PlayerId];
 				ActivateReq(transform.position.ToVector2IntXZ() * BattleGameMan.cDistDiv - BattleFieldMan.i._Offset);
+				gameObject.SetActive(true);
 				_Coll.UpdateBlock();
 			});
 		}
 
+		protected virtual void OnEnable()
+		{
+			ManagedUpdateMan.i._ManagedList.Add(this);
+		}
+
+		protected virtual void OnDisable()
+		{
+			ManagedUpdateMan.i._RemoveList.Add(this);
+		}
 
 		public override void InstantiateInit(int aPlayerId)
 		{
@@ -131,8 +142,7 @@ namespace BC
 		public override void UpdateView()
 		{
 			base.UpdateView();
-
-			if(_Tage)
+			if (_Tage)
 				_TraCannon.LookAt(_Tage.transform, Vector3.up);
 
 			if (_PlayerId == BattlePlayerMan.i._MyPlayerId)
@@ -148,8 +158,15 @@ namespace BC
 
 				_GoUnitSpawnRange.SetActive(_GoUnitSpawnRange.transform.localScale.magnitude != 0);
 			}
+		}
 
+		public void ManagedUpdate()
+		{
 			_TraRot.AddEulerAnglesY(2);
+		}
+
+		public void ManagedLateUpdate()
+		{
 		}
 
 #if UNITY_EDITOR
@@ -158,6 +175,8 @@ namespace BC
 			_Coll = GetComponent<Coll>();
 			_Tra = GetComponent<BCTra>();
 		}
+
+		
 #endif
 
 	}

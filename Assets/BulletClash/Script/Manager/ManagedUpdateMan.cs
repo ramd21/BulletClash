@@ -8,17 +8,24 @@ using RM;
 
 namespace RM
 {
+	public interface IManagedUpdate
+	{
+		void ManagedUpdate();
+		void ManagedLateUpdate();
+	}
+
+
 	public class ManagedUpdateMan : Singleton<ManagedUpdateMan> 
 	{
-		public List<ManagedBehaviour> _ManagedList = new List<ManagedBehaviour>();
-		public List<ManagedBehaviour> _RemoveList = new List<ManagedBehaviour>();
+		public List<IManagedUpdate> _ManagedList = new List<IManagedUpdate>();
+		public List<IManagedUpdate> _RemoveList = new List<IManagedUpdate>();
 
 
 		void Update()
 		{
 			for (int i = 0; i < _ManagedList.Count; i++)
 			{
-				if (_ManagedList[i])
+				if (_ManagedList[i] != null)
 					_ManagedList[i].ManagedUpdate();
 			}
 		}
@@ -30,14 +37,14 @@ namespace RM
 			len = _ManagedList.Count;
 			for (int i = 0; i < len; i++)
 			{
-				if (_ManagedList[i])
+				if (_ManagedList[i] != null)
 					_ManagedList[i].ManagedLateUpdate();
 			}
 
 			len = _RemoveList.Count;
 			for (int i = 0; i < len; i++)
 			{
-				if (_RemoveList[i])
+				if (_RemoveList[i] != null)
 					_ManagedList.Remove(_RemoveList[i]);
 			}
 

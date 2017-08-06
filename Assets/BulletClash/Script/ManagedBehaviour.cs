@@ -8,7 +8,7 @@ using RM;
 
 namespace RM
 {
-	public class ManagedBehaviour : RMBehaviour 
+	public class ManagedBehaviour : RMBehaviour, IManagedUpdate
 	{
 		public virtual void ManagedUpdate()
 		{
