@@ -9,6 +9,13 @@ namespace BC
 	public class DebMan : Singleton<DebMan>
 	{
 		public Text _TxtFps;
+		public Text _TxtDeb;
+		public Button _BtnDeb;
+
+
+		FastList<string> _DebTxt = new FastList<string>(20, 10);
+
+
 		public float _FPSInter = 0.5f;
 
 		float _Accum; // FPS accumulated over the interval
@@ -18,6 +25,18 @@ namespace BC
 		protected override void Awake()
 		{
 			_Time = _FPSInter;
+
+			_BtnDeb.onClick.AddListener(OnClickDeb);
+		}
+
+		void OnClickDeb()
+		{
+			_TxtDeb.gameObject.SetActive(!_TxtDeb.gameObject.activeSelf);
+		}
+
+		public void AddDebTxt(string aStrDeb)
+		{
+			_DebTxt.Add(aStrDeb);
 		}
 
 		void Update()
@@ -56,6 +75,24 @@ namespace BC
 				_Accum = 0.0f;
 				_Frame = 0;
 			}
+		}
+
+		void LateUpdate()
+		{
+			string strDeb = "";
+
+			strDeb += BattleGameMan.i._SertverTime + "\n";
+			strDeb += PhotonNetwork.countOfPlayers + "\n";
+
+
+			for (int i = 0; i < _DebTxt.Count; i++)
+			{
+				strDeb += _DebTxt[i] + "\n";
+			}
+
+			_TxtDeb.text = strDeb;
+
+			_DebTxt.Clear();
 		}
 	}
 }

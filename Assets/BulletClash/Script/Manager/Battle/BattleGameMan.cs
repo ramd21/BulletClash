@@ -22,6 +22,8 @@ namespace BC
 
 		public int _frameRemain { get { return _FrameMax - _Frame; } }
 
+		public int _SertverTime;
+
 
 		public struct FrameData
 		{
@@ -149,6 +151,15 @@ namespace BC
 			BattleCollMan.i.Init();
 
 			_FrameData = new FrameData[_FrameMax];
+
+
+
+			this.WaitUntil(() => PhotonNetwork.room != null && PhotonNetwork.room.PlayerCount == 2, 
+			() =>
+			{
+				_SertverTime = PhotonNetwork.ServerTimestamp;
+			});
+
 
 
 			this.WaitUntil(() => BattleUIMan.i._CountDownEnd, 

@@ -14,6 +14,7 @@ namespace BC
 		public Text _TxtTp;
 		public Text _TxtTimer;
 		public Text _TxtCountDown;
+		public Text _Txtwaiting;
 
 		public Animator _Animator;
 
@@ -32,10 +33,11 @@ namespace BC
 
 		public void Init()
 		{
+			InitWaiting();
 			InitTPGauge();
 			InitTPCnt();
 			InitTimer();
-			InitCountDown();
+			
 			InitUnitCard();
 
 			_BtnSetting.onClick.AddListener(()=> 
@@ -54,6 +56,16 @@ namespace BC
 				{
 					d.Close();
 				});
+			});
+		}
+
+		void InitWaiting()
+		{
+			this.WaitUntil(() => PhotonNetwork.room != null && PhotonNetwork.room.PlayerCount == 2, 
+			()=> 
+			{
+				_Txtwaiting.gameObject.SetActive(false);
+				InitCountDown();
 			});
 		}
 

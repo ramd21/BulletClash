@@ -15,7 +15,9 @@ namespace BC
 
 		void Start()
 		{
-			Screen.SetResolution(_ScreenH, _ScreenW, true);
+			Screen.SetResolution(_ScreenH, _ScreenW, false);
+			Application.targetFrameRate = 60;
+
 			Deb.MethodLog();
 			this.WaitForFrames(1, ()=> 
 			{
