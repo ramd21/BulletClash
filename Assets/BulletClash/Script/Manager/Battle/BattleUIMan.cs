@@ -33,7 +33,7 @@ namespace BC
 
 		public void Init()
 		{
-			InitWaiting();
+			//InitWaiting();
 			InitTPGauge();
 			InitTPCnt();
 			InitTimer();
@@ -59,14 +59,10 @@ namespace BC
 			});
 		}
 
-		void InitWaiting()
+		public void StartCountDown()
 		{
-			this.WaitUntil(() => PhotonNetwork.room != null && PhotonNetwork.room.PlayerCount == 2, 
-			()=> 
-			{
-				_Txtwaiting.gameObject.SetActive(false);
-				InitCountDown();
-			});
+			_Txtwaiting.gameObject.SetActive(false);
+			InitCountDown();
 		}
 
 		void InitUnitCard()
@@ -116,10 +112,10 @@ namespace BC
 
 		void InitCountDown()
 		{
-			CountDOwn(3);
+			CountDown(3);
 		}
 
-		void CountDOwn(int aCnt)
+		void CountDown(int aCnt)
 		{
 			_TxtCountDown.text = aCnt.ToString();
 			_TxtCountDown.transform.localScale = Vector3.one * 3;
@@ -128,9 +124,14 @@ namespace BC
 				int next = --aCnt;
 
 				if (next == 0)
+				{
 					_Animator.enabled = true;
+					BattleGameMan.i._BattleStarted = true;
+				}
 				else
-					CountDOwn(next);
+				{ 
+					CountDown(next);
+				}
 			});
 		}
 

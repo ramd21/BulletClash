@@ -81,8 +81,10 @@ namespace BC
 		{
 			string strDeb = "";
 
-			strDeb += BattleGameMan.i._SertverTime + "\n";
+			strDeb += BattleGameMan.i._StartTime + "\n";
 			strDeb += PhotonNetwork.countOfPlayers + "\n";
+			strDeb += BattleGameMan.i._FrameCur + "\n";
+			strDeb += BattleGameMan.i._FrameExpected + "\n";
 
 
 			for (int i = 0; i < _DebTxt.Count; i++)

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RM;
+using ExitGames.Client.Photon;
+
 
 namespace BC
 {
@@ -12,17 +14,19 @@ namespace BC
 
 		public const int cDistDiv = 100;
 
-		bool _Init;
 
-		public int _Frame;
+		public bool _BattleStarted;
 
+		public int _FrameCur;
 		public int _FrameHead;
+		public int _FrameExpected;
+		public int _FrameDelta;
 
 		public int _FrameMax;
 
-		public int _frameRemain { get { return _FrameMax - _Frame; } }
+		public int _frameRemain { get { return _FrameMax - _FrameCur; } }
 
-		public int _SertverTime;
+		public int _StartTime;
 
 
 		public struct FrameData
@@ -143,7 +147,6 @@ namespace BC
 			SinTable.Init();
 			CosTable.Init();
 
-
 			Random.InitState(0);
 			BattleUIMan.i.Init();
 			BattlePlayerMan.i.Init();
@@ -152,44 +155,53 @@ namespace BC
 
 			_FrameData = new FrameData[_FrameMax];
 
-
-
-			this.WaitUntil(() => PhotonNetwork.room != null && PhotonNetwork.room.PlayerCount == 2, 
-			() =>
-			{
-				_SertverTime = PhotonNetwork.ServerTimestamp;
-			});
-
-
-
-			this.WaitUntil(() => BattleUIMan.i._CountDownEnd, 
-			() =>
-			{
-				_Init = true;
-			});
-
+			PhotonMan.i.Connect();
 		}
 
 		void FixedUpdate()
 		{
-			if (!_Init)
+			if (!_BattleStarted)
 				return;
 
-			if (_Frame > _FrameHead)
-				_Frame = _FrameHead;
+			float frame = 1f / 60f;
+			float elapsed = (float)(PhotonNetwork.ServerTimestamp - _StartTime) / 1000f;
 
-			if (_Frame < _FrameHead)
+			_FrameExpected = (int)(elapsed / frame) - 60 * 3;
+
+			while (true)
 			{
-				if (_Frame < 0)
-					_Frame = 0;
+				_FrameDelta = _FrameExpected - _FrameCur;
 
-				_FrameData[_Frame].Restore();
+				if (_FrameDelta > 0)
+				{
+					//_FrameDeltaがプラス
+					//遅れている
+					BattleGameMain();
+				}
+				else
+				{
+					break;	
+				}
+			}
+		}
+
+		void BattleGameMain()
+		{
+			if (_FrameCur > _FrameHead)
+				_FrameCur = _FrameHead;
+
+			if (_FrameCur < _FrameHead)
+			{
+				if (_FrameCur < 0)
+					_FrameCur = 0;
+
+				_FrameData[_FrameCur].Restore();
 			}
 			else
 			{
-				Random.InitState(_Frame);
+				Random.InitState(_FrameCur);
 
-				_FrameData[_Frame] = new FrameData
+				_FrameData[_FrameCur] = new FrameData
 				(
 					BattlePlayerMan.i._PlayerArr,
 					BattleCharaMan.i._UnitList,
@@ -200,7 +212,7 @@ namespace BC
 				BattlePlayerMan.i.Act();
 				BattleCharaMan.i.Act();
 
-				_Frame++;
+				_FrameCur++;
 				_FrameHead++;
 			}
 		}
