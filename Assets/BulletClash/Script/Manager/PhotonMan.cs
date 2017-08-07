@@ -123,6 +123,10 @@ namespace BC
 			else if(propertiesThatChanged.ContainsKey("pi"))
 			{
 				PlayerInput pi = (PlayerInput)propertiesThatChanged["pi"];
+				Debug.Log(pi._Frame);
+				Debug.Log(BattleGameMan.i._FrameCur);
+				Debug.Log(pi._Frame - BattleGameMan.i._FrameCur);
+
 				BattleGameMan.i._PlayerInputList.Add(pi);
 			}
 		}
