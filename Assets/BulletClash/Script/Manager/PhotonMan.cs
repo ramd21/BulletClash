@@ -5,6 +5,8 @@ using RM;
 using Photon;
 using System;
 using ExitGames.Client.Photon;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace BC
 {
@@ -12,10 +14,38 @@ namespace BC
 	{
 		public static PhotonMan i;
 
+		[System.Serializable]
+		public struct PlayerInput
+		{
+			public int _PlayerId;
+			public int _Frame;
+			public UnitType _Type;
+			public Vector2Int _Pos;
+
+			static public byte[] Serialize(object aObj)
+			{
+				BinaryFormatter bf = new BinaryFormatter();
+				using (MemoryStream ms = new MemoryStream())
+				{
+					bf.Serialize(ms, aObj);
+					return ms.ToArray();
+				}
+			}
+
+			static public object Deserialize(byte[] aByteArr)
+			{
+				BinaryFormatter bf = new BinaryFormatter();
+				using (MemoryStream ms = new MemoryStream(aByteArr))
+				{
+					return bf.Deserialize(ms);
+				}
+			}
+		}
 
 		void Awake()
 		{
 			i = this;
+			PhotonPeer.RegisterType(typeof(PlayerInput), (byte)'p', PlayerInput.Serialize, PlayerInput.Deserialize);
 		}
 
 		public void Connect()
@@ -78,7 +108,22 @@ namespace BC
 			if (propertiesThatChanged.ContainsKey("start_time"))
 			{
 				BattleGameMan.i._StartTime = (int)propertiesThatChanged["start_time"];
+				if (PhotonNetwork.isMasterClient)
+				{
+					BattlePlayerMan.i._MyPlayerId = 0;
+				}
+				else
+				{ 
+					BattlePlayerMan.i._MyPlayerId = 1;
+					BattleCameraMan.i.transform.SetEulerAnglesY(180);
+				}
+
 				BattleUIMan.i.StartCountDown();
+			}
+			else if(propertiesThatChanged.ContainsKey("pi"))
+			{
+				PlayerInput pi = (PlayerInput)propertiesThatChanged["pi"];
+				BattleGameMan.i._PlayerInputList.Add(pi);
 			}
 		}
 	}

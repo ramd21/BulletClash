@@ -85,6 +85,8 @@ namespace BC
 			strDeb += PhotonNetwork.countOfPlayers + "\n";
 			strDeb += BattleGameMan.i._FrameCur + "\n";
 			strDeb += BattleGameMan.i._FrameExpected + "\n";
+			strDeb += PhotonNetwork.connected + "\n";
+			strDeb += PhotonNetwork.room + "\n";
 
 
 			for (int i = 0; i < _DebTxt.Count; i++)

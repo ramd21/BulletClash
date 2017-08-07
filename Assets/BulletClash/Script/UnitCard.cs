@@ -22,6 +22,9 @@ namespace BC
 		public Transform	_TraDeckUnit;
 		UnitParam _Param;
 
+		
+
+
 		public void Init(UnitType aType)
 		{
 			_Param = MasterMan.i._UnitParam[(int)aType];
@@ -100,8 +103,6 @@ namespace BC
 			});
 		}
 
-
-
 		protected override Camera _cam
 		{
 			get
@@ -148,8 +149,18 @@ namespace BC
 						Tower tw = BattleCharaMan.i._TowerList[BattlePlayerMan.i._MyPlayerId][i];
 						if (RMMath.GetApproxDist((int)tw._Tra._Pos.x, (int)tw._Tra._Pos.y, (int)pos.x, (int)pos.y) <= 15 * BattleGameMan.cDistDiv)
 						{
-							BattlePlayerMan.i._myPlayer.PlaceUnit(_Param, pos);
-							
+							ExitGames.Client.Photon.Hashtable propertiesToSet = new ExitGames.Client.Photon.Hashtable();
+							PhotonMan.PlayerInput pi = new PhotonMan.PlayerInput();
+							pi._PlayerId = BattlePlayerMan.i._MyPlayerId;
+							pi._Type = _Param.Type;
+							pi._Pos = pos;
+							pi._Frame = BattleGameMan.i._FrameCur + 15;
+
+							propertiesToSet.Add("pi", pi);
+							PhotonNetwork.room.SetCustomProperties(propertiesToSet);
+
+							//BattlePlayerMan.i._myPlayer.PlaceUnit(_Param.Type, pos);
+
 							BattleUIMan.i._ShuffledList[4].SetPosId(_PosId);
 							BattleUIMan.i._ShuffledList[5].SetPosId(4);
 							SetPosId(5);

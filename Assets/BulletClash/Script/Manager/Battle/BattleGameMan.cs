@@ -29,6 +29,8 @@ namespace BC
 		public int _StartTime;
 
 
+		public List<PhotonMan.PlayerInput> _PlayerInputList = new List<PhotonMan.PlayerInput>();
+
 		public struct FrameData
 		{
 			public Player.FrameData[]	_PlayerDataArr;
@@ -187,6 +189,19 @@ namespace BC
 
 		void BattleGameMain()
 		{
+			PhotonMan.PlayerInput pi;
+
+			for (int i = 0; i < _PlayerInputList.Count; i++)
+			{
+				pi = _PlayerInputList[i];
+
+				if (pi._Frame == _FrameCur)
+				{
+					BattlePlayerMan.i._PlayerArr[pi._PlayerId].PlaceUnit(pi._Type, pi._Pos);
+					_PlayerInputList.Remove(pi);
+				}
+			}
+
 			if (_FrameCur > _FrameHead)
 				_FrameCur = _FrameHead;
 

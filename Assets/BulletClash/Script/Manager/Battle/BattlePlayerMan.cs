@@ -68,10 +68,11 @@ namespace BC
 			return _TPTimerTotal / BattleGameMan.i._TPTimer;
 		}
 
-		public void PlaceUnit(UnitParam aParam, Vector2Int aPos)
+		public void PlaceUnit(UnitType aType, Vector2Int aPos)
 		{
-			_TPTimerTotal -= aParam.Cost * BattleGameMan.i._TPTimer;
-			Unit unit = BattleCharaMan.i.GetPoolOrNewUnit(_Id, aParam.Type);
+			UnitParam up = MasterMan.i._UnitParam._DatArr[(int)aType];
+			_TPTimerTotal -= up.Cost * BattleGameMan.i._TPTimer;
+			Unit unit = BattleCharaMan.i.GetPoolOrNewUnit(_Id, aType);
 			unit.ActivateReq(aPos);
 		}
 
@@ -83,13 +84,13 @@ namespace BC
 				{
 					Vector2Int pos = new Vector2Int(Random.Range(200, BattleFieldMan.i._Size.x - 200), Random.Range((BattleFieldMan.i._Size.y / 4) * 3 + 200, BattleFieldMan.i._Size.y - 200));
 					int rand = Random.Range(0, 4);
-					PlaceUnit(MasterMan.i._UnitParam[rand], pos);
+					PlaceUnit((UnitType)rand, pos);
 				}
 				else
 				{
 					Vector2Int pos = new Vector2Int(Random.Range(200, BattleFieldMan.i._Size.x - 200), Random.Range((BattleFieldMan.i._Size.y / 4) - 200, 200));
 					int rand = Random.Range(0, 4);
-					PlaceUnit(MasterMan.i._UnitParam[rand], pos);
+					PlaceUnit((UnitType)rand, pos);
 				}
 			}
 		}
@@ -99,10 +100,10 @@ namespace BC
 			if (_TPTimerTotal < BattleGameMan.i._TPMax * BattleGameMan.i._TPTimer)
 				_TPTimerTotal++;
 
-			//if (_Id == 1)
-			{
-				AI();
-			}
+			////if (_Id == 1)
+			//{
+			//	AI();
+			//}
 		}
 	}
 }

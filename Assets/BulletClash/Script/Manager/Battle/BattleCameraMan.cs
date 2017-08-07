@@ -7,7 +7,7 @@ namespace BC
 {
 	public class BattleCameraMan : Singleton<BattleCameraMan>
 	{
-		public DragCamera _DragCamera;
+		//public DragCamera _DragCamera;
 
 		public Camera _BattleUICam;
 		public Camera _BattleCam;
@@ -15,18 +15,18 @@ namespace BC
 		public int _ScreenW = 540;
 		public int _ScreenH = 960;
 
-		public float _MainCamZMax;
-		public float _MainCamZMin;
+		//public float _MainCamZMax;
+		//public float _MainCamZMin;
 		public Transform _TraShake;
 
-		void LateUpdate()
-		{
-			if (_BattleCam.transform.position.z < _MainCamZMin)
-				_BattleCam.transform.SetPositionZ(_MainCamZMin);
+		//void LateUpdate()
+		//{
+		//	if (_BattleCam.transform.position.z < _MainCamZMin)
+		//		_BattleCam.transform.SetPositionZ(_MainCamZMin);
 
-			if (_BattleCam.transform.position.z > _MainCamZMax)
-				_BattleCam.transform.SetPositionZ(_MainCamZMax);
-		}
+		//	if (_BattleCam.transform.position.z > _MainCamZMax)
+		//		_BattleCam.transform.SetPositionZ(_MainCamZMax);
+		//}
 
 		public void ShakeCam()
 		{
