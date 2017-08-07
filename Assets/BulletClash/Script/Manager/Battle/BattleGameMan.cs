@@ -14,7 +14,6 @@ namespace BC
 
 		public const int cDistDiv = 100;
 
-
 		public bool _BattleStarted;
 
 		public int _FrameCur;
@@ -27,7 +26,6 @@ namespace BC
 		public int _frameRemain { get { return _FrameMax - _FrameCur; } }
 
 		public int _StartTime;
-
 
 		public List<PhotonMan.PlayerInput> _PlayerInputList = new List<PhotonMan.PlayerInput>();
 
@@ -143,7 +141,6 @@ namespace BC
 
 		public FrameData[] _FrameData;
 
-
 		void Start()
 		{
 			SinTable.Init();
@@ -234,9 +231,6 @@ namespace BC
 
 		void Update()
 		{
-			//if (!_Init)
-			//	return;
-
 			BattleCharaMan.i.UpdateView();
 		}
 	}

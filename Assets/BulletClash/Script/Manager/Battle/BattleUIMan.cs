@@ -33,7 +33,6 @@ namespace BC
 
 		public void Init()
 		{
-			//InitWaiting();
 			InitTPGauge();
 			InitTPCnt();
 			InitTimer();
@@ -46,7 +45,6 @@ namespace BC
 				"はい", 
 				(d)=> 
 				{
-					//UIMan.i.
 					UIMan.i.GoToScene("home");
 					UIMan.i.OpenUI("home", true);
 					d.Close();

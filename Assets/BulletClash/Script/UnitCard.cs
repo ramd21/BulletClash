@@ -22,9 +22,6 @@ namespace BC
 		public Transform	_TraDeckUnit;
 		UnitParam _Param;
 
-		
-
-
 		public void Init(UnitType aType)
 		{
 			_Param = MasterMan.i._UnitParam[(int)aType];
@@ -116,7 +113,6 @@ namespace BC
 			if (_PosId >= 4)
 				return;
 
-			//BattleCameraMan.i._DragCamera.enabled = false;
 			gIsDrag = true;
 		}
 
@@ -133,7 +129,6 @@ namespace BC
 			if (_PosId >= 4)
 				return;
 
-			//BattleCameraMan.i._DragCamera.enabled = true;
 			gIsDrag = false;
 
 			if (BattlePlayerMan.i._myPlayer.GetTP() >= _Param.Cost)
@@ -159,12 +154,10 @@ namespace BC
 							propertiesToSet.Add("pi", pi);
 							PhotonNetwork.room.SetCustomProperties(propertiesToSet);
 
-							//BattlePlayerMan.i._myPlayer.PlaceUnit(_Param.Type, pos);
 
 							BattleUIMan.i._ShuffledList[4].SetPosId(_PosId);
 							BattleUIMan.i._ShuffledList[5].SetPosId(4);
 							SetPosId(5);
-
 
 							BattleUIMan.i._ShuffledList.Remove(this);
 							BattleUIMan.i._ShuffledList.Add(this);
