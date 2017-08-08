@@ -15677,7 +15677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _TPMax: 10
-  _TPTimer: 60
+  _TPTimer: 120
   _BattleStarted: 0
   _FrameCur: 0
   _FrameHead: 0
