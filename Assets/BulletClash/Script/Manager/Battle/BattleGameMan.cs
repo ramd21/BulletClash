@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RM;
 using ExitGames.Client.Photon;
-
+using System;
 
 namespace BC
 {
@@ -141,12 +141,14 @@ namespace BC
 
 		public FrameData[] _FrameData;
 
+		Action _OnPlayerInput;
+
 		void Start()
 		{
 			SinTable.Init();
 			CosTable.Init();
 
-			Random.InitState(0);
+			UnityEngine.Random.InitState(0);
 			BattleUIMan.i.Init();
 			BattlePlayerMan.i.Init();
 			BattleCharaMan.i.Init();
@@ -184,6 +186,22 @@ namespace BC
 			}
 		}
 
+		public void SendPlayerInput(UnitType aType, Vector2Int aPos, Action aOnPlayerInput)
+		{
+			ExitGames.Client.Photon.Hashtable propertiesToSet = new ExitGames.Client.Photon.Hashtable();
+			PhotonMan.PlayerInput pi = new PhotonMan.PlayerInput();
+			pi._PlayerId = BattlePlayerMan.i._MyPlayerId;
+			pi._Type = aType;
+			pi._Pos = aPos;
+			pi._Frame = BattleGameMan.i._FrameCur + 15;
+
+			propertiesToSet.Add("pi", pi);
+			PhotonNetwork.room.SetCustomProperties(propertiesToSet);
+
+			_OnPlayerInput = aOnPlayerInput;
+		}
+
+
 		void BattleGameMain()
 		{
 			PhotonMan.PlayerInput pi;
@@ -196,6 +214,14 @@ namespace BC
 				{
 					BattlePlayerMan.i._PlayerArr[pi._PlayerId].PlaceUnit(pi._Type, pi._Pos);
 					_PlayerInputList.Remove(pi);
+
+					if (pi._PlayerId == BattlePlayerMan.i._MyPlayerId)
+					{
+						if (_OnPlayerInput != null)
+						{
+							_OnPlayerInput();
+						}
+					}
 				}
 			}
 
@@ -211,7 +237,7 @@ namespace BC
 			}
 			else
 			{
-				Random.InitState(_FrameCur);
+				UnityEngine.Random.InitState(_FrameCur);
 
 				_FrameData[_FrameCur] = new FrameData
 				(

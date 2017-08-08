@@ -144,23 +144,15 @@ namespace BC
 						Tower tw = BattleCharaMan.i._TowerList[BattlePlayerMan.i._MyPlayerId][i];
 						if (RMMath.GetApproxDist((int)tw._Tra._Pos.x, (int)tw._Tra._Pos.y, (int)pos.x, (int)pos.y) <= 15 * BattleGameMan.cDistDiv)
 						{
-							ExitGames.Client.Photon.Hashtable propertiesToSet = new ExitGames.Client.Photon.Hashtable();
-							PhotonMan.PlayerInput pi = new PhotonMan.PlayerInput();
-							pi._PlayerId = BattlePlayerMan.i._MyPlayerId;
-							pi._Type = _Param.Type;
-							pi._Pos = pos;
-							pi._Frame = BattleGameMan.i._FrameCur + 15;
+							BattleGameMan.i.SendPlayerInput(_Param.Type, pos, ()=> 
+							{
+								BattleUIMan.i._ShuffledList[4].SetPosId(_PosId);
+								BattleUIMan.i._ShuffledList[5].SetPosId(4);
+								SetPosId(5);
 
-							propertiesToSet.Add("pi", pi);
-							PhotonNetwork.room.SetCustomProperties(propertiesToSet);
-
-
-							BattleUIMan.i._ShuffledList[4].SetPosId(_PosId);
-							BattleUIMan.i._ShuffledList[5].SetPosId(4);
-							SetPosId(5);
-
-							BattleUIMan.i._ShuffledList.Remove(this);
-							BattleUIMan.i._ShuffledList.Add(this);
+								BattleUIMan.i._ShuffledList.Remove(this);
+								BattleUIMan.i._ShuffledList.Add(this);
+							});
 							break;
 						}
 					}
