@@ -13,7 +13,7 @@ namespace BC
 		public int _Id;
 		public int _PosId;
 
-		public static bool gIsDrag;
+		public static UnitCard gDragUnitCard;
 
 		int _Cost;
 		public Text			_TxtCost;
@@ -99,7 +99,7 @@ namespace BC
 			_Ray = BattleCameraMan.i._BattleUICam.ScreenPointToRay(curPos);
 			RaycastHit rh;
 
-			if (!gIsDrag)
+			if (!gDragUnitCard)
 			{
 				if (RMInput.i.GetInptState(0) == RMInput.InputState.start)
 				{
@@ -112,24 +112,13 @@ namespace BC
 			}
 			else
 			{
-				if (RMInput.i.GetInptSeq(0) == RMInput.InputSeq.drag)
+				if (gDragUnitCard == this)
 				{
-					if (Physics.Raycast(_Ray, out rh, float.MaxValue))
-					{
-						if (rh.transform == transform)
-							OnDrag(curPos);
-					}
-				}
+					if (RMInput.i.GetInptSeq(0) == RMInput.InputSeq.drag)
+						OnDrag(curPos);
 
-				if (RMInput.i.GetInptState(0) == RMInput.InputState.end)
-				{
-					if (Physics.Raycast(_Ray, out rh, float.MaxValue))
-					{
-						if (rh.transform == transform)
-						{
-							OnPointerUp(curPos);
-						}
-					}
+					if (RMInput.i.GetInptState(0) == RMInput.InputState.end)
+						OnPointerUp(curPos);
 				}
 			}
 		}
@@ -161,7 +150,7 @@ namespace BC
 			_DragStart = _cam.ScreenToWorldPoint(aScreenPos);
 			_StartPos = transform.position;
 
-			gIsDrag = true;
+			gDragUnitCard = this;
 		}
 
 		public void OnDrag(Vector2 aScreenPos)
@@ -180,7 +169,7 @@ namespace BC
 
 			transform.position = _StartPos;
 
-			gIsDrag = false;
+			gDragUnitCard = null;
 
 			if (BattlePlayerMan.i._myPlayer.GetTP() >= _Param.Cost)
 			{

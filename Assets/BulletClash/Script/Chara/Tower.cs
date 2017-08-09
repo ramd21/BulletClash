@@ -147,7 +147,7 @@ namespace BC
 
 			if (_PlayerId == BattlePlayerMan.i._MyPlayerId)
 			{
-				if (UnitCard.gIsDrag)
+				if (UnitCard.gDragUnitCard)
 				{
 					_GoUnitSpawnRange.transform.localScale = Vector3.MoveTowards(_GoUnitSpawnRange.transform.localScale, Vector3.one * 30, 3);
 				}
