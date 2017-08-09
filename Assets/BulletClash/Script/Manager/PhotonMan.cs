@@ -14,6 +14,9 @@ namespace BC
 	{
 		public static PhotonMan i;
 
+		[NonSerialized]
+		public int[] _PlayerInputCnt = new int[2];
+
 		[System.Serializable]
 		public struct PlayerInput
 		{
@@ -99,6 +102,11 @@ namespace BC
 		{
 			base.OnCreatedRoom();
 			Deb.MethodLog();
+
+			ExitGames.Client.Photon.Hashtable propertiesToSet = new ExitGames.Client.Photon.Hashtable();
+			propertiesToSet.Add("cas0", 0);
+			propertiesToSet.Add("cas1", 0);
+			PhotonNetwork.room.SetCustomProperties(propertiesToSet);
 		}
 
 		public override void OnPhotonCustomRoomPropertiesChanged(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
@@ -117,16 +125,12 @@ namespace BC
 					BattlePlayerMan.i._MyPlayerId = 1;
 					BattleCameraMan.i.transform.SetEulerAnglesY(180);
 				}
-
 				BattleUIMan.i.StartCountDown();
 			}
 			else if(propertiesThatChanged.ContainsKey("pi"))
 			{
 				PlayerInput pi = (PlayerInput)propertiesThatChanged["pi"];
-				Debug.Log(pi._Frame);
-				Debug.Log(BattleGameMan.i._FrameCur);
-				Debug.Log(pi._Frame - BattleGameMan.i._FrameCur);
-
+				_PlayerInputCnt[pi._PlayerId]++;
 				BattleGameMan.i._PlayerInputList.Add(pi);
 			}
 		}

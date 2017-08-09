@@ -9932,8 +9932,8 @@ MonoBehaviour:
   _DeplayGateUserName: ramzus0127
   _DeplayGateToken: a341c8cfb4edded230b475c800c89526b4ccec11
   _CurlExe: {fileID: 102900000, guid: 48085a20fa0ad7848949f71a652608a6, type: 3}
-  _Development: 1
-  _IL2CPP: 1
+  _Development: 0
+  _IL2CPP: 0
   _BuildAndroidAndDeploy: 0
   _BuildAndroid: 0
   _Deploy: 0
@@ -15676,6 +15676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aee2e8b616ac0a243b731177ad780c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _PlayerInputWait: 20
   _TPMax: 10
   _TPTimer: 120
   _BattleStarted: 0

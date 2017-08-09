@@ -81,10 +81,15 @@ namespace BC
 		{
 			string strDeb = "";
 
-			strDeb += BattleGameMan.i._StartTime + "\n";
+			if (BattleGameMan.i)
+				strDeb += BattleGameMan.i._StartTime + "\n";
+
 			strDeb += PhotonNetwork.countOfPlayers + "\n";
-			strDeb += BattleGameMan.i._FrameCur + "\n";
-			strDeb += BattleGameMan.i._FrameExpected + "\n";
+
+			if (BattleGameMan.i)
+				strDeb += BattleGameMan.i._FrameCur + "\n";
+			if (BattleGameMan.i)
+				strDeb += BattleGameMan.i._FrameExpected + "\n";
 			strDeb += PhotonNetwork.connected + "\n";
 			strDeb += PhotonNetwork.room + "\n";
 

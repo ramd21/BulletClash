@@ -9,6 +9,8 @@ namespace BC
 {
 	public class BattleGameMan : Singleton<BattleGameMan>
 	{
+		public int _PlayerInputWait;
+
 		public int _TPMax;
 		public int _TPTimer;
 
@@ -188,15 +190,28 @@ namespace BC
 
 		public void SendPlayerInput(UnitType aType, Vector2Int aPos, Action aOnPlayerInput)
 		{
-			ExitGames.Client.Photon.Hashtable propertiesToSet = new ExitGames.Client.Photon.Hashtable();
+			
+			ExitGames.Client.Photon.Hashtable set = new ExitGames.Client.Photon.Hashtable();
 			PhotonMan.PlayerInput pi = new PhotonMan.PlayerInput();
 			pi._PlayerId = BattlePlayerMan.i._MyPlayerId;
 			pi._Type = aType;
 			pi._Pos = aPos;
-			pi._Frame = BattleGameMan.i._FrameCur + 15;
+			pi._Frame = _FrameCur + _PlayerInputWait;
 
-			propertiesToSet.Add("pi", pi);
-			PhotonNetwork.room.SetCustomProperties(propertiesToSet);
+			//int iset = PhotonMan.i._PlayerInputCnt[BattlePlayerMan.i._MyPlayerId] + 1;
+			//int icas = PhotonMan.i._PlayerInputCnt[BattlePlayerMan.i._MyPlayerId];
+
+			set.Add("pi", pi);
+			set.Add("cas" + BattlePlayerMan.i._MyPlayerId, PhotonMan.i._PlayerInputCnt[BattlePlayerMan.i._MyPlayerId] + 1);
+
+			ExitGames.Client.Photon.Hashtable cas = new ExitGames.Client.Photon.Hashtable();
+			cas.Add("cas" + BattlePlayerMan.i._MyPlayerId, PhotonMan.i._PlayerInputCnt[BattlePlayerMan.i._MyPlayerId]);
+
+			//Debug.Log("player = " + BattlePlayerMan.i._MyPlayerId);
+			//Debug.Log("cas = " + PhotonMan.i._PlayerInputCnt[BattlePlayerMan.i._MyPlayerId]);
+			//Debug.Log("set = " + (int)(PhotonMan.i._PlayerInputCnt[BattlePlayerMan.i._MyPlayerId] + 1));
+
+			PhotonNetwork.room.SetCustomProperties(set, cas);
 
 			_OnPlayerInput = aOnPlayerInput;
 		}
