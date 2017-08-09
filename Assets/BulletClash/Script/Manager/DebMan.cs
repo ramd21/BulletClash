@@ -79,6 +79,9 @@ namespace BC
 
 		void LateUpdate()
 		{
+			if (!_TxtDeb.gameObject.activeSelf)
+				return;
+
 			string strDeb = "";
 
 			if (BattleGameMan.i)

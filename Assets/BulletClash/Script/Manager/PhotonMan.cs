@@ -49,11 +49,15 @@ namespace BC
 		{
 			i = this;
 			PhotonPeer.RegisterType(typeof(PlayerInput), (byte)'p', PlayerInput.Serialize, PlayerInput.Deserialize);
+
+			PhotonNetwork.SendMonoMessageTargets = new HashSet<GameObject>();
+			PhotonNetwork.SendMonoMessageTargets.Add(gameObject);
 		}
 
 		public void Connect()
 		{
 			PhotonNetwork.ConnectUsingSettings("1");
+			
 		}
 
 		public override void OnConnectedToPhoton()
@@ -125,7 +129,8 @@ namespace BC
 					BattlePlayerMan.i._MyPlayerId = 1;
 					BattleCameraMan.i.transform.SetEulerAnglesY(180);
 				}
-				BattleUIMan.i.StartCountDown();
+
+				BattleGameMan.i.StartCountDown();
 			}
 			else if(propertiesThatChanged.ContainsKey("pi"))
 			{

@@ -208,7 +208,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1167557929370604}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -443,7 +443,7 @@ MonoBehaviour:
   _Id: 0
   _State: 0
   _Tra: {fileID: 114004739015173044}
-  _PlayerId: 0
+  _PlayerId: 1
   _VSPlayerId: 0
   _Type: 0
   _Param:

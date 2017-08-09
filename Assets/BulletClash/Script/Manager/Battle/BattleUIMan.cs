@@ -22,8 +22,6 @@ namespace BC
 		public UnitCard[] _UnitCardArr;
 		public List<UnitCard> _ShuffledList;
 
-		public Canvas _2DCanvas;
-
 		public Button _BtnSetting;
 
 		public Transform[] _TraPosArr;
@@ -125,6 +123,7 @@ namespace BC
 				{
 					_Animator.enabled = true;
 					BattleGameMan.i._BattleStarted = true;
+					_TxtCountDown.gameObject.SetActive(false);
 				}
 				else
 				{ 

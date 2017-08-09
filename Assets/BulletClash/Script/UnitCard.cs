@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace BC
 {
-	public class UnitCard : UIDragObj, IEditorUpdate
+	public class UnitCard : ManagedBehaviour
 	{
 		public int _Id;
 		public int _PosId;
@@ -18,9 +18,17 @@ namespace BC
 		int _Cost;
 		public Text			_TxtCost;
 		public Text			_TxtNext;
+		public SpriteRenderer _SPRend;
+
 
 		public Transform	_TraDeckUnit;
 		UnitParam _Param;
+
+		Vector3 _DragStart;
+		Vector3 _DragCur;
+		Vector3 _StartPos;
+
+		Ray _Ray;
 
 		public void Init(UnitType aType)
 		{
@@ -31,7 +39,7 @@ namespace BC
 
 			Unit unit;
 			unit = ResourceMan.i.GetUnit(_Param.Type);
-			unit._PlayerId = 0;
+			unit._PlayerId = BattlePlayerMan.i._MyPlayerId;
 			unit = Instantiate(unit);
 
 			unit._CvsHp = unit.GetComponentInChildren<Canvas>();
@@ -54,44 +62,81 @@ namespace BC
 
 		public override void ManagedUpdate()
 		{
-			base.ManagedUpdate();
-
 			if (_PosId == 4)
 			{
+				_SPRend.enabled = true;
+				_TxtNext.gameObject.SetActive(true);
+				_TxtCost.gameObject.SetActive(true);
+				transform.GetChild(0).gameObject.SetActive(true);
 				if (_Cost <= BattlePlayerMan.i._myPlayer.GetTP())
-					_image.color = Color.green;
+					_SPRend.color = Color.green;
 				else
-					_image.color = Color.green / 2;
+					_SPRend.color = Color.green / 2;
+
+			}
+			else if (_PosId == 5)
+			{
+				_SPRend.enabled = false;
+				_TxtNext.gameObject.SetActive(false);
+				_TxtCost.gameObject.SetActive(false);
+				transform.GetChild(0).gameObject.SetActive(false);
 			}
 			else
 			{
+				_SPRend.enabled = true;
+				_TxtNext.gameObject.SetActive(false);
+				_TxtCost.gameObject.SetActive(true);
+				transform.GetChild(0).gameObject.SetActive(true);
+
 				if (_Cost <= BattlePlayerMan.i._myPlayer.GetTP())
-					_image.color = Color.white;
+					_SPRend.color = Color.white;
 				else
-					_image.color = Color.gray;
+					_SPRend.color = Color.gray;
+			}
+
+
+			Vector2 curPos = RMInput.i.GetInputInfo(0)._V2ScreenInputCur;
+			_Ray = BattleCameraMan.i._BattleUICam.ScreenPointToRay(curPos);
+			RaycastHit rh;
+
+			if (!gIsDrag)
+			{
+				if (RMInput.i.GetInptState(0) == RMInput.InputState.start)
+				{
+					if (Physics.Raycast(_Ray, out rh, float.MaxValue))
+					{
+						if (rh.transform == transform)
+							OnPointerDown(curPos);
+					}
+				}
+			}
+			else
+			{
+				if (RMInput.i.GetInptSeq(0) == RMInput.InputSeq.drag)
+				{
+					if (Physics.Raycast(_Ray, out rh, float.MaxValue))
+					{
+						if (rh.transform == transform)
+							OnDrag(curPos);
+					}
+				}
+
+				if (RMInput.i.GetInptState(0) == RMInput.InputState.end)
+				{
+					if (Physics.Raycast(_Ray, out rh, float.MaxValue))
+					{
+						if (rh.transform == transform)
+						{
+							OnPointerUp(curPos);
+						}
+					}
+				}
 			}
 		}
 
 		public void SetPosId(int aPosId)
 		{
 			_PosId = aPosId;
-
-			if (_PosId == 4)
-			{
-				_TxtNext.gameObject.SetActive(true);
-				if (_Cost <= BattlePlayerMan.i._myPlayer.GetTP())
-					_image.color = Color.green;
-				else
-					_image.color = Color.green / 2;
-			}
-			else
-			{ 
-				_TxtNext.gameObject.SetActive(false);
-				if (_Cost <= BattlePlayerMan.i._myPlayer.GetTP())
-					_image.color = Color.white;
-				else
-					_image.color = Color.gray;
-			}
 
 			this.DoUntil(()=> 
 			{
@@ -100,7 +145,7 @@ namespace BC
 			});
 		}
 
-		protected override Camera _cam
+		protected Camera _cam
 		{
 			get
 			{
@@ -108,32 +153,38 @@ namespace BC
 			}
 		}
 
-		public override void OnPointerDown(PointerEventData eventData)
+		public void OnPointerDown(Vector2 aScreenPos)
 		{
 			if (_PosId >= 4)
 				return;
+
+			_DragStart = _cam.ScreenToWorldPoint(aScreenPos);
+			_StartPos = transform.position;
 
 			gIsDrag = true;
 		}
 
-		public override void OnDrag(PointerEventData eventData)
+		public void OnDrag(Vector2 aScreenPos)
 		{
 			if (_PosId >= 4)
 				return;
 
-			base.OnDrag(eventData);
+			_DragCur = _cam.ScreenToWorldPoint(aScreenPos);
+			transform.position = _StartPos + _DragCur - _DragStart;
 		}
 
-		public override void OnPointerUp(PointerEventData eventData)
+		public void OnPointerUp(Vector2 aScreenPos)
 		{
 			if (_PosId >= 4)
 				return;
+
+			transform.position = _StartPos;
 
 			gIsDrag = false;
 
 			if (BattlePlayerMan.i._myPlayer.GetTP() >= _Param.Cost)
 			{
-				Ray r = BattleCameraMan.i._BattleCam.ScreenPointToRay(eventData.position);
+				Ray r = BattleCameraMan.i._BattleCam.ScreenPointToRay(aScreenPos);
 				RaycastHit rh;
 				if(Physics.Raycast(r, out rh))
 				{
@@ -166,6 +217,13 @@ namespace BC
 			_TxtNext = transform.Find("next").GetComponent<Text>();
 			_TraDeckUnit = transform.FindRecurcive("deck_unit", true);
 		}
+
+		private void OnDrawGizmos()
+		{
+			Gizmos.DrawLine(_Ray.origin, _Ray.origin + _Ray.direction * 100);
+		}
+
+
 #endif
 
 	}

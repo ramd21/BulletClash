@@ -13,8 +13,8 @@ namespace BC
 
 		public void Init()
 		{
-			_PlayerArr[0] = new Player(0);
-			_PlayerArr[1] = new Player(1);
+			//_PlayerArr[0] = new Player(0);
+			//_PlayerArr[1] = new Player(1);
 
 			this.StartObsserve(() => _myPlayer._TPTimerTotal,
 			(cur, last) =>

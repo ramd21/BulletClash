@@ -11,57 +11,53 @@ namespace BC
 		public Vector2Int _Size;
 		public Vector2Int _Offset;
 
-		public Transform[] _TraBorder;
+		public LineRenderer _LineRend;
 
-		public void EditorUpdate()
+		void SetBorder()
 		{
-			Vector3 pos;
+			Vector3[] posArr = new Vector3[5];
 
-			if (_Size.y / BattleGameMan.cDistDiv == 0)
-				_TraBorder[0].SetScale(1, 1, 1);
-			else
-				_TraBorder[0].SetScale(1, 1, _Size.y / BattleGameMan.cDistDiv);
+			posArr[0] = transform.position;
+			posArr[0] += Vector3.forward * _Size.y / 2;
+			posArr[0] += Vector3.left * _Size.x / 2;
+			posArr[0] /= BattleGameMan.cDistDiv;
 
-			pos = transform.position;
-			pos += Vector3.forward * _Size.y / 2;
-			pos += _Offset.ToVector3XZ();
 
-			_TraBorder[0].SetPosition(pos / BattleGameMan.cDistDiv);
+			posArr[1] = transform.position;
+			posArr[1] += Vector3.forward * _Size.y / 2;
+			posArr[1] += Vector3.right * _Size.x / 2;
+			posArr[1] /= BattleGameMan.cDistDiv;
 
-			if (_Size.y / BattleGameMan.cDistDiv == 0)
-				_TraBorder[1].SetScale(1, 1, 1);
-			else
-				_TraBorder[1].SetScale(1, 1, _Size.y / BattleGameMan.cDistDiv);
+			posArr[2] = transform.position;
+			posArr[2] += Vector3.back * _Size.y / 2;
+			posArr[2] += Vector3.right * _Size.x / 2;
+			posArr[2] /= BattleGameMan.cDistDiv;
 
-			pos = transform.position;
-			pos += Vector3.forward * _Size.y / 2;
-			pos += Vector3.right * _Size.x;
-			pos += _Offset.ToVector3XZ();
-			_TraBorder[1].SetPosition(pos / BattleGameMan.cDistDiv);
+			posArr[3] = transform.position;
+			posArr[3] += Vector3.back * _Size.y / 2;
+			posArr[3] += Vector3.left * _Size.x / 2;
+			posArr[3] /= BattleGameMan.cDistDiv;
 
-			if (_Size.x / BattleGameMan.cDistDiv == 0)
-				_TraBorder[2].SetScale(1, 1, 1);
-			else
-				_TraBorder[2].SetScale(_Size.x / BattleGameMan.cDistDiv, 1, 1);
+			posArr[4] = transform.position;
+			posArr[4] += Vector3.forward * _Size.y / 2;
+			posArr[4] += Vector3.left * _Size.x / 2;
+			posArr[4] /= BattleGameMan.cDistDiv;
 
-			pos = transform.position;
-			pos += Vector3.right * _Size.x / 2;
-			pos += _Offset.ToVector3XZ();
-			_TraBorder[2].SetPosition(pos / BattleGameMan.cDistDiv);
 
-			if (_Size.x / BattleGameMan.cDistDiv == 0)
-				_TraBorder[3].SetScale(1, 1, 1);
-			else
-				_TraBorder[3].SetScale(_Size.x / BattleGameMan.cDistDiv, 1, 1);
+			_LineRend.positionCount = 5;
+			for (int i = 0; i < 5; i++)
+			{
+				_LineRend.SetPosition(i, posArr[i]);
+			}
 
-			pos = transform.position;
-			pos += Vector3.right * _Size.x / 2;
-			pos += Vector3.forward * _Size.y;
-			pos += _Offset.ToVector3XZ();
-			_TraBorder[3].SetPosition(pos / BattleGameMan.cDistDiv);
 		}
 
 #if UNITY_EDITOR
+		public void EditorUpdate()
+		{
+			SetBorder();
+		}
+
 #endif
 	}
 }

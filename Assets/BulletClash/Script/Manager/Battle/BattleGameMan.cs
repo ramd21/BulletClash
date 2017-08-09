@@ -151,14 +151,18 @@ namespace BC
 			CosTable.Init();
 
 			UnityEngine.Random.InitState(0);
-			BattleUIMan.i.Init();
 			BattlePlayerMan.i.Init();
 			BattleCharaMan.i.Init();
 			BattleCollMan.i.Init();
-
 			_FrameData = new FrameData[_FrameMax];
 
 			PhotonMan.i.Connect();
+		}
+
+		public void StartCountDown()
+		{
+			BattleUIMan.i.StartCountDown();
+			BattleUIMan.i.Init();
 		}
 
 		void FixedUpdate()
