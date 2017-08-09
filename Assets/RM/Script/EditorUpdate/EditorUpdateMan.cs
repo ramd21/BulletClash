@@ -22,6 +22,9 @@ namespace RM
 
 		static void ForceUpdate()
 		{
+			if (Application.isPlaying)
+				return;
+
 			if (!i._Enabled)
 				return;
 

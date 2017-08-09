@@ -28,6 +28,25 @@ namespace BC
 
 		public bool _CountDownEnd;
 
+		void Start()
+		{
+			_BtnSetting.onClick.AddListener(() =>
+			{
+				UIMan.i.OpenCommonDialog("リタイア", "リタイアしますか？",
+				"はい",
+				(d) =>
+				{
+					UIMan.i.GoToScene("home");
+					UIMan.i.OpenUI("home", true);
+					d.Close();
+				},
+				"いいえ",
+				(d) =>
+				{
+					d.Close();
+				});
+			});
+		}
 
 		public void Init()
 		{
@@ -37,22 +56,7 @@ namespace BC
 			
 			InitUnitCard();
 
-			_BtnSetting.onClick.AddListener(()=> 
-			{
-				UIMan.i.OpenCommonDialog("リタイア", "リタイアしますか？", 
-				"はい", 
-				(d)=> 
-				{
-					UIMan.i.GoToScene("home");
-					UIMan.i.OpenUI("home", true);
-					d.Close();
-				},
-				"いいえ",
-				(d) => 
-				{
-					d.Close();
-				});
-			});
+			
 		}
 
 		public void StartCountDown()
