@@ -14,7 +14,7 @@ namespace BC
 		public void SetMove(Vector2Int aDir, int aSpd)
 		{
 			_Dir = aDir;
-			_Move = aDir.normalized * aSpd;
+			_Move = (aDir.ToNrmalizedVector2() * aSpd).ToVector2Int();
 		}
 
 #if UNITY_EDITOR

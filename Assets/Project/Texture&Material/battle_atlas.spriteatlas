@@ -8,30 +8,25 @@ SpriteAtlas:
   m_Name: battle_atlas
   m_EditorData:
     textureSettings:
+      serializedVersion: 2
       anisoLevel: 1
       compressionQuality: 50
       maxTextureSize: 2048
       textureCompression: 0
-      colorSpace: 1
       filterMode: 1
       generateMipMaps: 0
       readable: 0
       crunchedCompression: 0
+      sRGB: 0
     platformSettings: []
     packingParameters:
-      paddingPower: 2
+      serializedVersion: 2
+      padding: 4
       blockOffset: 1
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 1
-    packedHash:
-      serializedVersion: 2
-      Hash: c2789631a4e11ff1e744cfc7bdf1ac21
     variantMultiplier: 1
-    bindAsDefault: 1
-    finalFormat: 4
-    hashString: c2789631a4e11ff1e744cfc7bdf1ac21
-    totalSpriteSurfaceArea: 213474
     packables:
     - {fileID: 21300000, guid: a162090671cc2544a95be175663ade45, type: 3}
     - {fileID: 21300000, guid: 617edb9db5ff8f744824d66ca3763fe4, type: 3}
@@ -44,18 +39,7 @@ SpriteAtlas:
     - {fileID: 21300008, guid: 0cf9ad425bac04349a2c2dbeb480b487, type: 3}
     - {fileID: 21300000, guid: 49e2ca0bbc5de3f4e92e4c44efb1a662, type: 3}
     - {fileID: 21300000, guid: ee4e78bc5e29d0a41b449d8899601b08, type: 3}
-    packedSpriteRenderDataKeys:
-    - ee4e78bc5e29d0a41b449d8899601b08: 21300000
-    - c96a737cf8bbd654fbbd8c331a7daf10: 21300000
-    - 2ccca26abb652a840bd84dd57c372068: 21300000
-    - 40457fba77a5905438acebd5c1f40432: 21300000
-    - 3b016f1ad549f9b46b85defd5082db97: 21300000
-    - 617edb9db5ff8f744824d66ca3763fe4: 21300000
-    - a162090671cc2544a95be175663ade45: 21300000
-    - 0cf9ad425bac04349a2c2dbeb480b487: 21300008
-    - 8860ac3c57d08404aa896cae37511b57: 21300000
-    - 4bc7ef8657a574b4f8af79349bc03380: 21300000
-    - 49e2ca0bbc5de3f4e92e4c44efb1a662: 21300000
+    bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: ee4e78bc5e29d0a41b449d8899601b08, type: 3}

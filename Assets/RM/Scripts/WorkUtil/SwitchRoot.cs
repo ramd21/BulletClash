@@ -7,14 +7,11 @@ using UnityEngine;
 
 namespace RM
 {
-	public class SwitchRoot : EditorUpdateBehaviour
+	public class SwitchRoot : RMBehaviour
 	{
 #if UNITY_EDITOR
 		public override void EditorUpdate()
 		{
-
-
-
 			if (Selection.activeTransform)
 			{
 				if (Selection.activeTransform.IsOffspringOf(transform))

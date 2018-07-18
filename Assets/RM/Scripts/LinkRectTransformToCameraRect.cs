@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RM
 {
-	public class LinkRectTransformToCameraRect : EditorUpdateBehaviour
+	public class LinkRectTransformToCameraRect : RMBehaviour
 	{
 		public Camera _Tage;
 

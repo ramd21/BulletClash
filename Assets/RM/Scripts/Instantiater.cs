@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RM
 {
-	public class Instantiater : EditorUpdateBehaviour
+	public class Instantiater : RMBehaviour
 	{
 		public GameObject _GoInst;
 

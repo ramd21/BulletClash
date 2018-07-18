@@ -6,14 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/BulletClash/Scene/init.unity
+    path: Assets/Project/Scenes/init.unity
     guid: 23c2839e5bb0f3e44abaaa2ac4fe08c3
   - enabled: 1
-    path: Assets/BulletClash/Scene/title.unity
+    path: Assets/Project/Scenes/title.unity
     guid: e493f24bc7709c845920a67e69aa3575
   - enabled: 1
-    path: Assets/BulletClash/Scene/home.unity
+    path: Assets/Project/Scenes/home.unity
     guid: 65071841e73b065459a8b609be5254d7
   - enabled: 1
-    path: Assets/BulletClash/Scene/battle.unity
+    path: Assets/Project/Scenes/battle.unity
     guid: 725643b4e9cd14e429b873a6db51d685

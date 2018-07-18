@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RM
 {
-	public class PointLightScaler : EditorUpdateBehaviour
+	public class PointLightScaler : RMBehaviour
 	{
 		public float _Range;
 

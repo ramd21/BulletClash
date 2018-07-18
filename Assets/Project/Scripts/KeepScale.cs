@@ -6,7 +6,7 @@ using RM;
 
 namespace BC
 {
-	public class KeepScale : EditorUpdateBehaviour
+	public class KeepScale : RMBehaviour
 	{
 		public Camera _Cam;
 		public int _TageX = 540;

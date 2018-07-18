@@ -5,7 +5,7 @@ using RM;
 
 namespace BC
 {
-	public class CameraRectControll : EditorUpdateBehaviour
+	public class CameraRectControll : RMBehaviour
 	{
 		public float _WidthRatio = 9;
 		public float _HeightRatio = 16;

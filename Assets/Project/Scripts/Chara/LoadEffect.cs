@@ -11,7 +11,7 @@ using UnityEditor;
 
 namespace BC
 {
-	public class LoadEffect : EditorUpdateBehaviour
+	public class LoadEffect : RMBehaviour
 	{
 		public Chara _Chara;
 		public EffectType _Type;

@@ -55,8 +55,6 @@ namespace BC
 			InitTimer();
 			
 			InitUnitCard();
-
-			
 		}
 
 		public void StartCountDown()
@@ -188,14 +186,13 @@ namespace BC
 		}
 
 #if UNITY_EDITOR
-		public void EditorUpdate()
+		public override void EditorUpdate()
 		{
 			_ImgTPGaugeArr = transform.FindAllRecurcive<Image>("fill", true);
-			//_TxtTp = transform.FindRecurcive<Text>("point", true);
 			_UnitCardArr = GetComponentsInChildren<UnitCard>();
 		}
 #endif
-	}
+    }
 }
 
 

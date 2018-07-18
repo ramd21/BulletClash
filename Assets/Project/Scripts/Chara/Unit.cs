@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace BC
 {
-	public class Unit : UnitBase, IEditorUpdate
+	public class Unit : UnitBase
 	{
 		static int gCnt;
 		
@@ -275,7 +275,7 @@ namespace BC
 		public void AddForce(Vector2Int aDir, int aPow)
 		{
 			int max = 15;
-			_Force += (aDir.normalized * aPow);
+			_Force += (aDir.ToNrmalizedVector2() * aPow).ToVector2Int();
 			if (_Force.x > max)
 				_Force.x = max;
 
@@ -381,7 +381,7 @@ namespace BC
 		}
 
 #if UNITY_EDITOR
-		public void EditorUpdate()
+		public override void EditorUpdate()
 		{
 			_Coll = GetComponent<Coll>();
 			_Tra = GetComponent<BCTra>();

@@ -43,23 +43,24 @@ namespace BC
 			posArr[4] += Vector3.left * _Size.x / 2;
 			posArr[4] /= BattleGameMan.cDistDiv;
 
-
-			_LineRend.positionCount = 5;
-			for (int i = 0; i < 5; i++)
+			if (_LineRend)
 			{
-				_LineRend.SetPosition(i, posArr[i]);
-			}
+				_LineRend.positionCount = 5;
+				for (int i = 0; i < 5; i++)
+				{
+					_LineRend.SetPosition(i, posArr[i]);
+				}
 
+			}
 		}
 
 #if UNITY_EDITOR
-		public void EditorUpdate()
+		public override void EditorUpdate()
 		{
 			SetBorder();
 		}
-
 #endif
-	}
+    }
 }
 
 

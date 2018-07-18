@@ -6,8 +6,14 @@ using UnityEngine.UI;
 
 namespace RM
 {
-	public abstract class RMBehaviour : MonoBehaviour
+	[RequireComponent(typeof(EditorUpdate))]
+	public abstract class RMBehaviour : MonoBehaviour, IEditorUpdate
 	{
+#if UNITY_EDITOR
+		public virtual void EditorUpdate() { }
+		public virtual void EditorAwake() { }
+#endif
+
 		string _Name;
 		public string _name
 		{

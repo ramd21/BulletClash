@@ -6,7 +6,12 @@ namespace RM
 {
 	static public class Vector2Extension
 	{
-		static public Vector3 ToVector3XY(this Vector2 aThis)
+        static public Vector2Int ToVector2Int(this Vector2 aThis)
+        {
+            return new Vector2Int((int)aThis.x, (int)aThis.y);
+        }
+
+        static public Vector3 ToVector3XY(this Vector2 aThis)
 		{
 			return new Vector3(aThis.x, aThis.y, 0);
 		}

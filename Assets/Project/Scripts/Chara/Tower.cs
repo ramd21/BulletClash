@@ -7,7 +7,7 @@ using System;
 
 namespace BC
 {
-	public class Tower : UnitBase, IEditorUpdate, IManagedUpdate
+	public class Tower : UnitBase, IManagedUpdate
 	{
 		static int gCnt;
 
@@ -170,16 +170,14 @@ namespace BC
 		}
 
 #if UNITY_EDITOR
-		public void EditorUpdate()
+		public override void EditorUpdate()
 		{
 			_Coll = GetComponent<Coll>();
 			_Tra = GetComponent<BCTra>();
 		}
-
-		
 #endif
 
-	}
+    }
 }
 
 

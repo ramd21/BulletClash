@@ -10,7 +10,7 @@ using UnityEditor;
 
 namespace RM
 {
-	public class SpreadSheetToTSV : EditorUpdateBehaviour
+	public class SpreadSheetToTSV : RMBehaviour
 	{
 #if UNITY_EDITOR
 		public UnityEngine.Object _OutFolder;

@@ -200,7 +200,7 @@ namespace BC
 			}
 		}
 #if UNITY_EDITOR
-		public void EditorUpdate()
+		public override void EditorUpdate()
 		{
 			_TxtCost = GetComponentInChildren<Text>();
 			_TxtNext = transform.Find("next").GetComponent<Text>();

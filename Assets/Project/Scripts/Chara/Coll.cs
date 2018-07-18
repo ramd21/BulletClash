@@ -6,7 +6,7 @@ using System;
 
 namespace BC
 {
-	public class Coll : EditorUpdateBehaviour
+	public class Coll : RMBehaviour
 	{
 		static int gCnt;
 

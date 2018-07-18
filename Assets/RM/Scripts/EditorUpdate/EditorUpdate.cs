@@ -6,16 +6,20 @@ namespace RM
 	interface IEditorUpdate
 	{
 #if UNITY_EDITOR
-		void EditorUpdate();
 		bool enabled { get; }
+		void EditorUpdate();
+        void EditorAwake();
 #endif
-	}
+    }
 
 	[ExecuteInEditMode]
 	public class EditorUpdate : RMBehaviour
 	{
 #if UNITY_EDITOR
-		void Update()
+        [System.NonSerialized]
+        bool _Awake = false;
+
+        void Update()
 		{
 			if (Application.isPlaying)
 				return;
@@ -27,7 +31,12 @@ namespace RM
 
 			for (int i = 0; i < w.Length; i++)
 			{
-				w[i].EditorUpdate();
+                if (!_Awake)
+                {
+                    w[i].EditorAwake();
+                    _Awake = true;
+                }
+                w[i].EditorUpdate();
 			}
 
 			Component[] comArr = GetComponents<Component>();

@@ -9,7 +9,7 @@ using System;
 
 namespace BC
 {
-	public class Bullet : Chara, IEditorUpdate
+	public class Bullet : Chara
 	{
 		static int gCnt;
 		public BulletParam _ParamDef;
@@ -210,7 +210,7 @@ namespace BC
 		}
 
 #if UNITY_EDITOR
-		public void EditorUpdate()
+		public override void EditorUpdate()
 		{
 			_Coll = GetComponent<Coll>();
 		}
